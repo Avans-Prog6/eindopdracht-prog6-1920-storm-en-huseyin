@@ -7,7 +7,8 @@ using System.Threading.Tasks;
 namespace BeestjeOpJeFeestje.Models
 {
     public class Animal
-    { 
+    {
+        public string ID { get; private set; }
         public string Name { get; private set; }
         public string Type { get; private set; }
         public double Price { get; private set; }
