@@ -5,6 +5,13 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Migrations\20200107142519_InitialCreate.cs" />
+    <Compile Remove="Migrations\20200107142519_InitialCreate.Designer.cs" />
+    <Compile Remove="Migrations\20200107145815_InitialCreate.cs" />
+    <Compile Remove="Migrations\20200107145815_InitialCreate.Designer.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" Version="3.1.0" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="3.1.0" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="3.1.0">
