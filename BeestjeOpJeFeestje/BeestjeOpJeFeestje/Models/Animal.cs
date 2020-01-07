@@ -23,5 +23,7 @@ namespace BeestjeOpJeFeestje.Models
             Price = price;
             PicturePath = picturePath;
         }
+
+        public List<AnimalAccessories> AnimalAccessories { get; set; }
     }
 }
