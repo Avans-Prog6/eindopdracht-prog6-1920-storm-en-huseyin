@@ -46,7 +46,7 @@ namespace BeestjeOpJeFeestje.Models.Repositories
             await _context.SaveChangesAsync();
         }
 
-        public bool AnimalExists(int? ID)
+        public bool Exists(int? ID)
         {
             return _context.Animal.Any(e => e.ID == ID);
         }

@@ -10,6 +10,6 @@ namespace BeestjeOpJeFeestje.Models.Repositories
         Task Create(T type);
         Task Update(T type);
         Task Delete(T type);
-        bool AnimalExists(int? ID);
+        bool Exists(int? ID);
     }
 }

@@ -86,7 +86,7 @@ namespace BeestjeOpJeFeestje.Controllers
             }
             catch (DbUpdateConcurrencyException)
             {
-                if (!_repository.AnimalExists(animal.ID))
+                if (!_repository.Exists(animal.ID))
                 {
                     return NotFound();
                 }
