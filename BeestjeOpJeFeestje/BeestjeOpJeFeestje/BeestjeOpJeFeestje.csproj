@@ -5,10 +5,8 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Compile Remove="Migrations\20200107142519_InitialCreate.cs" />
-    <Compile Remove="Migrations\20200107142519_InitialCreate.Designer.cs" />
-    <Compile Remove="Migrations\20200107145815_InitialCreate.cs" />
-    <Compile Remove="Migrations\20200107145815_InitialCreate.Designer.cs" />
+    <Compile Remove="Migrations\20200107150241_InitialCreate.cs" />
+    <Compile Remove="Migrations\20200107150241_InitialCreate.Designer.cs" />
   </ItemGroup>
 
   <ItemGroup>
@@ -20,6 +18,10 @@
     </PackageReference>
     <PackageReference Include="Microsoft.Extensions.Logging.Debug" Version="3.1.0" />
     <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="3.1.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Migrations\" />
   </ItemGroup>
 
 

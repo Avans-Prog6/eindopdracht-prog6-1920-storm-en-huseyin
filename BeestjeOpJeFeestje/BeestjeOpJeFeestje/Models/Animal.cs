@@ -11,10 +11,15 @@ namespace BeestjeOpJeFeestje.Models
     {
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int ID { get; set; }
-        public string Name { get; private set; }
-        public string Type { get; private set; }
-        public double Price { get; private set; }
-        public string PicturePath { get; private set; }
+        public string Name { get;  set; }
+        public string Type { get;  set; }
+        public double Price { get;  set; }
+        public string PicturePath { get; set; }
+
+        public Animal()
+        {
+
+        }
 
         public Animal(string name, double price, string picturePath = "", string type = AnimalTypes.Boerderij)
         {
