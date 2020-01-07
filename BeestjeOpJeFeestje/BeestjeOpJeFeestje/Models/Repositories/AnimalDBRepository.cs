@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
+using System.Threading.Tasks;
 using BeestjeOpJeFeestje.Data;
 using Microsoft.EntityFrameworkCore;
 
@@ -16,34 +17,38 @@ namespace BeestjeOpJeFeestje.Models.Repositories
             _context = context;
         }
 
-        public Animal Get(int ID)
+        public async Task<Animal> Get(int? ID)
         {
-            return _context.Animal.FirstOrDefault(s => s.ID == ID);
+            return await _context.Animal.FindAsync(ID);
         }
 
-        public List<Animal> GetAll()
+        public async Task<List<Animal>> GetAll()
         {
-            return _context.Animal.ToList();
+            return await _context.Animal.ToListAsync();
         }
 
-        public void Create(Animal type)
+        public async Task Create(Animal type)
         {
             _context.Animal.Add(type);
-            _context.SaveChanges();
-            _context.Dispose();
+            await _context.SaveChangesAsync();
         }
 
-        public void Update(Animal type)
+        public async Task Update(Animal type)
         {
+            _context.Update(type);
             _context.Entry(type).State = EntityState.Modified;
-            _context.SaveChanges();
+            await _context.SaveChangesAsync();
         }
 
-        public void Delete(Animal type)
+        public async Task Delete(Animal type)
         {
-            _context.Animal.Attach(type);
             _context.Animal.Remove(type);
-            _context.SaveChanges();
+            await _context.SaveChangesAsync();
+        }
+
+        public bool AnimalExists(int? ID)
+        {
+            return _context.Animal.Any(e => e.ID == ID);
         }
     }
 }
