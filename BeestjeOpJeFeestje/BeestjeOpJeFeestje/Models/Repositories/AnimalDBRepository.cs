@@ -7,7 +7,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace BeestjeOpJeFeestje.Models.Repositories
 {
-    public class AnimalDBRepository : DbContext, IRepository<Animal>
+    public class AnimalDBRepository : IRepository<Animal>
     {
         private readonly BeestjeOpJeFeestjeContext _context;
 
