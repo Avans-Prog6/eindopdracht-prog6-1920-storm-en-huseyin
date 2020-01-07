@@ -10,7 +10,7 @@ namespace BeestjeOpJeFeestje.Models
     public class Animal
     {
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public string ID { get; set; }
+        public int ID { get; set; }
         public string Name { get; private set; }
         public string Type { get; private set; }
         public double Price { get; private set; }

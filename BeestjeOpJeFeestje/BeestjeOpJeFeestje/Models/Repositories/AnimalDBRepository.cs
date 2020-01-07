@@ -16,30 +16,34 @@ namespace BeestjeOpJeFeestje.Models.Repositories
             _context = context;
         }
 
-        public Animal Get()
+        public Animal Get(int ID)
         {
-            return _context.Animal.FirstOrDefault();
+            return _context.Animal.FirstOrDefault(s => s.ID == ID);
         }
 
         public List<Animal> GetAll()
         {
-            throw new System.NotImplementedException();
+            return _context.Animal.ToList();
         }
 
         public void Create(Animal type)
         {
-            Debug.WriteLine("Hij is hier!");
-            //_context.Animal.Add(type);
+            _context.Animal.Add(type);
+            _context.SaveChanges();
+            _context.Dispose();
         }
 
         public void Update(Animal type)
         {
-            throw new System.NotImplementedException();
+            _context.Entry(type).State = EntityState.Modified;
+            _context.SaveChanges();
         }
 
         public void Delete(Animal type)
         {
-            throw new System.NotImplementedException();
+            _context.Animal.Attach(type);
+            _context.Animal.Remove(type);
+            _context.SaveChanges();
         }
     }
 }

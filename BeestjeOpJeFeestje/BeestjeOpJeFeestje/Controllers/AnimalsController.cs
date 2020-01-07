@@ -21,7 +21,28 @@ namespace BeestjeOpJeFeestje.Controllers
 
         public IActionResult Index()
         {
-            Animal testAnimal = _repository.Get();
+            List<Animal> animals = _repository.GetAll();
+            return View(animals);
+        }
+
+        public IActionResult Create()
+        {
+            return View();
+        }
+
+        public IActionResult Edit(int ID)
+        {
+            Animal animal = _repository.Get(ID);
+            return View(animal);
+        }
+
+        public IActionResult Delete()
+        {
+            return View();
+        }
+
+        public IActionResult Details()
+        {
             return View();
         }
     }

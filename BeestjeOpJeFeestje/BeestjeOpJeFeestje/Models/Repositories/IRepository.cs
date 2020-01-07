@@ -4,7 +4,7 @@ namespace BeestjeOpJeFeestje.Models.Repositories
 {
     public interface IRepository<T>
     {
-        T Get();
+        T Get(int ID);
         List<T> GetAll();
         void Create(T type);
         void Update(T type);
