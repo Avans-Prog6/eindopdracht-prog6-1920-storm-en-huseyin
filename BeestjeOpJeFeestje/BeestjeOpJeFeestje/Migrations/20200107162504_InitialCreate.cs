@@ -27,10 +27,10 @@ namespace BeestjeOpJeFeestje.Migrations
                 {
                     ID = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    Name = table.Column<string>(nullable: true),
-                    Type = table.Column<string>(nullable: true),
+                    Name = table.Column<string>(maxLength: 30, nullable: false),
+                    Type = table.Column<string>(maxLength: 30, nullable: false),
                     Price = table.Column<double>(nullable: false),
-                    PicturePath = table.Column<string>(nullable: true)
+                    Picture = table.Column<string>(nullable: true)
                 },
                 constraints: table =>
                 {

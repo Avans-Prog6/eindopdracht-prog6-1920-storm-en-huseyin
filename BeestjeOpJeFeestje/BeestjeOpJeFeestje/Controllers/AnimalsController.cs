@@ -29,17 +29,11 @@ namespace BeestjeOpJeFeestje.Controllers
         // GET: Animals/Details/5
         public async Task<IActionResult> Details(int? id)
         {
-            if (id == null)
-            {
-                return NotFound();
-            }
+            if (id == null) { return NotFound(); }
 
             Animal animal = await _repository.Get(id);
                 
-            if (animal == null)
-            {
-                return NotFound();
-            }
+            if (animal == null) { return NotFound(); }
 
             return View(animal);
         }
