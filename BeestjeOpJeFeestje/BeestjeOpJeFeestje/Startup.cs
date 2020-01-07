@@ -10,6 +10,8 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.EntityFrameworkCore;
 using BeestjeOpJeFeestje.Data;
+using BeestjeOpJeFeestje.Models;
+using BeestjeOpJeFeestje.Models.Repositories;
 
 namespace BeestjeOpJeFeestje
 {
@@ -26,6 +28,8 @@ namespace BeestjeOpJeFeestje
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllersWithViews();
+
+            services.AddScoped<IRepository<Animal>, AnimalDBRepository>();
 
             services.AddDbContext<BeestjeOpJeFeestjeContext>(options =>
                     options.UseSqlServer(Configuration.GetConnectionString("BeestjeOpJeFeestjeContext")));

@@ -14,7 +14,7 @@ namespace BeestjeOpJeFeestje.Models
         public double Price { get; private set; }
         public string PicturePath { get; private set; }
 
-        public Animal(string name, double price, string picturePath, string type = AnimalTypes.Boerderij)
+        public Animal(string name, double price, string picturePath = "", string type = AnimalTypes.Boerderij)
         {
             Type = type;
             Name = name;
