@@ -30,6 +30,8 @@ namespace BeestjeOpJeFeestje
             services.AddControllersWithViews();
 
             services.AddScoped<IRepository<Animal>, AnimalDBRepository>();
+            services.AddScoped<IRepository<Accessories>, AccessoriesDBRepository>();
+
 
             services.AddDbContext<BeestjeOpJeFeestjeContext>(options =>
                     options.UseSqlServer(Configuration.GetConnectionString("BeestjeOpJeFeestjeContext")));

@@ -7,147 +7,127 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using BeestjeOpJeFeestje.Data;
 using BeestjeOpJeFeestje.Models;
+using BeestjeOpJeFeestje.Models.Repositories;
 
 namespace BeestjeOpJeFeestje.Controllers
 {
-    public class AccessoriesController : Controller
-    {
-        private readonly BeestjeOpJeFeestjeContext _context;
+	public class AccessoriesController : Controller
+	{
+		private readonly IRepository<Accessories> _repository;
 
-        public AccessoriesController(BeestjeOpJeFeestjeContext context)
-        {
-            _context = context;
-        }
+		public AccessoriesController(IRepository<Accessories> repository)
+		{
+			_repository = repository;
+		}
 
-        // GET: Accessories
-        public async Task<IActionResult> Index()
-        {
-            return View(await _context.Accessorieses.ToListAsync());
-        }
+		// GET: Accessories
+		public async Task<IActionResult> Index()
+		{
+			return View(await _repository.GetAll());
+		}
 
-        // GET: Accessories/Details/5
-        public async Task<IActionResult> Details(int? id)
-        {
-            if (id == null)
-            {
-                return NotFound();
-            }
+		// GET: Accessories/Details/5
+		public async Task<IActionResult> Details(int? id)
+		{
+			if (id == null)
+			{
+				return NotFound();
+			}
 
-            var accessories = await _context.Accessorieses
-                .FirstOrDefaultAsync(m => m.ID == id);
-            if (accessories == null)
-            {
-                return NotFound();
-            }
+			Accessories accessories = await _repository.Get(id);
+			if (accessories == null)
+			{
+				return NotFound();
+			}
 
-            return View(accessories);
-        }
+			return View(accessories);
+		}
 
-        // GET: Accessories/Create
-        public IActionResult Create()
-        {
-            return View();
-        }
+		// GET: Accessories/Create
+		public IActionResult Create()
+		{
+			return View();
+		}
 
-        // POST: Accessories/Create
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("ID,Name,Price,PicturePath")] Accessories accessories)
-        {
-            if (ModelState.IsValid)
-            {
-                _context.Add(accessories);
-                await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
-            }
-            return View(accessories);
-        }
+		// POST: Accessories/Create
+		// To protect from overposting attacks, please enable the specific properties you want to bind to, for 
+		// more details see http://go.microsoft.com/fwlink/?LinkId=317598.
+		[HttpPost]
+		[ValidateAntiForgeryToken]
+		public async Task<IActionResult> Create([Bind("ID,Name,Price,PicturePath")] Accessories accessories)
+		{
+			if (!ModelState.IsValid) return View(accessories);
 
-        // GET: Accessories/Edit/5
-        public async Task<IActionResult> Edit(int? id)
-        {
-            if (id == null)
-            {
-                return NotFound();
-            }
 
-            var accessories = await _context.Accessorieses.FindAsync(id);
-            if (accessories == null)
-            {
-                return NotFound();
-            }
-            return View(accessories);
-        }
+			await _repository.Create(accessories);
+			return RedirectToAction(nameof(Index));
+		}
 
-        // POST: Accessories/Edit/5
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("ID,Name,Price,PicturePath")] Accessories accessories)
-        {
-            if (id != accessories.ID)
-            {
-                return NotFound();
-            }
+		// GET: Accessories/Edit/5
+		public async Task<IActionResult> Edit(int? id)
+		{
+			if (id == null)
+			{
+				return NotFound();
+			}
 
-            if (ModelState.IsValid)
-            {
-                try
-                {
-                    _context.Update(accessories);
-                    await _context.SaveChangesAsync();
-                }
-                catch (DbUpdateConcurrencyException)
-                {
-                    if (!AccessoriesExists(accessories.ID))
-                    {
-                        return NotFound();
-                    }
-                    else
-                    {
-                        throw;
-                    }
-                }
-                return RedirectToAction(nameof(Index));
-            }
-            return View(accessories);
-        }
+			Accessories accessories = await _repository.Get(id);
 
-        // GET: Accessories/Delete/5
-        public async Task<IActionResult> Delete(int? id)
-        {
-            if (id == null)
-            {
-                return NotFound();
-            }
+			if (accessories == null)
+			{
+				return NotFound();
+			}
 
-            var accessories = await _context.Accessorieses
-                .FirstOrDefaultAsync(m => m.ID == id);
-            if (accessories == null)
-            {
-                return NotFound();
-            }
+			return View(accessories);
+		}
 
-            return View(accessories);
-        }
+		// POST: Accessories/Edit/5
+		// To protect from overposting attacks, please enable the specific properties you want to bind to, for 
+		// more details see http://go.microsoft.com/fwlink/?LinkId=317598.
+		[HttpPost]
+		[ValidateAntiForgeryToken]
+		public async Task<IActionResult> Edit(int id, [Bind("ID,Name,Price,PicturePath")] Accessories accessories)
+		{
+			if (id != accessories.ID) { return NotFound(); }
+			if (!ModelState.IsValid) return View(accessories);
 
-        // POST: Accessories/Delete/5
-        [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> DeleteConfirmed(int id)
-        {
-            var accessories = await _context.Accessorieses.FindAsync(id);
-            _context.Accessorieses.Remove(accessories);
-            await _context.SaveChangesAsync();
-            return RedirectToAction(nameof(Index));
-        }
+			try
+			{
+				await _repository.Update(accessories);
+			}
+			catch (DbUpdateConcurrencyException)
+			{
+				if (!_repository.Exists(accessories.ID))
+				{
+					return NotFound();
+				}
+				else
+				{
+					throw;
+				}
+			}
+			return RedirectToAction(nameof(Index));
+		}
 
-        private bool AccessoriesExists(int id)
-        {
-            return _context.Accessorieses.Any(e => e.ID == id);
-        }
-    }
+		// GET: Accessories/Delete/5
+		public async Task<IActionResult> Delete(int? id)
+		{
+			if (id == null) { return NotFound(); }
+
+			Accessories accessories = await _repository.Get(id);
+			if (accessories == null) { return NotFound(); }
+
+			return View(accessories);
+		}
+
+		// POST: Accessories/Delete/5
+		[HttpPost, ActionName("Delete")]
+		[ValidateAntiForgeryToken]
+		public async Task<IActionResult> DeleteConfirmed(int id)
+		{
+			Accessories accessories = await _repository.Get(id);
+			await _repository.Delete(accessories);
+			return RedirectToAction(nameof(Index));
+		}
+	}
 }

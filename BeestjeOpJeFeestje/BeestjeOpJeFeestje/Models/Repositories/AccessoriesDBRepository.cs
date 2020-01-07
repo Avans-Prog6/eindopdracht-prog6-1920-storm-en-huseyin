@@ -2,34 +2,52 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using BeestjeOpJeFeestje.Data;
+using Microsoft.EntityFrameworkCore;
 
 namespace BeestjeOpJeFeestje.Models.Repositories
 {
 	public class AccessoriesDBRepository : IRepository<Accessories>
 	{
-		public Accessories Get()
+		private readonly BeestjeOpJeFeestjeContext _context;
+
+		public AccessoriesDBRepository(BeestjeOpJeFeestjeContext context)
 		{
-			throw new NotImplementedException();
+			_context = context;
 		}
 
-		public List<Accessories> GetAll()
+		public async Task<Accessories> Get(int? ID)
 		{
-			throw new NotImplementedException();
+			return await _context.Accessorieses.FindAsync(ID);
 		}
 
-		public void Create(Accessories type)
+		public async Task<List<Accessories>> GetAll()
 		{
-			throw new NotImplementedException();
+			return await _context.Accessorieses.ToListAsync();
 		}
 
-		public void Update(Accessories type)
+		public async Task Create(Accessories type)
 		{
-			throw new NotImplementedException();
+			_context.Accessorieses.Add(type);
+			await _context.SaveChangesAsync();
 		}
 
-		public void Delete(Accessories type)
+		public async Task Update(Accessories type)
 		{
-			throw new NotImplementedException();
+			_context.Update(type);
+			_context.Entry(type).State = EntityState.Modified;
+			await _context.SaveChangesAsync();
+		}
+
+		public async Task Delete(Accessories type)
+		{
+			_context.Accessorieses.Remove(type);
+			await _context.SaveChangesAsync();
+		}
+
+		public bool Exists(int? ID)
+		{
+			return _context.Accessorieses.Any(e => e.ID == ID);
 		}
 	}
 }
