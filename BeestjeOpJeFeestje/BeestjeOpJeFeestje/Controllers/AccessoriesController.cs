@@ -1,10 +1,12 @@
-﻿using System.IO;
+﻿using System.Collections.Generic;
+using System.IO;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using BeestjeOpJeFeestje.Models;
 using BeestjeOpJeFeestje.Models.Repositories;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace BeestjeOpJeFeestje.Controllers
 {
@@ -45,6 +47,20 @@ namespace BeestjeOpJeFeestje.Controllers
 		// GET: Accessories/Create
 		public IActionResult Create()
 		{
+			string path = _env.WebRootPath + "/images/accessories/";
+
+			List<SelectListItem> files = new List<SelectListItem>();
+			foreach (string filePath in Directory.GetFiles(path))
+			{
+				SelectListItem fileData = new SelectListItem(Path.GetFileNameWithoutExtension(filePath),
+					"/images/accessories/" + Path.GetFileName(filePath));
+
+				files.Add(fileData);
+			}
+
+			ViewData.Add("files", files);
+			ViewData.Add("SelectedFile", "");
+
 			return View();
 		}
 
@@ -56,7 +72,6 @@ namespace BeestjeOpJeFeestje.Controllers
 		public async Task<IActionResult> Create([Bind("ID,Name,Price,PicturePath")] Accessories accessories)
 		{
 			if (!ModelState.IsValid) return View(accessories);
-
 
 			await _repository.Create(accessories);
 			return RedirectToAction(nameof(Index));

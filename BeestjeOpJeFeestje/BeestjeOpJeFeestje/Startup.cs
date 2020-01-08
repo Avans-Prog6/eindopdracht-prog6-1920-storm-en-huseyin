@@ -27,14 +27,14 @@ namespace BeestjeOpJeFeestje
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddControllersWithViews();
+	        services.AddControllersWithViews();
 
-            services.AddScoped<IRepository<Animal>, AnimalDBRepository>();
-            services.AddScoped<IRepository<Accessories>, AccessoriesDBRepository>();
+	        services.AddScoped<IRepository<Animal>, AnimalDBRepository>();
+	        services.AddScoped<IRepository<Accessories>, AccessoriesDBRepository>();
 
 
-            services.AddDbContext<BeestjeOpJeFeestjeContext>(options =>
-                    options.UseSqlServer(Configuration.GetConnectionString("BeestjeOpJeFeestjeContext")));
+	        services.AddDbContext<BeestjeOpJeFeestjeContext>(options =>
+		        options.UseSqlServer(Configuration.GetConnectionString("BeestjeOpJeFeestjeContext")));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

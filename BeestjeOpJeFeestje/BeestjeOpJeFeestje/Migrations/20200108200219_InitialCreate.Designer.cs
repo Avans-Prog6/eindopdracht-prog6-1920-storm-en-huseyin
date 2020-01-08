@@ -9,7 +9,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace BeestjeOpJeFeestje.Migrations
 {
     [DbContext(typeof(BeestjeOpJeFeestjeContext))]
-    [Migration("20200107162504_InitialCreate")]
+    [Migration("20200108200219_InitialCreate")]
     partial class InitialCreate
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -39,6 +39,85 @@ namespace BeestjeOpJeFeestje.Migrations
                     b.HasKey("ID");
 
                     b.ToTable("Accessorieses");
+
+                    b.HasData(
+                        new
+                        {
+                            ID = 1,
+                            Name = "Strikje",
+                            PicturePath = "/images/accessories/Picture 1.png",
+                            Price = 15.0
+                        },
+                        new
+                        {
+                            ID = 2,
+                            Name = "Strikje Rood",
+                            PicturePath = "/images/accessories/Picture 2.png",
+                            Price = 15.0
+                        },
+                        new
+                        {
+                            ID = 3,
+                            Name = "Hoge Hoed",
+                            PicturePath = "/images/accessories/Picture 3.png",
+                            Price = 30.0
+                        },
+                        new
+                        {
+                            ID = 4,
+                            Name = "Kerstmuts",
+                            PicturePath = "/images/accessories/Picture 4.png",
+                            Price = 25.0
+                        },
+                        new
+                        {
+                            ID = 5,
+                            Name = "Maracas",
+                            PicturePath = "/images/accessories/Picture 5.png",
+                            Price = 10.0
+                        },
+                        new
+                        {
+                            ID = 6,
+                            Name = "Hamer",
+                            PicturePath = "/images/accessories/Picture 6.png",
+                            Price = 3.0
+                        },
+                        new
+                        {
+                            ID = 7,
+                            Name = "Vleugels",
+                            PicturePath = "/images/accessories/Picture 7.png",
+                            Price = 40.0
+                        },
+                        new
+                        {
+                            ID = 8,
+                            Name = "Afro Haar",
+                            PicturePath = "/images/accessories/Picture 8.png",
+                            Price = 30.0
+                        },
+                        new
+                        {
+                            ID = 9,
+                            Name = "Wandelstok",
+                            PicturePath = "/images/accessories/Picture 9.png",
+                            Price = 15.0
+                        },
+                        new
+                        {
+                            ID = 10,
+                            Name = "Bot",
+                            PicturePath = "/images/accessories/Picture 10.png",
+                            Price = 1.0
+                        },
+                        new
+                        {
+                            ID = 11,
+                            Name = "Hengels",
+                            PicturePath = "/images/accessories/Picture 11.png",
+                            Price = 25.0
+                        });
                 });
 
             modelBuilder.Entity("BeestjeOpJeFeestje.Models.Animal", b =>
