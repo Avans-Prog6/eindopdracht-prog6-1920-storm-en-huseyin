@@ -25,10 +25,11 @@
                 <input asp-for="Price" class="form-control"/>
                 <span asp-validation-for="Price" class="text-danger"></span>
             </div>
+            
             <div class="container" style="padding: 0">
                 <div class="row">
                     <div class="col-sm">
-                        @Html.DropDownListFor(m => m.PicturePath, (List<SelectListItem>)ViewData["files"], "Please select an image", new { @class = "form-control target" })
+                        @Html.DropDownListFor(m => m.PicturePath, (SelectList)ViewData["files"], "Please select an image", new { @class = "form-control target" })
                     </div>
                     <div class="col-sm">
                         <img id="EenImage" src="" />
@@ -49,6 +50,15 @@
                                 $("#EenImage").attr("src", "");
                             }
                         });
+                    });
+
+                    $( ".target option:selected" ).each(function() {
+
+                        if ($(this).text() !== "Please select an image") {
+                            $("#EenImage").attr("src", "/images/accessories/" + $(this).text() + ".png");
+                        } else {
+                            $("#EenImage").attr("src", "");
+                        }
                     });
                 });
             </script>

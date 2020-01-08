@@ -15,7 +15,7 @@ namespace BeestjeOpJeFeestje.Controllers
 		private readonly IRepository<Accessories> _repository;
 		private readonly IWebHostEnvironment _env;
 
-		public AccessoriesController(IRepository<Accessories> repository, IWebHostEnvironment  environment)
+		public AccessoriesController(IRepository<Accessories> repository, IWebHostEnvironment environment)
 		{
 			_repository = repository;
 			_env = environment;
@@ -47,21 +47,29 @@ namespace BeestjeOpJeFeestje.Controllers
 		// GET: Accessories/Create
 		public IActionResult Create()
 		{
+			GetSelectListImages();
+
+			return View();
+		}
+
+		private void GetSelectListImages()
+		{
 			string path = _env.WebRootPath + "/images/accessories/";
 
 			List<SelectListItem> files = new List<SelectListItem>();
 			foreach (string filePath in Directory.GetFiles(path))
 			{
-				SelectListItem fileData = new SelectListItem(Path.GetFileNameWithoutExtension(filePath),
-					"/images/accessories/" + Path.GetFileName(filePath));
+				SelectListItem fileData = new SelectListItem()
+				{
+					Text = Path.GetFileNameWithoutExtension(filePath),
+					Value = "/images/accessories/" + Path.GetFileName(filePath)
+				};
 
 				files.Add(fileData);
 			}
 
 			ViewData.Add("files", files);
 			ViewData.Add("SelectedFile", "");
-
-			return View();
 		}
 
 		// POST: Accessories/Create
@@ -86,11 +94,13 @@ namespace BeestjeOpJeFeestje.Controllers
 			}
 
 			Accessories accessories = await _repository.Get(id);
-			
+
 			if (accessories == null)
 			{
 				return NotFound();
 			}
+
+			GetSelectListImages();
 
 			return View(accessories);
 		}
@@ -102,7 +112,11 @@ namespace BeestjeOpJeFeestje.Controllers
 		[ValidateAntiForgeryToken]
 		public async Task<IActionResult> Edit(int id, [Bind("ID,Name,Price,PicturePath")] Accessories accessories)
 		{
-			if (id != accessories.ID) { return NotFound(); }
+			if (id != accessories.ID)
+			{
+				return NotFound();
+			}
+
 			if (!ModelState.IsValid) return View(accessories);
 
 			try
@@ -120,16 +134,23 @@ namespace BeestjeOpJeFeestje.Controllers
 					throw;
 				}
 			}
+
 			return RedirectToAction(nameof(Index));
 		}
 
 		// GET: Accessories/Delete/5
 		public async Task<IActionResult> Delete(int? id)
 		{
-			if (id == null) { return NotFound(); }
+			if (id == null)
+			{
+				return NotFound();
+			}
 
 			Accessories accessories = await _repository.Get(id);
-			if (accessories == null) { return NotFound(); }
+			if (accessories == null)
+			{
+				return NotFound();
+			}
 
 			return View(accessories);
 		}
