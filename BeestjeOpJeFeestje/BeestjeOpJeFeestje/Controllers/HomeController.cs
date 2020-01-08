@@ -28,6 +28,11 @@ namespace BeestjeOpJeFeestje.Controllers
             return View();
         }
 
+        public IActionResult Accessories()
+        {
+	        return View();
+        }
+
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
         {
