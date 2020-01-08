@@ -1,23 +1,22 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿using System.IO;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
-using BeestjeOpJeFeestje.Data;
 using BeestjeOpJeFeestje.Models;
 using BeestjeOpJeFeestje.Models.Repositories;
+using Microsoft.AspNetCore.Hosting;
 
 namespace BeestjeOpJeFeestje.Controllers
 {
 	public class AccessoriesController : Controller
 	{
 		private readonly IRepository<Accessories> _repository;
+		private readonly IWebHostEnvironment _env;
 
-		public AccessoriesController(IRepository<Accessories> repository)
+		public AccessoriesController(IRepository<Accessories> repository, IWebHostEnvironment  environment)
 		{
 			_repository = repository;
+			_env = environment;
 		}
 
 		// GET: Accessories
@@ -72,7 +71,7 @@ namespace BeestjeOpJeFeestje.Controllers
 			}
 
 			Accessories accessories = await _repository.Get(id);
-
+			
 			if (accessories == null)
 			{
 				return NotFound();
