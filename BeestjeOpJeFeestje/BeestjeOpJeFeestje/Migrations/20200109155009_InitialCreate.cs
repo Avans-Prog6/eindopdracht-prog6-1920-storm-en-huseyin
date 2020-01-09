@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore.Migrations;
+﻿using System;
+using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace BeestjeOpJeFeestje.Migrations
 {
@@ -7,7 +8,7 @@ namespace BeestjeOpJeFeestje.Migrations
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.CreateTable(
-                name: "Accessorieses",
+                name: "Accessories",
                 columns: table => new
                 {
                     ID = table.Column<int>(nullable: false)
@@ -18,7 +19,7 @@ namespace BeestjeOpJeFeestje.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Accessorieses", x => x.ID);
+                    table.PrimaryKey("PK_Accessories", x => x.ID);
                 });
 
             migrationBuilder.CreateTable(
@@ -38,6 +39,19 @@ namespace BeestjeOpJeFeestje.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "Booking",
+                columns: table => new
+                {
+                    ID = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Date = table.Column<DateTime>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Booking", x => x.ID);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "AnimalAccessories",
                 columns: table => new
                 {
@@ -48,9 +62,9 @@ namespace BeestjeOpJeFeestje.Migrations
                 {
                     table.PrimaryKey("PK_AnimalAccessories", x => new { x.AnimalId, x.AccessoriesId });
                     table.ForeignKey(
-                        name: "FK_AnimalAccessories_Accessorieses_AccessoriesId",
+                        name: "FK_AnimalAccessories_Accessories_AccessoriesId",
                         column: x => x.AccessoriesId,
-                        principalTable: "Accessorieses",
+                        principalTable: "Accessories",
                         principalColumn: "ID",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
@@ -61,8 +75,32 @@ namespace BeestjeOpJeFeestje.Migrations
                         onDelete: ReferentialAction.Cascade);
                 });
 
+            migrationBuilder.CreateTable(
+                name: "BookingAnimal",
+                columns: table => new
+                {
+                    AnimalId = table.Column<int>(nullable: false),
+                    BookingId = table.Column<int>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_BookingAnimal", x => new { x.AnimalId, x.BookingId });
+                    table.ForeignKey(
+                        name: "FK_BookingAnimal_Animal_AnimalId",
+                        column: x => x.AnimalId,
+                        principalTable: "Animal",
+                        principalColumn: "ID",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_BookingAnimal_Booking_BookingId",
+                        column: x => x.BookingId,
+                        principalTable: "Booking",
+                        principalColumn: "ID",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
             migrationBuilder.InsertData(
-                table: "Accessorieses",
+                table: "Accessories",
                 columns: new[] { "ID", "Name", "PicturePath", "Price" },
                 values: new object[,]
                 {
@@ -83,6 +121,11 @@ namespace BeestjeOpJeFeestje.Migrations
                 name: "IX_AnimalAccessories_AccessoriesId",
                 table: "AnimalAccessories",
                 column: "AccessoriesId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_BookingAnimal_BookingId",
+                table: "BookingAnimal",
+                column: "BookingId");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
@@ -91,10 +134,16 @@ namespace BeestjeOpJeFeestje.Migrations
                 name: "AnimalAccessories");
 
             migrationBuilder.DropTable(
-                name: "Accessorieses");
+                name: "BookingAnimal");
+
+            migrationBuilder.DropTable(
+                name: "Accessories");
 
             migrationBuilder.DropTable(
                 name: "Animal");
+
+            migrationBuilder.DropTable(
+                name: "Booking");
         }
     }
 }

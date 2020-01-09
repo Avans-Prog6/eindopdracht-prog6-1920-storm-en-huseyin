@@ -50,5 +50,10 @@ namespace BeestjeOpJeFeestje.Models.Repositories
         {
             return _context.Animal.Any(e => e.ID == ID);
         }
+
+        public Task<bool> Exists(Animal type)
+        {
+	        throw new NotImplementedException();
+        }
     }
 }

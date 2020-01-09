@@ -31,6 +31,7 @@ namespace BeestjeOpJeFeestje
 
 	        services.AddScoped<IRepository<Animal>, AnimalDBRepository>();
 	        services.AddScoped<IRepository<Accessories>, AccessoriesDBRepository>();
+	        services.AddScoped<IRepository<Booking>, BookingDBRepository>();
 
 
 	        services.AddDbContext<BeestjeOpJeFeestjeContext>(options =>

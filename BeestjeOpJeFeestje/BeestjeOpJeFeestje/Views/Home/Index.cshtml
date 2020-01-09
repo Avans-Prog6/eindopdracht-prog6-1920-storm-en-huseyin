@@ -1,8 +1,32 @@
-﻿@{
+﻿@model BeestjeOpJeFeestje.Models.Booking
+@{
     ViewData["Title"] = "Home Page";
 }
 
 <div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+    <div class="container-fluid">
+        <div class="row" style="background-color: gray">
+            <div class="card text-left" style="width: 100%; border-style: none">
+                <div class="card-body">
+                    <h2 class="card-title">Boek een Beestje</h2>
+                    <p class="card-text">Welkom bij 'Beestje op een feestje(BOEF). Hier kun je een of meerdere van onze dieren boeken voor op jou feestje! Kies de dag van je feestje en volg de stappen om je beestje te boeken'</p>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+
+        </div>
+    </div>
+
+    <form asp-controller="Bookings" asp-action="AnimalSelection">
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+        <div class="form-group">
+            <label asp-for="Date" class="control-label"></label>
+            <input asp-for="Date" class="form-control"/>
+            <span asp-validation-for="Date" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <input type="submit" value="Create" class="btn btn-primary"/>
+        </div>
+    </form>
 </div>

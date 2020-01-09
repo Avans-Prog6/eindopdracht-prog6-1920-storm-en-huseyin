@@ -18,6 +18,7 @@ namespace BeestjeOpJeFeestje.Data
         {
 	        base.OnModelCreating(modelBuilder);
 
+	        modelBuilder.Entity<BookingAnimal>().HasKey(t => new {t.AnimalId, t.BookingId});
             modelBuilder.Entity<AnimalAccessories>().HasKey(t => new {t.AnimalId, t.AccessoriesId});
             
             modelBuilder.Entity<AnimalAccessories>()
@@ -29,6 +30,17 @@ namespace BeestjeOpJeFeestje.Data
 	            .HasOne(pt => pt.Accessories)
 	            .WithMany(t => t.AnimalAccessories)
 	            .HasForeignKey(pt => pt.AccessoriesId);
+
+            modelBuilder.Entity<BookingAnimal>()
+	            .HasOne(a => a.Animal)
+	            .WithMany(t => t.BookingAnimal)
+	            .HasForeignKey(a => a.AnimalId);
+
+            modelBuilder.Entity<BookingAnimal>()
+	            .HasOne(a => a.Booking)
+	            .WithMany(b => b.BookingAnimals)
+	            .HasForeignKey(a => a.BookingId);
+
 
             #region accessoriesSeed
 
@@ -116,6 +128,8 @@ namespace BeestjeOpJeFeestje.Data
 
         public DbSet<BeestjeOpJeFeestje.Models.Animal> Animal { get; set; }
 
-        public DbSet<BeestjeOpJeFeestje.Models.Accessories> Accessorieses { get; set; }
+        public DbSet<BeestjeOpJeFeestje.Models.Accessories> Accessories { get; set; }
+
+		public DbSet<BeestjeOpJeFeestje.Models.Booking> Booking { get; set; }
     }
 }

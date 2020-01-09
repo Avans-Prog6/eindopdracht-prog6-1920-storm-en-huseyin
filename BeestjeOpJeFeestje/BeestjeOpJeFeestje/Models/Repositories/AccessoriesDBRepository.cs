@@ -18,17 +18,17 @@ namespace BeestjeOpJeFeestje.Models.Repositories
 
 		public async Task<Accessories> Get(int? ID)
 		{
-			return await _context.Accessorieses.FindAsync(ID);
+			return await _context.Accessories.FindAsync(ID);
 		}
 
 		public async Task<List<Accessories>> GetAll()
 		{
-			return await _context.Accessorieses.ToListAsync();
+			return await _context.Accessories.ToListAsync();
 		}
 
 		public async Task Create(Accessories type)
 		{
-			_context.Accessorieses.Add(type);
+			_context.Accessories.Add(type);
 			await _context.SaveChangesAsync();
 		}
 
@@ -41,13 +41,18 @@ namespace BeestjeOpJeFeestje.Models.Repositories
 
 		public async Task Delete(Accessories type)
 		{
-			_context.Accessorieses.Remove(type);
+			_context.Accessories.Remove(type);
 			await _context.SaveChangesAsync();
 		}
 
 		public bool Exists(int? ID)
 		{
-			return _context.Accessorieses.Any(e => e.ID == ID);
+			return _context.Accessories.Any(e => e.ID == ID);
+		}
+
+		public Task<bool> Exists(Accessories type)
+		{
+			throw new NotImplementedException();
 		}
 	}
 }

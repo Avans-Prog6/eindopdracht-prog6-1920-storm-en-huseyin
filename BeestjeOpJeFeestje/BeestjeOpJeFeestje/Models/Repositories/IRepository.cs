@@ -11,5 +11,6 @@ namespace BeestjeOpJeFeestje.Models.Repositories
         Task Update(T type);
         Task Delete(T type);
         bool Exists(int? ID);
+        Task<bool> Exists(T type);
     }
 }

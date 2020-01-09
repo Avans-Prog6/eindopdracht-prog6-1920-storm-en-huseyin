@@ -37,5 +37,7 @@ namespace BeestjeOpJeFeestje.Models
         }
 
         public List<AnimalAccessories> AnimalAccessories { get; set; }
+
+        public List<BookingAnimal> BookingAnimal { get; set; }
     }
 }

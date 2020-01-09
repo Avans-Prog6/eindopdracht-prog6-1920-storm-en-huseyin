@@ -15,12 +15,12 @@ namespace BeestjeOpJeFeestje.Models
 					DbContextOptions<BeestjeOpJeFeestjeContext>>()))
 			{
 				// Look for any movies.
-				if (context.Accessorieses.Any())
+				if (context.Accessories.Any())
 				{
 					return;   // DB has been seeded
 				}
 
-				context.Accessorieses.AddRange(
+				context.Accessories.AddRange(
 					new Accessories
 					{
 						Name = "Strikje",
