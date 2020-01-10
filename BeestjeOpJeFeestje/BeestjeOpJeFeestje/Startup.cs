@@ -29,7 +29,7 @@ namespace BeestjeOpJeFeestje
         {
 	        services.AddControllersWithViews();
 
-	        services.AddScoped<IRepository<Animal>, AnimalDBRepository>();
+	        services.AddScoped<IRepository<Animal>, AnimalDbRepository>();
 	        services.AddScoped<IRepository<Accessories>, AccessoriesDBRepository>();
 	        services.AddScoped<IRepository<Booking>, BookingDBRepository>();
 

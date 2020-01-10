@@ -8,18 +8,18 @@ using Microsoft.EntityFrameworkCore;
 
 namespace BeestjeOpJeFeestje.Models.Repositories
 {
-    public class AnimalDBRepository : IRepository<Animal>
+    public class AnimalDbRepository : IRepository<Animal>
     {
         private readonly BeestjeOpJeFeestjeContext _context;
 
-        public AnimalDBRepository(BeestjeOpJeFeestjeContext context)
+        public AnimalDbRepository(BeestjeOpJeFeestjeContext context)
         {
             _context = context;
         }
 
-        public async Task<Animal> Get(int? ID)
+        public async Task<Animal> Get(int? id)
         {
-            return await _context.Animal.FindAsync(ID);
+            return await _context.Animal.FindAsync(id);
         }
 
         public async Task<List<Animal>> GetAll()
@@ -46,9 +46,9 @@ namespace BeestjeOpJeFeestje.Models.Repositories
             await _context.SaveChangesAsync();
         }
 
-        public bool Exists(int? ID)
+        public bool Exists(int? id)
         {
-            return _context.Animal.Any(e => e.ID == ID);
+            return _context.Animal.Any(e => e.ID == id);
         }
 
         public Task<bool> Exists(Animal type)

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
@@ -8,16 +9,19 @@ using Microsoft.EntityFrameworkCore;
 using BeestjeOpJeFeestje.Data;
 using BeestjeOpJeFeestje.Models;
 using BeestjeOpJeFeestje.Models.Repositories;
+using Microsoft.AspNetCore.Hosting;
 
 namespace BeestjeOpJeFeestje.Controllers
 {
     public class AnimalsController : Controller
     {
         private readonly IRepository<Animal> _repository;
+        private readonly IWebHostEnvironment _env;
 
-        public AnimalsController(IRepository<Animal> animalRepository)
+        public AnimalsController(IRepository<Animal> animalRepository, IWebHostEnvironment env)
         {
             _repository = animalRepository;
+            _env = env;
         }
 
         // GET: Animals
@@ -41,8 +45,30 @@ namespace BeestjeOpJeFeestje.Controllers
         // GET: Animals/Create
         public IActionResult Create()
         {
+            AddImagesToView();
             return View();
         }
+
+        private void AddImagesToView()
+        {
+            string path = _env.WebRootPath + "/images/animals/";
+
+            List<SelectListItem> files = new List<SelectListItem>();
+            foreach (string filePath in Directory.GetFiles(path))
+            {
+                SelectListItem fileData = new SelectListItem()
+                {
+                    Text = Path.GetFileNameWithoutExtension(filePath),
+                    Value = "/images/animals/" + Path.GetFileName(filePath)
+                };
+
+                files.Add(fileData);
+            }
+
+            ViewData.Add("files", files);
+            ViewData.Add("SelectedFile", "");
+        }
+
 
         // POST: Animals/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 

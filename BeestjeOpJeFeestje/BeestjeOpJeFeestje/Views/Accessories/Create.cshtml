@@ -32,7 +32,7 @@
                         @Html.DropDownListFor(m => m.PicturePath, (List<SelectListItem>)ViewData["files"], "Please select an image", new { @class = "form-control target" })
                     </div>
                     <div class="col-sm">
-                        <img id="EenImage" src="" />
+                        <img id="AccessoriesImage" src=""/>
                     </div>
                 </div>
             </div>
@@ -45,9 +45,9 @@
                         $( ".target option:selected" ).each(function() {
 
                             if ($(this).text() !== "Please select an image") {
-                                $("#EenImage").attr("src", "/images/accessories/" + $(this).text() + ".png");
+                                $("#AccessoriesImage").attr("src", "/images/accessories/" + $(this).text() + ".png");
                             } else {
-                                $("#EenImage").attr("src", "");
+                                $("#AccessoriesImage").attr("src", "");
                             }
                         });
                     });
@@ -55,9 +55,9 @@
                     $( ".target option:selected" ).each(function() {
 
                         if ($(this).text() !== "Please select an image") {
-                            $("#EenImage").attr("src", "/images/accessories/" + $(this).text() + ".png");
+                            $("#AccessoriesImage").attr("src", "/images/accessories/" + $(this).text() + ".png");
                         } else {
-                            $("#EenImage").attr("src", "");
+                            $("#AccessoriesImage").attr("src", "");
                         }
                     });
                 });

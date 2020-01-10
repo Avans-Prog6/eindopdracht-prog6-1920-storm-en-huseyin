@@ -47,12 +47,11 @@ namespace BeestjeOpJeFeestje.Controllers
 		// GET: Accessories/Create
 		public IActionResult Create()
 		{
-			GetSelectListImages();
-
-			return View();
+			AddImagesToView();
+            return View();
 		}
 
-		private void GetSelectListImages()
+		private void AddImagesToView()
 		{
 			string path = _env.WebRootPath + "/images/accessories/";
 
@@ -100,7 +99,7 @@ namespace BeestjeOpJeFeestje.Controllers
 				return NotFound();
 			}
 
-			GetSelectListImages();
+			AddImagesToView();
 
 			return View(accessories);
 		}
