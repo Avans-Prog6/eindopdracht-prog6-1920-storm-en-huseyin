@@ -19,17 +19,19 @@ namespace BeestjeOpJeFeestje.Data
 	        base.OnModelCreating(modelBuilder);
 
 	        modelBuilder.Entity<BookingAnimal>().HasKey(t => new {t.AnimalId, t.BookingId});
-            modelBuilder.Entity<AnimalAccessories>().HasKey(t => new {t.AnimalId, t.AccessoriesId});
-            
-            modelBuilder.Entity<AnimalAccessories>()
-	            .HasOne(pt => pt.Animal)
-	            .WithMany(p => p.AnimalAccessories)
-	            .HasForeignKey(pt => pt.AnimalId);
-            
-            modelBuilder.Entity<AnimalAccessories>()
-	            .HasOne(pt => pt.Accessories)
-	            .WithMany(t => t.AnimalAccessories)
-	            .HasForeignKey(pt => pt.AccessoriesId);
+            // modelBuilder.Entity<AnimalAccessories>().HasKey(t => new {t.AnimalId, t.AccessoriesId});
+            //
+            // modelBuilder.Entity<AnimalAccessories>()
+	           //  .HasOne(pt => pt.Animal)
+	           //  .WithMany(p => p.AnimalAccessories)
+	           //  .HasForeignKey(pt => pt.AnimalId);
+            //
+            // modelBuilder.Entity<AnimalAccessories>()
+	           //  .HasOne(pt => pt.Accessories)
+	           //  .WithMany(t => t.AnimalAccessories)
+	           //  .HasForeignKey(pt => pt.AccessoriesId);
+
+	           // modelBuilder.Entity<AnimalAccessories>().HasKey();
 
             modelBuilder.Entity<BookingAnimal>()
 	            .HasOne(a => a.Animal)

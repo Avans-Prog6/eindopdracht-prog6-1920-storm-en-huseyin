@@ -26,6 +26,9 @@ namespace BeestjeOpJeFeestje.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+                    b.Property<int?>("AnimalId")
+                        .HasColumnType("int");
+
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasColumnType("nvarchar(30)")
@@ -39,6 +42,8 @@ namespace BeestjeOpJeFeestje.Migrations
                         .HasColumnType("float");
 
                     b.HasKey("ID");
+
+                    b.HasIndex("AnimalId");
 
                     b.ToTable("Accessories");
 
@@ -272,21 +277,6 @@ namespace BeestjeOpJeFeestje.Migrations
                         });
                 });
 
-            modelBuilder.Entity("BeestjeOpJeFeestje.Models.AnimalAccessories", b =>
-                {
-                    b.Property<int>("AnimalId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("AccessoriesId")
-                        .HasColumnType("int");
-
-                    b.HasKey("AnimalId", "AccessoriesId");
-
-                    b.HasIndex("AccessoriesId");
-
-                    b.ToTable("AnimalAccessories");
-                });
-
             modelBuilder.Entity("BeestjeOpJeFeestje.Models.Booking", b =>
                 {
                     b.Property<int>("ID")
@@ -317,19 +307,11 @@ namespace BeestjeOpJeFeestje.Migrations
                     b.ToTable("BookingAnimal");
                 });
 
-            modelBuilder.Entity("BeestjeOpJeFeestje.Models.AnimalAccessories", b =>
+            modelBuilder.Entity("BeestjeOpJeFeestje.Models.Accessories", b =>
                 {
-                    b.HasOne("BeestjeOpJeFeestje.Models.Accessories", "Accessories")
-                        .WithMany("AnimalAccessories")
-                        .HasForeignKey("AccessoriesId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
                     b.HasOne("BeestjeOpJeFeestje.Models.Animal", "Animal")
-                        .WithMany("AnimalAccessories")
-                        .HasForeignKey("AnimalId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .WithMany("Accessories")
+                        .HasForeignKey("AnimalId");
                 });
 
             modelBuilder.Entity("BeestjeOpJeFeestje.Models.BookingAnimal", b =>

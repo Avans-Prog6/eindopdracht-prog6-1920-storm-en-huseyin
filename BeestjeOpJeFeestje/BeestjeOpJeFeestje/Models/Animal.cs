@@ -1,10 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using System.Linq;
-using System.Threading.Tasks;
+using System.Diagnostics.CodeAnalysis;
 
 namespace BeestjeOpJeFeestje.Models
 {
@@ -24,6 +22,9 @@ namespace BeestjeOpJeFeestje.Models
         [Required]
         [Display(Name="Picture")]
         public string PicturePath { get; set; }
+        
+
+        public List<Accessories> Accessories { get; set; }
 
         public Animal()
         {
@@ -38,8 +39,7 @@ namespace BeestjeOpJeFeestje.Models
             PicturePath = picturePath;
         }
 
-        public List<AnimalAccessories> AnimalAccessories { get; set; }
-
         public List<BookingAnimal> BookingAnimal { get; set; }
+
     }
 }
