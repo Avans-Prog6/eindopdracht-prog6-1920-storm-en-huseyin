@@ -22,9 +22,8 @@ namespace BeestjeOpJeFeestje.Models
         [Required]
         [Display(Name="Picture")]
         public string PicturePath { get; set; }
-        
 
-        public List<Accessories> Accessories { get; set; }
+        public virtual IEnumerable<Accessories> Accessories { get; set; }
 
 
         [NotMapped]

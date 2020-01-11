@@ -25,22 +25,22 @@ namespace BeestjeOpJeFeestje.Models
         [Required]
         [Display(Name = "Picture")]
 		public string PicturePath { get; set; }
-		
-		public int? AnimalId { get; set; }
-		public Animal Animal { get; set; }
 
-		public Accessories(string name, double price, string picturePath = "")
+		[Required]
+	    [Display(Name = "Animal")]
+        public int AnimalId{ get; set; }
+        public Animal Animal { get; set; }
+
+		public Accessories(string name, double price, int animalId, string picturePath = "")
 		{
 			Name = name;
 			Price = price;
 			PicturePath = picturePath;
-		}
+            AnimalId = animalId;
+        }
 
 		public Accessories()
 		{
 		}
-
-
-
-	}
+    }
 }

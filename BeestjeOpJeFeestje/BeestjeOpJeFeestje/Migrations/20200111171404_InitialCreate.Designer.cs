@@ -4,14 +4,16 @@ using BeestjeOpJeFeestje.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace BeestjeOpJeFeestje.Migrations
 {
     [DbContext(typeof(BeestjeOpJeFeestjeContext))]
-    partial class BeestjeOpJeFeestjeContextModelSnapshot : ModelSnapshot
+    [Migration("20200111171404_InitialCreate")]
+    partial class InitialCreate
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -293,13 +295,6 @@ namespace BeestjeOpJeFeestje.Migrations
                     b.HasKey("ID");
 
                     b.ToTable("Booking");
-
-                    b.HasData(
-                        new
-                        {
-                            ID = 1,
-                            Date = new DateTime(2020, 1, 12, 0, 0, 0, 0, DateTimeKind.Local)
-                        });
                 });
 
             modelBuilder.Entity("BeestjeOpJeFeestje.Models.BookingAnimal", b =>
@@ -315,23 +310,6 @@ namespace BeestjeOpJeFeestje.Migrations
                     b.HasIndex("BookingId");
 
                     b.ToTable("BookingAnimal");
-
-                    b.HasData(
-                        new
-                        {
-                            AnimalId = 1,
-                            BookingId = 1
-                        },
-                        new
-                        {
-                            AnimalId = 4,
-                            BookingId = 1
-                        },
-                        new
-                        {
-                            AnimalId = 9,
-                            BookingId = 1
-                        });
                 });
 
             modelBuilder.Entity("BeestjeOpJeFeestje.Models.Accessories", b =>
