@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 
 namespace BeestjeOpJeFeestje.Models
 {
+    //TODO: AnimalAccesories weghalen en Animals een 1 op meer relatie laten hebben met accesories! (Een beestje mag meerder accesories hebben)
 	public class AnimalAccessories
 	{
 		[Key]

@@ -16,11 +16,13 @@ namespace BeestjeOpJeFeestje.Models
         [StringLength(30, MinimumLength = 2)]
         public string Name { get;  set; }
         [Required]
-        [StringLength(30, MinimumLength = 2)]
         public string Type { get;  set; }
         [Required]
+        [DisplayFormat(DataFormatString = "{0:n} €")]
         public double Price { get;  set; }
-        [Display(Name="Picture"), Column("Picture")]
+        
+        [Required]
+        [Display(Name="Picture")]
         public string PicturePath { get; set; }
 
         public Animal()

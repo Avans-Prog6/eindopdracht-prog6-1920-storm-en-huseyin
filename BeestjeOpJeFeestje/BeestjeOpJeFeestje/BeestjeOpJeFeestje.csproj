@@ -5,13 +5,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Compile Remove="wwwroot\images\NewFolder\**" />
-    <Content Remove="wwwroot\images\NewFolder\**" />
-    <EmbeddedResource Remove="wwwroot\images\NewFolder\**" />
-    <None Remove="wwwroot\images\NewFolder\**" />
-  </ItemGroup>
-
-  <ItemGroup>
     <Compile Remove="Migrations\20200107150241_InitialCreate.cs" />
     <Compile Remove="Migrations\20200107150241_InitialCreate.Designer.cs" />
     <Compile Remove="Migrations\20200107150328_InitialCreate.cs" />
@@ -50,10 +43,6 @@
     <Compile Remove="Migrations\20200109154508_InitialCreate.Designer.cs" />
     <Compile Remove="Migrations\20200109155009_InitialCreate.cs" />
     <Compile Remove="Migrations\20200109155009_InitialCreate.Designer.cs" />
-    <Compile Remove="Migrations\20200110215724_InitialCreate.cs" />
-    <Compile Remove="Migrations\20200110215724_InitialCreate.Designer.cs" />
-    <Compile Remove="Migrations\20200110233130_InitialCreate.cs" />
-    <Compile Remove="Migrations\20200110233130_InitialCreate.Designer.cs" />
   </ItemGroup>
 
   <ItemGroup>

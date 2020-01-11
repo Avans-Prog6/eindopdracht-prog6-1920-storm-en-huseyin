@@ -8,7 +8,7 @@ namespace BeestjeOpJeFeestje.Models
 {
 	public class Booking
 	{
-		
+        //TODO: AnimalAccesories weghalen en Animals een 1 op meer relatie laten hebben met accesories! (Een beestje mag meerder accesories hebben)
 		[DatabaseGenerated(DatabaseGeneratedOption.Identity)]
 		public int ID { get; set; }
 
