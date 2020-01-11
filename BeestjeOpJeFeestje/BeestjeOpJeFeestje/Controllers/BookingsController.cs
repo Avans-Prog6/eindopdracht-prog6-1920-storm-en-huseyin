@@ -1,4 +1,5 @@
-﻿using System.Threading.Tasks;
+﻿using System.Collections.Generic;
+using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using BeestjeOpJeFeestje.Models;
 using BeestjeOpJeFeestje.Models.Repositories;
@@ -102,6 +103,11 @@ namespace BeestjeOpJeFeestje.Controllers
 		[ValidateAntiForgeryToken]
 		public async Task<IActionResult> AnimalsSelected(BookingProcessData data)
 		{
+			foreach (Animal animals in data.Animals)
+			{
+
+			}
+
 			return Ok(data);
 		}
 	}
