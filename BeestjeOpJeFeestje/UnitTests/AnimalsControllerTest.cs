@@ -26,10 +26,10 @@ namespace UnitTests
             A.CallTo(() => animals.GetAll()).Returns(GetTestAnimals());
             A.CallTo(() => env.WebRootPath).Returns(Directory.GetCurrentDirectory() + "\\wwwroot");
 
-            AnimalsController controller = new AnimalsController(animals, env);
+            var controller = new AnimalsController(animals, env);
 
             //Act
-            ViewResult result = await controller.Index() as ViewResult;
+            var result = await controller.Index() as ViewResult;
             
             //Assert
             var viewResult = Assert.IsType<ViewResult>(result);

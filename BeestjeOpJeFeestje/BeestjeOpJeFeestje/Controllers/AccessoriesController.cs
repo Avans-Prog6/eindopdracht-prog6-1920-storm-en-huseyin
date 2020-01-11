@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.IO;
+using System.Net;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -12,19 +13,25 @@ namespace BeestjeOpJeFeestje.Controllers
 {
 	public class AccessoriesController : Controller
 	{
-		private readonly IRepository<Accessories> _repository;
+		private readonly IRepository<Accessories> _accessoriesRepository;
+        private readonly IRepository<Animal> _animalRepository;
+
 		private readonly IWebHostEnvironment _env;
 
-		public AccessoriesController(IRepository<Accessories> repository, IWebHostEnvironment environment)
+		public AccessoriesController(IRepository<Accessories> accessoriesRepository, IRepository<Animal> animalRepository, IWebHostEnvironment environment)
 		{
-			_repository = repository;
+			_accessoriesRepository = accessoriesRepository;
+            _animalRepository = animalRepository;
 			_env = environment;
 		}
 
 		// GET: Accessories
 		public async Task<IActionResult> Index()
-		{
-			return View(await _repository.GetAll());
+        {
+            List<Animal> animals = await _animalRepository.GetAll();
+			ViewData.Add("animals", animals);
+
+			return View(await _accessoriesRepository.GetAll());
 		}
 
 		// GET: Accessories/Details/5
@@ -35,7 +42,7 @@ namespace BeestjeOpJeFeestje.Controllers
 				return NotFound();
 			}
 
-			Accessories accessories = await _repository.Get(id);
+			Accessories accessories = await _accessoriesRepository.Get(id);
 			if (accessories == null)
 			{
 				return NotFound();
@@ -45,13 +52,28 @@ namespace BeestjeOpJeFeestje.Controllers
 		}
 
 		// GET: Accessories/Create
-		public IActionResult Create()
+		public async Task<IActionResult> Create()
 		{
-			AddImagesToView();
+			AddAccessoryImagesToView();
+            await AddAnimalsToView();
+
             return View();
 		}
 
-		private void AddImagesToView()
+        private async Task AddAnimalsToView()
+        {
+            List<Animal> animals = await _animalRepository.GetAll();
+			List<SelectListItem> selectedAnimals = new List<SelectListItem>();
+
+            foreach (Animal animal in animals)
+            {
+                selectedAnimals.Add(new SelectListItem(animal.Name, animal.ID.ToString()));
+            }
+
+            ViewBag.Animals = selectedAnimals;
+        }
+
+		private void AddAccessoryImagesToView()
 		{
 			string path = _env.WebRootPath + "/images/accessories/";
 
@@ -68,19 +90,18 @@ namespace BeestjeOpJeFeestje.Controllers
 			}
 
 			ViewData.Add("files", files);
-			ViewData.Add("SelectedFile", "");
-		}
+        }
 
 		// POST: Accessories/Create
 		// To protect from overposting attacks, please enable the specific properties you want to bind to, for 
 		// more details see http://go.microsoft.com/fwlink/?LinkId=317598.
 		[HttpPost]
 		[ValidateAntiForgeryToken]
-		public async Task<IActionResult> Create([Bind("ID,Name,Price,PicturePath")] Accessories accessories)
+		public async Task<IActionResult> Create([Bind("ID, Name, Price, PicturePath, AnimalId")] Accessories accessories)
 		{
 			if (!ModelState.IsValid) return View(accessories);
 
-			await _repository.Create(accessories);
+			await _accessoriesRepository.Create(accessories);
 			return RedirectToAction(nameof(Index));
 		}
 
@@ -92,14 +113,15 @@ namespace BeestjeOpJeFeestje.Controllers
 				return NotFound();
 			}
 
-			Accessories accessories = await _repository.Get(id);
+			Accessories accessories = await _accessoriesRepository.Get(id);
 
 			if (accessories == null)
 			{
 				return NotFound();
 			}
 
-			AddImagesToView();
+			AddAccessoryImagesToView();
+            await AddAnimalsToView();
 
 			return View(accessories);
 		}
@@ -109,7 +131,7 @@ namespace BeestjeOpJeFeestje.Controllers
 		// more details see http://go.microsoft.com/fwlink/?LinkId=317598.
 		[HttpPost]
 		[ValidateAntiForgeryToken]
-		public async Task<IActionResult> Edit(int id, [Bind("ID,Name,Price,PicturePath")] Accessories accessories)
+		public async Task<IActionResult> Edit(int id, [Bind("ID, Name, Price, PicturePath, AnimalId")] Accessories accessories)
 		{
 			if (id != accessories.ID)
 			{
@@ -120,11 +142,11 @@ namespace BeestjeOpJeFeestje.Controllers
 
 			try
 			{
-				await _repository.Update(accessories);
+				await _accessoriesRepository.Update(accessories);
 			}
 			catch (DbUpdateConcurrencyException)
 			{
-				if (!_repository.Exists(accessories.ID))
+				if (!_accessoriesRepository.Exists(accessories.ID))
 				{
 					return NotFound();
 				}
@@ -145,7 +167,7 @@ namespace BeestjeOpJeFeestje.Controllers
 				return NotFound();
 			}
 
-			Accessories accessories = await _repository.Get(id);
+			Accessories accessories = await _accessoriesRepository.Get(id);
 			if (accessories == null)
 			{
 				return NotFound();
@@ -159,8 +181,8 @@ namespace BeestjeOpJeFeestje.Controllers
 		[ValidateAntiForgeryToken]
 		public async Task<IActionResult> DeleteConfirmed(int id)
 		{
-			Accessories accessories = await _repository.Get(id);
-			await _repository.Delete(accessories);
+			Accessories accessories = await _accessoriesRepository.Get(id);
+			await _accessoriesRepository.Delete(accessories);
 			return RedirectToAction(nameof(Index));
 		}
 	}

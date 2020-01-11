@@ -23,7 +23,7 @@ namespace BeestjeOpJeFeestje.Models.Repositories
 
 		public async Task<List<Accessories>> GetAll()
 		{
-			return await _context.Accessories.ToListAsync();
+			return await _context.Accessories.Include("Animal").ToListAsync();
 		}
 
 		public async Task Create(Accessories type)

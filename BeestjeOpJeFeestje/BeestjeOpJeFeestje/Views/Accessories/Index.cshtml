@@ -21,6 +21,9 @@
             <th>
                 @Html.DisplayNameFor(model => model.PicturePath)
             </th>
+            <th>
+                @Html.DisplayNameFor(model => model.AnimalId)
+            </th>
             <th></th>
         </tr>
     </thead>
@@ -35,6 +38,9 @@
             </td>
             <td>
                 <img src="@Html.DisplayFor(modelItem => item.PicturePath)" />
+            </td>
+            <td>
+                <img src="@Html.DisplayFor(modelItem => item.Animal.PicturePath)" style="width: 32px; height: 32px;" />
             </td>
             <td>
                 <a asp-action="Edit" asp-route-id="@item.ID">Edit</a> |

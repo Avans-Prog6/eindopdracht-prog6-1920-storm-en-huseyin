@@ -44,6 +44,125 @@ namespace BeestjeOpJeFeestje.Data
 	            .HasForeignKey(a => a.BookingId);
 
 
+            #region AnimalSeed
+
+            modelBuilder.Entity<Animal>().HasData(
+                new Animal()
+                {
+                    ID = 1,
+                    Name = "Aap",
+                    Type = AnimalTypes.Jungle,
+                    Price = 4.50,
+                    PicturePath = "images/animals/aap.png"
+                },
+                new Animal()
+                {
+                    ID = 2,
+                    Name = "Olifant",
+                    Type = AnimalTypes.Jungle,
+                    Price = 16.50,
+                    PicturePath = "images/animals/olifant.png"
+                },
+                new Animal()
+                {
+                    ID = 3,
+                    Name = "Zebra",
+                    Type = AnimalTypes.Jungle,
+                    Price = 1.50,
+                    PicturePath = "images/animals/zebra.png"
+                },
+                new Animal()
+                {
+                    ID = 4,
+                    Name = "Leeuw",
+                    Type = AnimalTypes.Jungle,
+                    Price = 29.50,
+                    PicturePath = "images/animals/leeuw.png"
+                },
+                new Animal()
+                {
+                    ID = 5,
+                    Name = "Hond",
+                    Type = AnimalTypes.Boerderij,
+                    Price = 7.50,
+                    PicturePath = "images/animals/hond.png"
+                },
+                new Animal()
+                {
+                    ID = 6,
+                    Name = "Ezel",
+                    Type = AnimalTypes.Boerderij,
+                    Price = 30.50,
+                    PicturePath = "images/animals/ezel.png"
+                },
+                new Animal()
+                {
+                    ID = 7,
+                    Name = "Koe",
+                    Type = AnimalTypes.Boerderij,
+                    Price = 1.75,
+                    PicturePath = "images/animals/koe.png"
+                },
+                new Animal()
+                {
+                    ID = 8,
+                    Name = "Eend",
+                    Type = AnimalTypes.Boerderij,
+                    Price = 0.75,
+                    PicturePath = "images/animals/eend.png"
+                },
+                new Animal()
+                {
+                    ID = 9,
+                    Name = "Kuiken",
+                    Type = AnimalTypes.Boerderij,
+                    Price = 3.75,
+                    PicturePath = "images/animals/kuiken.png"
+                },
+                new Animal()
+                {
+                    ID = 10,
+                    Name = "Pinguin",
+                    Type = AnimalTypes.Sneeuw,
+                    Price = 40.00,
+                    PicturePath = "images/animals/pingwing.png"
+                },
+                new Animal()
+                {
+                    ID = 11,
+                    Name = "Ijsbeer",
+                    Type = AnimalTypes.Sneeuw,
+                    Price = 11.75,
+                    PicturePath = "images/animals/ijsbeer.png"
+                },
+                new Animal()
+                {
+                    ID = 12,
+                    Name = "Zeehond",
+                    Type = AnimalTypes.Sneeuw,
+                    Price = 23.75,
+                    PicturePath = "images/animals/zeehond.png"
+                },
+                new Animal()
+                {
+                    ID = 13,
+                    Name = "Kameel",
+                    Type = AnimalTypes.Woestijn,
+                    Price = 55.20,
+                    PicturePath = "images/animals/kameel.png"
+                },
+                new Animal()
+                {
+                    ID = 14,
+                    Name = "Slang",
+                    Type = AnimalTypes.Woestijn,
+                    Price = 11.20,
+                    PicturePath = "images/animals/slang.png"
+                }
+            );
+
+            #endregion
+
             #region accessoriesSeed
 
             modelBuilder.Entity<Accessories>().HasData(
@@ -53,204 +172,88 @@ namespace BeestjeOpJeFeestje.Data
 		            Name = "Strikje",
 		            PicturePath = "/images/accessories/Picture 1.png",
 		            Price = 15.0,
-	            },
+                    AnimalId = 1
+                },
 	            new Accessories
 	            {
 		            ID = 2,
 		            Name = "Strikje Rood",
 		            PicturePath = "/images/accessories/Picture 2.png",
 		            Price = 15.0,
-	            },
+                    AnimalId = 1
+                },
 	            new Accessories
 	            {
 		            ID = 3,
 		            Name = "Hoge Hoed",
 		            PicturePath = "/images/accessories/Picture 3.png",
 		            Price = 30.0,
-	            },
+                    AnimalId = 2
+                },
 	            new Accessories
 	            {
 		            ID = 4,
 		            Name = "Kerstmuts",
 		            PicturePath = "/images/accessories/Picture 4.png",
 		            Price = 25.0,
-	            },
+                    AnimalId = 3
+                },
 	            new Accessories
 	            {
 		            ID = 5,
 		            Name = "Maracas",
 		            PicturePath = "/images/accessories/Picture 5.png",
 		            Price = 10.0,
-	            },
+                    AnimalId = 4
+                },
 	            new Accessories
 	            {
 		            ID = 6,
 		            Name = "Hamer",
 		            PicturePath = "/images/accessories/Picture 6.png",
 		            Price = 3.0,
-	            },
+                    AnimalId = 5
+                },
 	            new Accessories
 	            {
 		            ID = 7,
 		            Name = "Vleugels",
 		            PicturePath = "/images/accessories/Picture 7.png",
 		            Price = 40.0,
-	            },
+                    AnimalId = 6
+                },
 	            new Accessories
 	            {
 		            ID = 8,
 		            Name = "Afro Haar",
 		            PicturePath = "/images/accessories/Picture 8.png",
 		            Price = 30.0,
-	            },
+                    AnimalId = 7
+                },
 	            new Accessories
 	            {
 		            ID = 9,
 		            Name = "Wandelstok",
 		            PicturePath = "/images/accessories/Picture 9.png",
 		            Price = 15.0,
-	            },
+                    AnimalId = 8
+                },
 	            new Accessories
 	            {
 		            ID = 10,
 		            Name = "Bot",
 		            PicturePath = "/images/accessories/Picture 10.png",
 		            Price = 1.0,
-	            },
+                    AnimalId = 9
+                },
 	            new Accessories
 	            {
 		            ID = 11,
 		            Name = "Hengels",
 		            PicturePath = "/images/accessories/Picture 11.png",
 		            Price = 25.0,
-	            });
-
-            #endregion
-
-            #region AnimalSeed
-
-            modelBuilder.Entity<Animal>().HasData(
-	            new Animal()
-	            {
-		            ID = 1,
-		            Name = "aap",
-		            PicturePath = "/images/animals/aap.png",
-		            Price = 50,
-		            Type = AnimalTypes.Jungle
-	            },
-	            new Animal()
-	            {
-		            ID = 2,
-		            Name = "bever",
-		            PicturePath = "/images/animals/bever.png",
-		            Price = 20,
-		            Type = AnimalTypes.Boerderij
-	            },
-	            new Animal()
-	            {
-		            ID = 3,
-		            Name = "doggo",
-		            PicturePath = "/images/animals/doggo.png",
-		            Price = 100,
-		            Type = AnimalTypes.Boerderij
-	            },
-	            new Animal()
-	            {
-		            ID = 4,
-		            Name = "donkey",
-		            PicturePath = "/images/animals/donkey.png",
-		            Price = 30,
-		            Type = AnimalTypes.Boerderij
-	            },
-	            new Animal()
-	            {
-		            ID = 5,
-		            Name = "duck",
-		            PicturePath = "/images/animals/duck.png",
-		            Price = 20,
-		            Type = AnimalTypes.Boerderij
-	            },
-	            new Animal()
-	            {
-		            ID = 6,
-		            Name = "ijsbeer",
-		            PicturePath = "/images/animals/ijsbeer.png",
-		            Price = 90,
-		            Type = AnimalTypes.Sneeuw
-	            },
-	            new Animal()
-	            {
-		            ID = 7,
-		            Name = "kat",
-		            PicturePath = "/images/animals/kat.png",
-		            Price = 50,
-		            Type = AnimalTypes.Boerderij
-	            },
-	            new Animal()
-	            {
-		            ID = 8,
-		            Name = "koe",
-		            PicturePath = "/images/animals/koe.png",
-		            Price = 50,
-		            Type = AnimalTypes.Boerderij
-	            },
-	            new Animal()
-	            {
-		            ID = 9,
-		            Name = "kuiken",
-		            PicturePath = "/images/animals/kuiken.png",
-		            Price = 10,
-		            Type = AnimalTypes.Boerderij
-	            },
-	            new Animal()
-	            {
-		            ID = 10,
-		            Name = "leeuw",
-		            PicturePath = "/images/animals/leeuw.png",
-		            Price = 40,
-		            Type = AnimalTypes.Jungle
-	            },
-	            new Animal()
-	            {
-		            ID = 11,
-		            Name = "olifant",
-		            PicturePath = "/images/animals/olifant.png",
-		            Price = 90,
-		            Type = AnimalTypes.Jungle
-	            },
-	            new Animal()
-	            {
-		            ID = 12,
-		            Name = "pingwing",
-		            PicturePath = "/images/animals/pingwing.png",
-		            Price = 50,
-		            Type = AnimalTypes.Sneeuw
-	            },
-	            new Animal()
-	            {
-		            ID = 13,
-		            Name = "varken",
-		            PicturePath = "/images/animals/varken.png",
-		            Price = 30,
-		            Type = AnimalTypes.Boerderij
-	            },
-	            new Animal()
-	            {
-		            ID = 14,
-		            Name = "zebra",
-		            PicturePath = "/images/animals/zebra.png",
-		            Price = 40,
-		            Type = AnimalTypes.Jungle
-	            },
-	            new Animal()
-	            {
-		            ID = 15,
-		            Name = "zeehond",
-		            PicturePath = "/images/animals/zeehond.png",
-		            Price = 70,
-		            Type = AnimalTypes.Sneeuw
-	            }
-            );
+                    AnimalId = 9
+                });
 
             #endregion
         }

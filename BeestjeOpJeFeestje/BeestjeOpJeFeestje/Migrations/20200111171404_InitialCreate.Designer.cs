@@ -4,14 +4,16 @@ using BeestjeOpJeFeestje.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace BeestjeOpJeFeestje.Migrations
 {
     [DbContext(typeof(BeestjeOpJeFeestjeContext))]
-    partial class BeestjeOpJeFeestjeContextModelSnapshot : ModelSnapshot
+    [Migration("20200111171404_InitialCreate")]
+    partial class InitialCreate
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
