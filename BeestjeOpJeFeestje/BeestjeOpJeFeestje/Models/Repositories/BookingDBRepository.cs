@@ -54,5 +54,10 @@ namespace BeestjeOpJeFeestje.Models.Repositories
 		{
 		  return _context.Booking.Any(b => b.Date == type.Date);
 		}
+
+		public async Task<Booking> GetFromDate(DateTime bookingDate)
+		{
+			return await _context.Booking.Where(b => b.Date == bookingDate).Include(b => b.BookingAnimals).FirstOrDefaultAsync();
+		}
 	}
 }

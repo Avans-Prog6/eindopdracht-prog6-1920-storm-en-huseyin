@@ -25,6 +25,12 @@ namespace BeestjeOpJeFeestje.Models
 
         public virtual IEnumerable<Accessories> Accessories { get; set; }
 
+
+        [NotMapped]
+        public bool BookingIsSelected { get; set; }
+        [NotMapped]
+        public bool Booked { get; set; }
+
         public Animal()
         {
 

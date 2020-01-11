@@ -21,8 +21,9 @@
                     <form asp-action="Booking">
                         <div asp-validation-summary="ModelOnly" class="text-danger"></div>
                         <div class="form-group">
+                            <input asp-for="@Model.ID" type="hidden"/>
                             <label asp-for="@Model.Date" class="control-label"></label>
-                            <input asp-for="@Model.Date" class="form-control" />
+                            <input asp-for="@Model.Date" class="form-control"/>
                             <span asp-validation-for="@Model.Date" class="text-danger"></span>
                         </div>
 

@@ -85,7 +85,7 @@ namespace BeestjeOpJeFeestje.Data
                     Name = "Hond",
                     Type = AnimalTypes.Boerderij,
                     Price = 7.50,
-                    PicturePath = "/images/animals/hond.png"
+                    PicturePath = "/images/animals/doggo.png"
                 },
                 new Animal()
                 {
@@ -93,7 +93,7 @@ namespace BeestjeOpJeFeestje.Data
                     Name = "Ezel",
                     Type = AnimalTypes.Boerderij,
                     Price = 30.50,
-                    PicturePath = "/images/animals/ezel.png"
+                    PicturePath = "/images/animals/donkey.png"
                 },
                 new Animal()
                 {
@@ -109,7 +109,7 @@ namespace BeestjeOpJeFeestje.Data
                     Name = "Eend",
                     Type = AnimalTypes.Boerderij,
                     Price = 0.75,
-                    PicturePath = "/images/animals/eend.png"
+                    PicturePath = "/images/animals/duck.png"
                 },
                 new Animal()
                 {
@@ -254,6 +254,38 @@ namespace BeestjeOpJeFeestje.Data
 		            Price = 25.0,
                     AnimalId = 9
                 });
+
+            #endregion
+
+            #region Booking
+
+            DateTime tommorow = DateTime.Today;
+            tommorow = tommorow.AddDays(1);
+            modelBuilder.Entity<Booking>().HasData(
+	            new Booking()
+	            {
+		            ID = 1,
+					Date = tommorow,
+	            }
+            );
+
+            modelBuilder.Entity<BookingAnimal>().HasData(
+				new BookingAnimal()
+				{
+					AnimalId = 1,
+					BookingId = 1,
+				},
+				new BookingAnimal()
+				{
+					AnimalId = 4,
+					BookingId = 1,
+				},
+				new BookingAnimal()
+				{
+					AnimalId = 9,
+					BookingId = 1,
+				}
+            );
 
             #endregion
         }

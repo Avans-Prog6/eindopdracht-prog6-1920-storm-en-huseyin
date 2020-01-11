@@ -1,0 +1,17 @@
+﻿@model BeestjeOpJeFeestje.ViewComponents.Data.BookingProcessData
+@{
+    ViewData["Title"] = "Default";
+}
+
+<div class="font-weight-bold">
+    Booking Details
+</div>
+<br/>
+
+Datum @Model.Booking.Date
+
+@if (@Model.Booking.BookingState == BookingState.Animals)
+{
+    <div>Nog geen beestjes geselecteerd</div>
+    <div>Nog geen accessoires geselecteerd</div>
+}

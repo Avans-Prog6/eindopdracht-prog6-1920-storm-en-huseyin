@@ -1,9 +1,8 @@
 ﻿using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
-using BeestjeOpJeFeestje.Data;
 using BeestjeOpJeFeestje.Models;
 using BeestjeOpJeFeestje.Models.Repositories;
+using BeestjeOpJeFeestje.ViewComponents.Data;
 
 namespace BeestjeOpJeFeestje.Controllers
 {
@@ -63,7 +62,13 @@ namespace BeestjeOpJeFeestje.Controllers
 		// GET: Bookings/Edit/5
 		public async Task<IActionResult> Edit(Booking booking)
 		{
-			return View(booking);
+			Booking foundBooking = await ((BookingDBRepository) _repository).GetFromDate(booking.Date);
+			if (foundBooking != null)
+			{
+				booking = foundBooking;
+			}
+
+			return View(new BookingProcessData() {Animals = null, Booking = booking});
 		}
 
 		// GET: Bookings/Delete/5
@@ -91,6 +96,13 @@ namespace BeestjeOpJeFeestje.Controllers
 			Booking booking = await _repository.Get(id);
 			await _repository.Delete(booking);
 			return RedirectToAction(nameof(Index));
+		}
+
+		[HttpPost, ActionName("AnimalsSelected")]
+		[ValidateAntiForgeryToken]
+		public async Task<IActionResult> AnimalsSelected(BookingProcessData data)
+		{
+			return Ok(data);
 		}
 	}
 }
