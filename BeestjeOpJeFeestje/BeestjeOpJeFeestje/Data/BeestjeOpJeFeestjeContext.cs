@@ -85,7 +85,7 @@ namespace BeestjeOpJeFeestje.Data
                     Name = "Hond",
                     Type = AnimalTypes.Boerderij,
                     Price = 7.50,
-                    PicturePath = "images/animals/hond.png"
+                    PicturePath = "images/animals/doggo.png"
                 },
                 new Animal()
                 {
@@ -93,7 +93,7 @@ namespace BeestjeOpJeFeestje.Data
                     Name = "Ezel",
                     Type = AnimalTypes.Boerderij,
                     Price = 30.50,
-                    PicturePath = "images/animals/ezel.png"
+                    PicturePath = "images/animals/donkey.png"
                 },
                 new Animal()
                 {
@@ -109,7 +109,7 @@ namespace BeestjeOpJeFeestje.Data
                     Name = "Eend",
                     Type = AnimalTypes.Boerderij,
                     Price = 0.75,
-                    PicturePath = "images/animals/eend.png"
+                    PicturePath = "images/animals/duck.png"
                 },
                 new Animal()
                 {

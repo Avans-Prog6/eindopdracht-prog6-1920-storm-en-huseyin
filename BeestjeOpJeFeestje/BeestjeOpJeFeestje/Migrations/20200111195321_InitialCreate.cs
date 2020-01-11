@@ -104,6 +104,11 @@ namespace BeestjeOpJeFeestje.Migrations
                 });
 
             migrationBuilder.InsertData(
+                table: "Booking",
+                columns: new[] { "ID", "Date" },
+                values: new object[] { 1, new DateTime(2020, 1, 12, 0, 0, 0, 0, DateTimeKind.Local) });
+
+            migrationBuilder.InsertData(
                 table: "Accessories",
                 columns: new[] { "ID", "AnimalId", "Name", "PicturePath", "Price" },
                 values: new object[,]
@@ -119,6 +124,16 @@ namespace BeestjeOpJeFeestje.Migrations
                     { 9, 8, "Wandelstok", "/images/accessories/Picture 9.png", 15.0 },
                     { 10, 9, "Bot", "/images/accessories/Picture 10.png", 1.0 },
                     { 11, 9, "Hengels", "/images/accessories/Picture 11.png", 25.0 }
+                });
+
+            migrationBuilder.InsertData(
+                table: "BookingAnimal",
+                columns: new[] { "AnimalId", "BookingId" },
+                values: new object[,]
+                {
+                    { 1, 1 },
+                    { 4, 1 },
+                    { 9, 1 }
                 });
 
             migrationBuilder.CreateIndex(

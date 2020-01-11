@@ -10,7 +10,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace BeestjeOpJeFeestje.Migrations
 {
     [DbContext(typeof(BeestjeOpJeFeestjeContext))]
-    [Migration("20200111171404_InitialCreate")]
+    [Migration("20200111195321_InitialCreate")]
     partial class InitialCreate
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -295,6 +295,13 @@ namespace BeestjeOpJeFeestje.Migrations
                     b.HasKey("ID");
 
                     b.ToTable("Booking");
+
+                    b.HasData(
+                        new
+                        {
+                            ID = 1,
+                            Date = new DateTime(2020, 1, 12, 0, 0, 0, 0, DateTimeKind.Local)
+                        });
                 });
 
             modelBuilder.Entity("BeestjeOpJeFeestje.Models.BookingAnimal", b =>
@@ -310,6 +317,23 @@ namespace BeestjeOpJeFeestje.Migrations
                     b.HasIndex("BookingId");
 
                     b.ToTable("BookingAnimal");
+
+                    b.HasData(
+                        new
+                        {
+                            AnimalId = 1,
+                            BookingId = 1
+                        },
+                        new
+                        {
+                            AnimalId = 4,
+                            BookingId = 1
+                        },
+                        new
+                        {
+                            AnimalId = 9,
+                            BookingId = 1
+                        });
                 });
 
             modelBuilder.Entity("BeestjeOpJeFeestje.Models.Accessories", b =>
