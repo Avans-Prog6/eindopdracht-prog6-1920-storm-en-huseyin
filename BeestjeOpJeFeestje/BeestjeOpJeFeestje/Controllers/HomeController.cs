@@ -30,11 +30,6 @@ namespace BeestjeOpJeFeestje.Controllers
 			return View();
 		}
 
-		public IActionResult Accessories()
-		{
-			return View();
-		}
-
 		[ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
 		public IActionResult Error()
 		{
@@ -49,7 +44,7 @@ namespace BeestjeOpJeFeestje.Controllers
 				return RedirectToAction(nameof(Index), booking);
 			}
 
-			return RedirectToAction(nameof(BookingsController.Index), "Bookings");
+			return RedirectToAction(nameof(BookingsController.Edit), "Bookings", booking);
 		}
 	}
 }

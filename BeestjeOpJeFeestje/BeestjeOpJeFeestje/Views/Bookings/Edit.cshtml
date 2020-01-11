@@ -10,18 +10,16 @@
 <hr />
 <div class="row">
     <div class="col-md-4">
-        <form asp-action="Edit">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <input type="hidden" asp-for="ID" />
-            <div class="form-group">
-                <label asp-for="Date" class="control-label"></label>
-                <input asp-for="Date" class="form-control" />
-                <span asp-validation-for="Date" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <input type="submit" value="Save" class="btn btn-primary" />
-            </div>
-        </form>
+        @if (Model.BookingState == BookingState.Animals)
+        {
+            <div>Animal Lijst</div>
+            @await Component.InvokeAsync("AnimalSelection")
+        }
+
+        @if (Model.BookingState == BookingState.Accessories)
+        {
+            <div>Animal Accessories</div>
+        }
     </div>
 </div>
 

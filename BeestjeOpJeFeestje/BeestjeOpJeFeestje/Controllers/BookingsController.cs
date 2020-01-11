@@ -61,53 +61,9 @@ namespace BeestjeOpJeFeestje.Controllers
 		}
 
 		// GET: Bookings/Edit/5
-		public async Task<IActionResult> Edit(int? id)
+		public async Task<IActionResult> Edit(Booking booking)
 		{
-			if (id == null)
-			{
-				return NotFound();
-			}
-
-			Booking booking = await _repository.Get(id);
-			if (booking == null)
-			{
-				return NotFound();
-			}
-
 			return View(booking);
-		}
-
-		// POST: Bookings/Edit/5
-		// To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-		// more details see http://go.microsoft.com/fwlink/?LinkId=317598.
-		[HttpPost]
-		[ValidateAntiForgeryToken]
-		public async Task<IActionResult> Edit(int id, [Bind("ID,Date")] Booking booking)
-		{
-			if (id != booking.ID)
-			{
-				return NotFound();
-			}
-
-			if (!ModelState.IsValid) return View(booking);
-
-			try
-			{
-				await _repository.Update(booking);
-			}
-			catch (DbUpdateConcurrencyException)
-			{
-				if (!_repository.Exists(booking.ID))
-				{
-					return NotFound();
-				}
-				else
-				{
-					throw;
-				}
-			}
-
-			return RedirectToAction(nameof(Index));
 		}
 
 		// GET: Bookings/Delete/5
