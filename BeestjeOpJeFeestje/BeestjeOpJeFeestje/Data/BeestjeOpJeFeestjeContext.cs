@@ -253,6 +253,38 @@ namespace BeestjeOpJeFeestje.Data
             );
 
             #endregion
+
+            #region Booking
+
+            DateTime tommorow = DateTime.Today;
+            tommorow = tommorow.AddDays(1);
+            modelBuilder.Entity<Booking>().HasData(
+	            new Booking()
+	            {
+		            ID = 1,
+					Date = tommorow,
+	            }
+            );
+
+            modelBuilder.Entity<BookingAnimal>().HasData(
+				new BookingAnimal()
+				{
+					AnimalId = 1,
+					BookingId = 1,
+				},
+				new BookingAnimal()
+				{
+					AnimalId = 4,
+					BookingId = 1,
+				},
+				new BookingAnimal()
+				{
+					AnimalId = 9,
+					BookingId = 1,
+				}
+            );
+
+            #endregion
         }
 
         public DbSet<BeestjeOpJeFeestje.Models.Animal> Animal { get; set; }

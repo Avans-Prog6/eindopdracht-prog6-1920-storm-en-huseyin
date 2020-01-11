@@ -1,32 +1,28 @@
-﻿@model BeestjeOpJeFeestje.Models.Booking
+﻿@model BeestjeOpJeFeestje.ViewComponents.Data.BookingProcessData
 
 @{
     ViewData["Title"] = "Edit";
 }
 
-<h1>Edit</h1>
-
-<h4>Booking</h4>
-<hr />
+<h2>Booking</h2>
+<hr/>
 <div class="row">
-    <div class="col-md-4">
-        @if (Model.BookingState == BookingState.Animals)
+    <div class="col col-9">
+        @if (Model.Booking.BookingState == BookingState.Animals)
         {
-            <div>Animal Lijst</div>
-            @await Component.InvokeAsync("AnimalSelection")
+            @await Component.InvokeAsync("AnimalSelection", @Model)
         }
 
-        @if (Model.BookingState == BookingState.Accessories)
+        @if (Model.Booking.BookingState == BookingState.Accessories)
         {
             <div>Animal Accessories</div>
         }
     </div>
-</div>
-
-<div>
-    <a asp-action="Index">Back to List</a>
+    <div class="col col-3">
+        @await Component.InvokeAsync("BookingDetail", @Model)
+    </div>
 </div>
 
 @section Scripts {
-    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    @{ await Html.RenderPartialAsync("_ValidationScriptsPartial"); }
 }
