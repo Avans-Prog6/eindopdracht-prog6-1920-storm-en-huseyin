@@ -18,7 +18,7 @@ namespace BeestjeOpJeFeestje.Models.Repositories
 
 		public async Task<Booking> Get(int? ID)
 		{
-			return await _context.Booking.FindAsync(ID);
+			return await _context.Booking.Where(e => e.ID == ID).Include(e => e.BookingAnimals).FirstOrDefaultAsync();
 		}
 
 		public async Task<List<Booking>> GetAll()

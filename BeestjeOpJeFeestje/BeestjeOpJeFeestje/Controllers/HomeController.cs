@@ -1,18 +1,17 @@
 ﻿using System;
 using System.Diagnostics;
+using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using BeestjeOpJeFeestje.Models;
+using BeestjeOpJeFeestje.ViewComponents.Data;
 
 namespace BeestjeOpJeFeestje.Controllers
 {
 	public class HomeController : Controller
 	{
-		private readonly ILogger<HomeController> _logger;
-
-		public HomeController(ILogger<HomeController> logger)
+		public HomeController()
 		{
-			_logger = logger;
 		}
 
 		public IActionResult Index(Booking booking)
@@ -37,14 +36,14 @@ namespace BeestjeOpJeFeestje.Controllers
 		}
 
 		[HttpPost]
-		public IActionResult Booking([Bind("Date")] Booking booking)
+		public async Task<IActionResult> Booking([Bind("Date")] Booking booking)
 		{
 			if (!ModelState.IsValid)
 			{
 				return RedirectToAction(nameof(Index), booking);
 			}
 
-			return RedirectToAction(nameof(BookingsController.Edit), "Bookings", booking);
+			return RedirectToAction(nameof(BookingsController.AnimalSelection), "Bookings", booking);
 		}
 	}
 }

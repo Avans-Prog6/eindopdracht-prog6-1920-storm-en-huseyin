@@ -30,6 +30,7 @@ namespace BeestjeOpJeFeestje
         public void ConfigureServices(IServiceCollection services)
         {
 	        services.AddControllersWithViews();
+	        services.AddMvc().AddControllersAsServices();
 
 	        services.AddScoped<IRepository<Animal>, AnimalDbRepository>();
 	        services.AddScoped<IRepository<Accessories>, AccessoriesDBRepository>();

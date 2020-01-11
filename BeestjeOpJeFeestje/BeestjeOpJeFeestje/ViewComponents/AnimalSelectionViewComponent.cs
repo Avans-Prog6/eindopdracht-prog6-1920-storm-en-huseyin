@@ -33,7 +33,8 @@ namespace BeestjeOpJeFeestje.ViewComponents
 					}
 				}
 			}
-				
+			
+			
 
 			data.Animals = animals;
 			return View(data);

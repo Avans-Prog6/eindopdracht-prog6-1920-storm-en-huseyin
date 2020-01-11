@@ -11,14 +11,16 @@
             </div>
 
             <form asp-controller="Bookings" asp-action="AnimalsSelected" method="post" class="">
-                <input asp-for="Booking.Date" type="hidden" value="@Model.Booking.Date" />
+                <input asp-for="Booking.Date" type="hidden" value="@Model.Booking.Date"/>
                 <div class="row">
                     @for (int i = 0; i < Model.Animals.Count(); i++)
                     {
                         string backGround = "";
                         backGround = Model.Animals[i].Booked ? "background-color: gainsboro" : "background-color: white";
 
-                        <input asp-for="@Model.Animals[i].ID" type="hidden" />
+                        <input asp-for="@Model.Animals[i].ID" type="hidden"/>
+
+                        <input asp-for="Booking" type="hidden"/>
                         <div class="card text-center" style="margin: 0.1em; max-width: 10em; @backGround">
                             <div class="font-weight-bold">
                                 @Html.DisplayFor(m => Model.Animals[i].Name)
@@ -28,9 +30,8 @@
                             {
                                 @Html.CheckBoxFor(m => Model.Animals[i].BookingIsSelected)
                             }
-                            @Html.CheckBoxFor(m => Model.Animals[i].BookingIsSelected)
 
-                            <img src="@Html.DisplayFor(modelItem => Model.Animals[i].PicturePath)" style="width: 100%; height: 100%;" class="card-img-top" />
+                            <img src="@Html.DisplayFor(modelItem => Model.Animals[i].PicturePath)" style="width: 100%; height: 100%;" class="card-img-top"/>
                             <div>
                                 @Html.DisplayFor(m => Model.Animals[i].Price)
                             </div>
