@@ -45,11 +45,24 @@ namespace BeestjeOpJeFeestje.Controllers
         // GET: Animals/Create
         public IActionResult Create()
         {
-            AddImagesToView();
+            AddAnimalImagesToView();
+            AddAnimalTypesToView();
+
             return View();
         }
 
-        private void AddImagesToView()
+        private void AddAnimalTypesToView()
+        {
+            List<SelectListItem> animalTypeItems = new List<SelectListItem>();
+            foreach (string type in AnimalTypes.ToList())
+            {
+                animalTypeItems.Add(new SelectListItem(type, type));
+            }
+
+            ViewData.Add("AnimalTypes", animalTypeItems);
+        }
+
+        private void AddAnimalImagesToView()
         {
             string path = _env.WebRootPath + "/images/animals/";
 
@@ -65,8 +78,7 @@ namespace BeestjeOpJeFeestje.Controllers
                 files.Add(fileData);
             }
 
-            ViewData.Add("files", files);
-            ViewData.Add("SelectedFile", "");
+            ViewData.Add("AnimalImages", files);
         }
 
 
@@ -92,6 +104,9 @@ namespace BeestjeOpJeFeestje.Controllers
             Animal animal = await _repository.Get(id);
             
             if (animal == null) { return NotFound(); }
+
+            AddAnimalTypesToView();
+            AddAnimalImagesToView();
 
             return View(animal);
         }

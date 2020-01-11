@@ -12,9 +12,16 @@ namespace BeestjeOpJeFeestje.Models
 		[DatabaseGenerated(DatabaseGeneratedOption.Identity)]
 		public int ID { get; set; }
 
+        [Required]
+        [StringLength(30, MinimumLength = 2)]
 		public string Name { get; set; }
+
+		[Required]
 		[DisplayFormat(DataFormatString = "{0:n} €")]
 		public double Price { get; set; }
+
+        [Required]
+        [Display(Name = "Picture")]
 		public string PicturePath { get; set; }
 
 		public Accessories(string name, double price, string picturePath = "")

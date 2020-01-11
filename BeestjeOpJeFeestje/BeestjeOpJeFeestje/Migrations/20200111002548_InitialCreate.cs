@@ -13,9 +13,9 @@ namespace BeestjeOpJeFeestje.Migrations
                 {
                     ID = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    Name = table.Column<string>(nullable: true),
+                    Name = table.Column<string>(maxLength: 30, nullable: false),
                     Price = table.Column<double>(nullable: false),
-                    PicturePath = table.Column<string>(nullable: true)
+                    PicturePath = table.Column<string>(nullable: false)
                 },
                 constraints: table =>
                 {
@@ -29,9 +29,9 @@ namespace BeestjeOpJeFeestje.Migrations
                     ID = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Name = table.Column<string>(maxLength: 30, nullable: false),
-                    Type = table.Column<string>(maxLength: 30, nullable: false),
+                    Type = table.Column<string>(nullable: false),
                     Price = table.Column<double>(nullable: false),
-                    Picture = table.Column<string>(nullable: true)
+                    PicturePath = table.Column<string>(nullable: false)
                 },
                 constraints: table =>
                 {
