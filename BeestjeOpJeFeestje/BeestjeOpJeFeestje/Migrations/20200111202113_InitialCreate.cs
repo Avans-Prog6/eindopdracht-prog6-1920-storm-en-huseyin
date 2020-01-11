@@ -87,20 +87,20 @@ namespace BeestjeOpJeFeestje.Migrations
                 columns: new[] { "ID", "Name", "PicturePath", "Price", "Type" },
                 values: new object[,]
                 {
-                    { 1, "Aap", "images/animals/aap.png", 4.5, "Jungle" },
-                    { 2, "Olifant", "images/animals/olifant.png", 16.5, "Jungle" },
-                    { 3, "Zebra", "images/animals/zebra.png", 1.5, "Jungle" },
-                    { 4, "Leeuw", "images/animals/leeuw.png", 29.5, "Jungle" },
-                    { 5, "Hond", "images/animals/hond.png", 7.5, "Boerderij" },
-                    { 6, "Ezel", "images/animals/ezel.png", 30.5, "Boerderij" },
-                    { 7, "Koe", "images/animals/koe.png", 1.75, "Boerderij" },
-                    { 8, "Eend", "images/animals/eend.png", 0.75, "Boerderij" },
-                    { 9, "Kuiken", "images/animals/kuiken.png", 3.75, "Boerderij" },
-                    { 10, "Pinguin", "images/animals/pingwing.png", 40.0, "Sneeuw" },
-                    { 11, "Ijsbeer", "images/animals/ijsbeer.png", 11.75, "Sneeuw" },
-                    { 12, "Zeehond", "images/animals/zeehond.png", 23.75, "Sneeuw" },
-                    { 13, "Kameel", "images/animals/kameel.png", 55.200000000000003, "Woestijn" },
-                    { 14, "Slang", "images/animals/slang.png", 11.199999999999999, "Woestijn" }
+                    { 1, "Aap", "/images/animals/aap.png", 4.5, "Jungle" },
+                    { 2, "Olifant", "/images/animals/olifant.png", 16.5, "Jungle" },
+                    { 3, "Zebra", "/images/animals/zebra.png", 1.5, "Jungle" },
+                    { 4, "Leeuw", "/images/animals/leeuw.png", 29.5, "Jungle" },
+                    { 5, "Hond", "/images/animals/hond.png", 7.5, "Boerderij" },
+                    { 6, "Ezel", "/images/animals/ezel.png", 30.5, "Boerderij" },
+                    { 7, "Koe", "/images/animals/koe.png", 1.75, "Boerderij" },
+                    { 8, "Eend", "/images/animals/eend.png", 0.75, "Boerderij" },
+                    { 9, "Kuiken", "/images/animals/kuiken.png", 3.75, "Boerderij" },
+                    { 10, "Pinguin", "/images/animals/pingwing.png", 40.0, "Sneeuw" },
+                    { 11, "Ijsbeer", "/images/animals/ijsbeer.png", 11.75, "Sneeuw" },
+                    { 12, "Zeehond", "/images/animals/zeehond.png", 23.75, "Sneeuw" },
+                    { 13, "Kameel", "/images/animals/kameel.gif", 55.200000000000003, "Woestijn" },
+                    { 14, "Slang", "/images/animals/slang.png", 11.199999999999999, "Woestijn" }
                 });
 
             migrationBuilder.InsertData(

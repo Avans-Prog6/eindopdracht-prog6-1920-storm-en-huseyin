@@ -10,7 +10,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace BeestjeOpJeFeestje.Migrations
 {
     [DbContext(typeof(BeestjeOpJeFeestjeContext))]
-    [Migration("20200111171404_InitialCreate")]
+    [Migration("20200111202113_InitialCreate")]
     partial class InitialCreate
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -172,7 +172,7 @@ namespace BeestjeOpJeFeestje.Migrations
                         {
                             ID = 1,
                             Name = "Aap",
-                            PicturePath = "images/animals/aap.png",
+                            PicturePath = "/images/animals/aap.png",
                             Price = 4.5,
                             Type = "Jungle"
                         },
@@ -180,7 +180,7 @@ namespace BeestjeOpJeFeestje.Migrations
                         {
                             ID = 2,
                             Name = "Olifant",
-                            PicturePath = "images/animals/olifant.png",
+                            PicturePath = "/images/animals/olifant.png",
                             Price = 16.5,
                             Type = "Jungle"
                         },
@@ -188,7 +188,7 @@ namespace BeestjeOpJeFeestje.Migrations
                         {
                             ID = 3,
                             Name = "Zebra",
-                            PicturePath = "images/animals/zebra.png",
+                            PicturePath = "/images/animals/zebra.png",
                             Price = 1.5,
                             Type = "Jungle"
                         },
@@ -196,7 +196,7 @@ namespace BeestjeOpJeFeestje.Migrations
                         {
                             ID = 4,
                             Name = "Leeuw",
-                            PicturePath = "images/animals/leeuw.png",
+                            PicturePath = "/images/animals/leeuw.png",
                             Price = 29.5,
                             Type = "Jungle"
                         },
@@ -204,7 +204,7 @@ namespace BeestjeOpJeFeestje.Migrations
                         {
                             ID = 5,
                             Name = "Hond",
-                            PicturePath = "images/animals/hond.png",
+                            PicturePath = "/images/animals/hond.png",
                             Price = 7.5,
                             Type = "Boerderij"
                         },
@@ -212,7 +212,7 @@ namespace BeestjeOpJeFeestje.Migrations
                         {
                             ID = 6,
                             Name = "Ezel",
-                            PicturePath = "images/animals/ezel.png",
+                            PicturePath = "/images/animals/ezel.png",
                             Price = 30.5,
                             Type = "Boerderij"
                         },
@@ -220,7 +220,7 @@ namespace BeestjeOpJeFeestje.Migrations
                         {
                             ID = 7,
                             Name = "Koe",
-                            PicturePath = "images/animals/koe.png",
+                            PicturePath = "/images/animals/koe.png",
                             Price = 1.75,
                             Type = "Boerderij"
                         },
@@ -228,7 +228,7 @@ namespace BeestjeOpJeFeestje.Migrations
                         {
                             ID = 8,
                             Name = "Eend",
-                            PicturePath = "images/animals/eend.png",
+                            PicturePath = "/images/animals/eend.png",
                             Price = 0.75,
                             Type = "Boerderij"
                         },
@@ -236,7 +236,7 @@ namespace BeestjeOpJeFeestje.Migrations
                         {
                             ID = 9,
                             Name = "Kuiken",
-                            PicturePath = "images/animals/kuiken.png",
+                            PicturePath = "/images/animals/kuiken.png",
                             Price = 3.75,
                             Type = "Boerderij"
                         },
@@ -244,7 +244,7 @@ namespace BeestjeOpJeFeestje.Migrations
                         {
                             ID = 10,
                             Name = "Pinguin",
-                            PicturePath = "images/animals/pingwing.png",
+                            PicturePath = "/images/animals/pingwing.png",
                             Price = 40.0,
                             Type = "Sneeuw"
                         },
@@ -252,7 +252,7 @@ namespace BeestjeOpJeFeestje.Migrations
                         {
                             ID = 11,
                             Name = "Ijsbeer",
-                            PicturePath = "images/animals/ijsbeer.png",
+                            PicturePath = "/images/animals/ijsbeer.png",
                             Price = 11.75,
                             Type = "Sneeuw"
                         },
@@ -260,7 +260,7 @@ namespace BeestjeOpJeFeestje.Migrations
                         {
                             ID = 12,
                             Name = "Zeehond",
-                            PicturePath = "images/animals/zeehond.png",
+                            PicturePath = "/images/animals/zeehond.png",
                             Price = 23.75,
                             Type = "Sneeuw"
                         },
@@ -268,7 +268,7 @@ namespace BeestjeOpJeFeestje.Migrations
                         {
                             ID = 13,
                             Name = "Kameel",
-                            PicturePath = "images/animals/kameel.png",
+                            PicturePath = "/images/animals/kameel.gif",
                             Price = 55.200000000000003,
                             Type = "Woestijn"
                         },
@@ -276,7 +276,7 @@ namespace BeestjeOpJeFeestje.Migrations
                         {
                             ID = 14,
                             Name = "Slang",
-                            PicturePath = "images/animals/slang.png",
+                            PicturePath = "/images/animals/slang.png",
                             Price = 11.199999999999999,
                             Type = "Woestijn"
                         });
