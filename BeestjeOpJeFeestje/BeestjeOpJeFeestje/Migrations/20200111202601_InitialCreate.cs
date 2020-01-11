@@ -91,10 +91,10 @@ namespace BeestjeOpJeFeestje.Migrations
                     { 2, "Olifant", "/images/animals/olifant.png", 16.5, "Jungle" },
                     { 3, "Zebra", "/images/animals/zebra.png", 1.5, "Jungle" },
                     { 4, "Leeuw", "/images/animals/leeuw.png", 29.5, "Jungle" },
-                    { 5, "Hond", "/images/animals/hond.png", 7.5, "Boerderij" },
-                    { 6, "Ezel", "/images/animals/ezel.png", 30.5, "Boerderij" },
+                    { 5, "Hond", "/images/animals/doggo.png", 7.5, "Boerderij" },
+                    { 6, "Ezel", "/images/animals/donkey.png", 30.5, "Boerderij" },
                     { 7, "Koe", "/images/animals/koe.png", 1.75, "Boerderij" },
-                    { 8, "Eend", "/images/animals/eend.png", 0.75, "Boerderij" },
+                    { 8, "Eend", "/images/animals/duck.png", 0.75, "Boerderij" },
                     { 9, "Kuiken", "/images/animals/kuiken.png", 3.75, "Boerderij" },
                     { 10, "Pinguin", "/images/animals/pingwing.png", 40.0, "Sneeuw" },
                     { 11, "Ijsbeer", "/images/animals/ijsbeer.png", 11.75, "Sneeuw" },
@@ -102,6 +102,11 @@ namespace BeestjeOpJeFeestje.Migrations
                     { 13, "Kameel", "/images/animals/kameel.gif", 55.200000000000003, "Woestijn" },
                     { 14, "Slang", "/images/animals/slang.png", 11.199999999999999, "Woestijn" }
                 });
+
+            migrationBuilder.InsertData(
+                table: "Booking",
+                columns: new[] { "ID", "Date" },
+                values: new object[] { 1, new DateTime(2020, 1, 12, 0, 0, 0, 0, DateTimeKind.Local) });
 
             migrationBuilder.InsertData(
                 table: "Accessories",
@@ -119,6 +124,16 @@ namespace BeestjeOpJeFeestje.Migrations
                     { 9, 8, "Wandelstok", "/images/accessories/Picture 9.png", 15.0 },
                     { 10, 9, "Bot", "/images/accessories/Picture 10.png", 1.0 },
                     { 11, 9, "Hengels", "/images/accessories/Picture 11.png", 25.0 }
+                });
+
+            migrationBuilder.InsertData(
+                table: "BookingAnimal",
+                columns: new[] { "AnimalId", "BookingId" },
+                values: new object[,]
+                {
+                    { 1, 1 },
+                    { 4, 1 },
+                    { 9, 1 }
                 });
 
             migrationBuilder.CreateIndex(

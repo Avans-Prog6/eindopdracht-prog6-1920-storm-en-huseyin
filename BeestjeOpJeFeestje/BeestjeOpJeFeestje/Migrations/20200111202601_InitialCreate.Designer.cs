@@ -10,7 +10,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace BeestjeOpJeFeestje.Migrations
 {
     [DbContext(typeof(BeestjeOpJeFeestjeContext))]
-    [Migration("20200111202113_InitialCreate")]
+    [Migration("20200111202601_InitialCreate")]
     partial class InitialCreate
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -204,7 +204,7 @@ namespace BeestjeOpJeFeestje.Migrations
                         {
                             ID = 5,
                             Name = "Hond",
-                            PicturePath = "/images/animals/hond.png",
+                            PicturePath = "/images/animals/doggo.png",
                             Price = 7.5,
                             Type = "Boerderij"
                         },
@@ -212,7 +212,7 @@ namespace BeestjeOpJeFeestje.Migrations
                         {
                             ID = 6,
                             Name = "Ezel",
-                            PicturePath = "/images/animals/ezel.png",
+                            PicturePath = "/images/animals/donkey.png",
                             Price = 30.5,
                             Type = "Boerderij"
                         },
@@ -228,7 +228,7 @@ namespace BeestjeOpJeFeestje.Migrations
                         {
                             ID = 8,
                             Name = "Eend",
-                            PicturePath = "/images/animals/eend.png",
+                            PicturePath = "/images/animals/duck.png",
                             Price = 0.75,
                             Type = "Boerderij"
                         },
@@ -295,6 +295,13 @@ namespace BeestjeOpJeFeestje.Migrations
                     b.HasKey("ID");
 
                     b.ToTable("Booking");
+
+                    b.HasData(
+                        new
+                        {
+                            ID = 1,
+                            Date = new DateTime(2020, 1, 12, 0, 0, 0, 0, DateTimeKind.Local)
+                        });
                 });
 
             modelBuilder.Entity("BeestjeOpJeFeestje.Models.BookingAnimal", b =>
@@ -310,6 +317,23 @@ namespace BeestjeOpJeFeestje.Migrations
                     b.HasIndex("BookingId");
 
                     b.ToTable("BookingAnimal");
+
+                    b.HasData(
+                        new
+                        {
+                            AnimalId = 1,
+                            BookingId = 1
+                        },
+                        new
+                        {
+                            AnimalId = 4,
+                            BookingId = 1
+                        },
+                        new
+                        {
+                            AnimalId = 9,
+                            BookingId = 1
+                        });
                 });
 
             modelBuilder.Entity("BeestjeOpJeFeestje.Models.Accessories", b =>

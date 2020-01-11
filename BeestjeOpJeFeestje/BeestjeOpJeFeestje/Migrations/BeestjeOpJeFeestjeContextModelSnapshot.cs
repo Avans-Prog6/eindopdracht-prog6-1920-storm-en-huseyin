@@ -202,7 +202,7 @@ namespace BeestjeOpJeFeestje.Migrations
                         {
                             ID = 5,
                             Name = "Hond",
-                            PicturePath = "/images/animals/hond.png",
+                            PicturePath = "/images/animals/doggo.png",
                             Price = 7.5,
                             Type = "Boerderij"
                         },
@@ -210,7 +210,7 @@ namespace BeestjeOpJeFeestje.Migrations
                         {
                             ID = 6,
                             Name = "Ezel",
-                            PicturePath = "/images/animals/ezel.png",
+                            PicturePath = "/images/animals/donkey.png",
                             Price = 30.5,
                             Type = "Boerderij"
                         },
@@ -226,7 +226,7 @@ namespace BeestjeOpJeFeestje.Migrations
                         {
                             ID = 8,
                             Name = "Eend",
-                            PicturePath = "/images/animals/eend.png",
+                            PicturePath = "/images/animals/duck.png",
                             Price = 0.75,
                             Type = "Boerderij"
                         },
