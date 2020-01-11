@@ -50,7 +50,7 @@ namespace BeestjeOpJeFeestje.Models.Repositories
 			return _context.Accessories.Any(e => e.ID == ID);
 		}
 
-		public Task<bool> Exists(Accessories type)
+		public bool Exists(Accessories type)
 		{
 			throw new NotImplementedException();
 		}

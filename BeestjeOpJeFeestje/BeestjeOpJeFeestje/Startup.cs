@@ -11,7 +11,9 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.EntityFrameworkCore;
 using BeestjeOpJeFeestje.Data;
 using BeestjeOpJeFeestje.Models;
+using BeestjeOpJeFeestje.Models.CustomValidation;
 using BeestjeOpJeFeestje.Models.Repositories;
+using Microsoft.AspNetCore.Mvc.DataAnnotations;
 
 namespace BeestjeOpJeFeestje
 {
@@ -36,6 +38,8 @@ namespace BeestjeOpJeFeestje
 
 	        services.AddDbContext<BeestjeOpJeFeestjeContext>(options =>
 		        options.UseSqlServer(Configuration.GetConnectionString("BeestjeOpJeFeestjeContext")));
+
+	        services.AddSingleton<IValidationAttributeAdapterProvider, DateIsNoteBookedAttributeAdapterProvider>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

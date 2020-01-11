@@ -1,5 +1,4 @@
-﻿@using BeestjeOpJeFeestje.Controllers
-@model BeestjeOpJeFeestje.Models.Accessories
+﻿@model BeestjeOpJeFeestje.Models.Accessories
 
 @{
     ViewData["Title"] = "Create";
@@ -17,15 +16,14 @@
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
                 <label asp-for="Name" class="control-label"></label>
-                <input asp-for="Name" class="form-control"/>
+                <input asp-for="Name" class="form-control" />
                 <span asp-validation-for="Name" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="Price" class="control-label"></label>
-                <input asp-for="Price" class="form-control"/>
+                <input asp-for="Price" class="form-control" />
                 <span asp-validation-for="Price" class="text-danger"></span>
             </div>
-            
             <div class="container" style="padding: 0">
                 <div class="row">
                     <div class="col-sm">
@@ -38,11 +36,11 @@
             </div>
 
 
-            
+
             <script>
-                $(document).ready(function() {
-                    $( ".target" ).change(function(e) {
-                        $( ".target option:selected" ).each(function() {
+                $(document).ready(function () {
+                    $(".target").change(function (e) {
+                        $(".target option:selected").each(function () {
 
                             if ($(this).text() !== "Please select an image") {
                                 $("#EenImage").attr("src", "/images/accessories/" + $(this).text() + ".png");
@@ -52,7 +50,7 @@
                         });
                     });
 
-                    $( ".target option:selected" ).each(function() {
+                    $(".target option:selected").each(function () {
 
                         if ($(this).text() !== "Please select an image") {
                             $("#EenImage").attr("src", "/images/accessories/" + $(this).text() + ".png");
@@ -64,7 +62,7 @@
             </script>
 
             <div class="form-group" style="padding-top: 10px">
-                <input type="submit" value="Create" class="btn btn-primary"/>
+                <input type="submit" value="Create" class="btn btn-primary" />
             </div>
         </form>
     </div>

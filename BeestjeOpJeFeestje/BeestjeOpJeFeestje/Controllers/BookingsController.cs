@@ -136,17 +136,5 @@ namespace BeestjeOpJeFeestje.Controllers
 			await _repository.Delete(booking);
 			return RedirectToAction(nameof(Index));
 		}
-
-		[HttpPost, ActionName("AnimalSelection")]
-		[ValidateAntiForgeryToken]
-		public async Task<IActionResult> AnimalSelection(Booking booking)
-		{
-			if (!await _repository.Exists(booking))
-			{
-				return View(booking);
-			}
-
-			return RedirectToAction("Index", "Home");
-		}
 	}
 }

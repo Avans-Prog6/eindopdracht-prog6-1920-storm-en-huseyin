@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Runtime.Serialization;
+using BeestjeOpJeFeestje.Models.CustomValidation;
 using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace BeestjeOpJeFeestje.Models
@@ -13,6 +14,8 @@ namespace BeestjeOpJeFeestje.Models
 		public int ID { get; set; }
 
 		public string Name { get; set; }
+
+		//TODO: Client kan geen centen meegeven.
 		[DisplayFormat(DataFormatString = "{0:n} €")]
 		public double Price { get; set; }
 		public string PicturePath { get; set; }

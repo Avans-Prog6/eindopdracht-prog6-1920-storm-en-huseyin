@@ -50,9 +50,9 @@ namespace BeestjeOpJeFeestje.Models.Repositories
 			return _context.Booking.Any(e => e.ID == ID);
 		}
 
-		public async Task<bool> Exists(Booking type)
+		public bool Exists(Booking type)
 		{
-		  return await _context.Booking.AnyAsync(b => b.Date == type.Date);
+		  return _context.Booking.Any(b => b.Date == type.Date);
 		}
 	}
 }
