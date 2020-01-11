@@ -45,7 +45,7 @@ namespace BeestjeOpJeFeestje.Migrations
                     Name = table.Column<string>(maxLength: 30, nullable: false),
                     Price = table.Column<double>(nullable: false),
                     PicturePath = table.Column<string>(nullable: false),
-                    AnimalId = table.Column<int>(nullable: true)
+                    AnimalId = table.Column<int>(nullable: false)
                 },
                 constraints: table =>
                 {
@@ -55,7 +55,7 @@ namespace BeestjeOpJeFeestje.Migrations
                         column: x => x.AnimalId,
                         principalTable: "Animal",
                         principalColumn: "ID",
-                        onDelete: ReferentialAction.Restrict);
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -83,43 +83,57 @@ namespace BeestjeOpJeFeestje.Migrations
                 });
 
             migrationBuilder.InsertData(
-                table: "Accessories",
-                columns: new[] { "ID", "AnimalId", "Name", "PicturePath", "Price" },
-                values: new object[,]
-                {
-                    { 1, null, "Strikje", "/images/accessories/Picture 1.png", 15.0 },
-                    { 11, null, "Hengels", "/images/accessories/Picture 11.png", 25.0 },
-                    { 10, null, "Bot", "/images/accessories/Picture 10.png", 1.0 },
-                    { 8, null, "Afro Haar", "/images/accessories/Picture 8.png", 30.0 },
-                    { 7, null, "Vleugels", "/images/accessories/Picture 7.png", 40.0 },
-                    { 9, null, "Wandelstok", "/images/accessories/Picture 9.png", 15.0 },
-                    { 5, null, "Maracas", "/images/accessories/Picture 5.png", 10.0 },
-                    { 4, null, "Kerstmuts", "/images/accessories/Picture 4.png", 25.0 },
-                    { 3, null, "Hoge Hoed", "/images/accessories/Picture 3.png", 30.0 },
-                    { 2, null, "Strikje Rood", "/images/accessories/Picture 2.png", 15.0 },
-                    { 6, null, "Hamer", "/images/accessories/Picture 6.png", 3.0 }
-                });
-
-            migrationBuilder.InsertData(
                 table: "Animal",
                 columns: new[] { "ID", "Name", "PicturePath", "Price", "Type" },
                 values: new object[,]
                 {
-                    { 9, "kuiken", "/images/animals/kuiken.png", 10.0, "Boerderij" },
-                    { 13, "varken", "/images/animals/varken.png", 30.0, "Boerderij" },
-                    { 12, "pingwing", "/images/animals/pingwing.png", 50.0, "Sneeuw" },
-                    { 11, "olifant", "/images/animals/olifant.png", 90.0, "Jungle" },
-                    { 10, "leeuw", "/images/animals/leeuw.png", 40.0, "Jungle" },
-                    { 8, "koe", "/images/animals/koe.png", 50.0, "Boerderij" },
-                    { 2, "bever", "/images/animals/bever.png", 20.0, "Boerderij" },
-                    { 6, "ijsbeer", "/images/animals/ijsbeer.png", 90.0, "Sneeuw" },
-                    { 5, "duck", "/images/animals/duck.png", 20.0, "Boerderij" },
-                    { 4, "donkey", "/images/animals/donkey.png", 30.0, "Boerderij" },
-                    { 3, "doggo", "/images/animals/doggo.png", 100.0, "Boerderij" },
-                    { 14, "zebra", "/images/animals/zebra.png", 40.0, "Jungle" },
-                    { 1, "aap", "/images/animals/aap.png", 50.0, "Jungle" },
-                    { 7, "kat", "/images/animals/kat.png", 50.0, "Boerderij" },
-                    { 15, "zeehond", "/images/animals/zeehond.png", 70.0, "Sneeuw" }
+                    { 1, "Aap", "/images/animals/aap.png", 4.5, "Jungle" },
+                    { 2, "Olifant", "/images/animals/olifant.png", 16.5, "Jungle" },
+                    { 3, "Zebra", "/images/animals/zebra.png", 1.5, "Jungle" },
+                    { 4, "Leeuw", "/images/animals/leeuw.png", 29.5, "Jungle" },
+                    { 5, "Hond", "/images/animals/doggo.png", 7.5, "Boerderij" },
+                    { 6, "Ezel", "/images/animals/donkey.png", 30.5, "Boerderij" },
+                    { 7, "Koe", "/images/animals/koe.png", 1.75, "Boerderij" },
+                    { 8, "Eend", "/images/animals/duck.png", 0.75, "Boerderij" },
+                    { 9, "Kuiken", "/images/animals/kuiken.png", 3.75, "Boerderij" },
+                    { 10, "Pinguin", "/images/animals/pingwing.png", 40.0, "Sneeuw" },
+                    { 11, "Ijsbeer", "/images/animals/ijsbeer.png", 11.75, "Sneeuw" },
+                    { 12, "Zeehond", "/images/animals/zeehond.png", 23.75, "Sneeuw" },
+                    { 13, "Kameel", "/images/animals/kameel.gif", 55.200000000000003, "Woestijn" },
+                    { 14, "Slang", "/images/animals/slang.png", 11.199999999999999, "Woestijn" }
+                });
+
+            migrationBuilder.InsertData(
+                table: "Booking",
+                columns: new[] { "ID", "Date" },
+                values: new object[] { 1, new DateTime(2020, 1, 12, 0, 0, 0, 0, DateTimeKind.Local) });
+
+            migrationBuilder.InsertData(
+                table: "Accessories",
+                columns: new[] { "ID", "AnimalId", "Name", "PicturePath", "Price" },
+                values: new object[,]
+                {
+                    { 1, 1, "Strikje", "/images/accessories/Picture 1.png", 15.0 },
+                    { 2, 1, "Strikje Rood", "/images/accessories/Picture 2.png", 15.0 },
+                    { 3, 2, "Hoge Hoed", "/images/accessories/Picture 3.png", 30.0 },
+                    { 4, 3, "Kerstmuts", "/images/accessories/Picture 4.png", 25.0 },
+                    { 5, 4, "Maracas", "/images/accessories/Picture 5.png", 10.0 },
+                    { 6, 5, "Hamer", "/images/accessories/Picture 6.png", 3.0 },
+                    { 7, 6, "Vleugels", "/images/accessories/Picture 7.png", 40.0 },
+                    { 8, 7, "Afro Haar", "/images/accessories/Picture 8.png", 30.0 },
+                    { 9, 8, "Wandelstok", "/images/accessories/Picture 9.png", 15.0 },
+                    { 10, 9, "Bot", "/images/accessories/Picture 10.png", 1.0 },
+                    { 11, 9, "Hengels", "/images/accessories/Picture 11.png", 25.0 }
+                });
+
+            migrationBuilder.InsertData(
+                table: "BookingAnimal",
+                columns: new[] { "AnimalId", "BookingId" },
+                values: new object[,]
+                {
+                    { 1, 1 },
+                    { 4, 1 },
+                    { 9, 1 }
                 });
 
             migrationBuilder.CreateIndex(

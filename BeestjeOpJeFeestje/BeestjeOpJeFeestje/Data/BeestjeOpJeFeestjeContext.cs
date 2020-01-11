@@ -53,7 +53,7 @@ namespace BeestjeOpJeFeestje.Data
                     Name = "Aap",
                     Type = AnimalTypes.Jungle,
                     Price = 4.50,
-                    PicturePath = "images/animals/aap.png"
+                    PicturePath = "/images/animals/aap.png"
                 },
                 new Animal()
                 {
@@ -61,7 +61,7 @@ namespace BeestjeOpJeFeestje.Data
                     Name = "Olifant",
                     Type = AnimalTypes.Jungle,
                     Price = 16.50,
-                    PicturePath = "images/animals/olifant.png"
+                    PicturePath = "/images/animals/olifant.png"
                 },
                 new Animal()
                 {
@@ -69,7 +69,7 @@ namespace BeestjeOpJeFeestje.Data
                     Name = "Zebra",
                     Type = AnimalTypes.Jungle,
                     Price = 1.50,
-                    PicturePath = "images/animals/zebra.png"
+                    PicturePath = "/images/animals/zebra.png"
                 },
                 new Animal()
                 {
@@ -77,7 +77,7 @@ namespace BeestjeOpJeFeestje.Data
                     Name = "Leeuw",
                     Type = AnimalTypes.Jungle,
                     Price = 29.50,
-                    PicturePath = "images/animals/leeuw.png"
+                    PicturePath = "/images/animals/leeuw.png"
                 },
                 new Animal()
                 {
@@ -85,7 +85,7 @@ namespace BeestjeOpJeFeestje.Data
                     Name = "Hond",
                     Type = AnimalTypes.Boerderij,
                     Price = 7.50,
-                    PicturePath = "images/animals/doggo.png"
+                    PicturePath = "/images/animals/doggo.png"
                 },
                 new Animal()
                 {
@@ -93,7 +93,7 @@ namespace BeestjeOpJeFeestje.Data
                     Name = "Ezel",
                     Type = AnimalTypes.Boerderij,
                     Price = 30.50,
-                    PicturePath = "images/animals/donkey.png"
+                    PicturePath = "/images/animals/donkey.png"
                 },
                 new Animal()
                 {
@@ -101,7 +101,7 @@ namespace BeestjeOpJeFeestje.Data
                     Name = "Koe",
                     Type = AnimalTypes.Boerderij,
                     Price = 1.75,
-                    PicturePath = "images/animals/koe.png"
+                    PicturePath = "/images/animals/koe.png"
                 },
                 new Animal()
                 {
@@ -109,7 +109,7 @@ namespace BeestjeOpJeFeestje.Data
                     Name = "Eend",
                     Type = AnimalTypes.Boerderij,
                     Price = 0.75,
-                    PicturePath = "images/animals/duck.png"
+                    PicturePath = "/images/animals/duck.png"
                 },
                 new Animal()
                 {
@@ -117,7 +117,7 @@ namespace BeestjeOpJeFeestje.Data
                     Name = "Kuiken",
                     Type = AnimalTypes.Boerderij,
                     Price = 3.75,
-                    PicturePath = "images/animals/kuiken.png"
+                    PicturePath = "/images/animals/kuiken.png"
                 },
                 new Animal()
                 {
@@ -125,7 +125,7 @@ namespace BeestjeOpJeFeestje.Data
                     Name = "Pinguin",
                     Type = AnimalTypes.Sneeuw,
                     Price = 40.00,
-                    PicturePath = "images/animals/pingwing.png"
+                    PicturePath = "/images/animals/pingwing.png"
                 },
                 new Animal()
                 {
@@ -133,7 +133,7 @@ namespace BeestjeOpJeFeestje.Data
                     Name = "Ijsbeer",
                     Type = AnimalTypes.Sneeuw,
                     Price = 11.75,
-                    PicturePath = "images/animals/ijsbeer.png"
+                    PicturePath = "/images/animals/ijsbeer.png"
                 },
                 new Animal()
                 {
@@ -141,7 +141,7 @@ namespace BeestjeOpJeFeestje.Data
                     Name = "Zeehond",
                     Type = AnimalTypes.Sneeuw,
                     Price = 23.75,
-                    PicturePath = "images/animals/zeehond.png"
+                    PicturePath = "/images/animals/zeehond.png"
                 },
                 new Animal()
                 {
@@ -149,7 +149,7 @@ namespace BeestjeOpJeFeestje.Data
                     Name = "Kameel",
                     Type = AnimalTypes.Woestijn,
                     Price = 55.20,
-                    PicturePath = "images/animals/kameel.png"
+                    PicturePath = "/images/animals/kameel.gif"
                 },
                 new Animal()
                 {
@@ -157,7 +157,7 @@ namespace BeestjeOpJeFeestje.Data
                     Name = "Slang",
                     Type = AnimalTypes.Woestijn,
                     Price = 11.20,
-                    PicturePath = "images/animals/slang.png"
+                    PicturePath = "/images/animals/slang.png"
                 }
             );
 
