@@ -26,6 +26,9 @@ namespace BeestjeOpJeFeestje.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+                    b.Property<int?>("AnimalId")
+                        .HasColumnType("int");
+
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasColumnType("nvarchar(30)")
@@ -39,6 +42,8 @@ namespace BeestjeOpJeFeestje.Migrations
                         .HasColumnType("float");
 
                     b.HasKey("ID");
+
+                    b.HasIndex("AnimalId");
 
                     b.ToTable("Accessories");
 
@@ -148,21 +153,128 @@ namespace BeestjeOpJeFeestje.Migrations
                     b.HasKey("ID");
 
                     b.ToTable("Animal");
-                });
 
-            modelBuilder.Entity("BeestjeOpJeFeestje.Models.AnimalAccessories", b =>
-                {
-                    b.Property<int>("AnimalId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("AccessoriesId")
-                        .HasColumnType("int");
-
-                    b.HasKey("AnimalId", "AccessoriesId");
-
-                    b.HasIndex("AccessoriesId");
-
-                    b.ToTable("AnimalAccessories");
+                    b.HasData(
+                        new
+                        {
+                            ID = 1,
+                            Name = "aap",
+                            PicturePath = "/images/animals/aap.png",
+                            Price = 50.0,
+                            Type = "Jungle"
+                        },
+                        new
+                        {
+                            ID = 2,
+                            Name = "bever",
+                            PicturePath = "/images/animals/bever.png",
+                            Price = 20.0,
+                            Type = "Boerderij"
+                        },
+                        new
+                        {
+                            ID = 3,
+                            Name = "doggo",
+                            PicturePath = "/images/animals/doggo.png",
+                            Price = 100.0,
+                            Type = "Boerderij"
+                        },
+                        new
+                        {
+                            ID = 4,
+                            Name = "donkey",
+                            PicturePath = "/images/animals/donkey.png",
+                            Price = 30.0,
+                            Type = "Boerderij"
+                        },
+                        new
+                        {
+                            ID = 5,
+                            Name = "duck",
+                            PicturePath = "/images/animals/duck.png",
+                            Price = 20.0,
+                            Type = "Boerderij"
+                        },
+                        new
+                        {
+                            ID = 6,
+                            Name = "ijsbeer",
+                            PicturePath = "/images/animals/ijsbeer.png",
+                            Price = 90.0,
+                            Type = "Sneeuw"
+                        },
+                        new
+                        {
+                            ID = 7,
+                            Name = "kat",
+                            PicturePath = "/images/animals/kat.png",
+                            Price = 50.0,
+                            Type = "Boerderij"
+                        },
+                        new
+                        {
+                            ID = 8,
+                            Name = "koe",
+                            PicturePath = "/images/animals/koe.png",
+                            Price = 50.0,
+                            Type = "Boerderij"
+                        },
+                        new
+                        {
+                            ID = 9,
+                            Name = "kuiken",
+                            PicturePath = "/images/animals/kuiken.png",
+                            Price = 10.0,
+                            Type = "Boerderij"
+                        },
+                        new
+                        {
+                            ID = 10,
+                            Name = "leeuw",
+                            PicturePath = "/images/animals/leeuw.png",
+                            Price = 40.0,
+                            Type = "Jungle"
+                        },
+                        new
+                        {
+                            ID = 11,
+                            Name = "olifant",
+                            PicturePath = "/images/animals/olifant.png",
+                            Price = 90.0,
+                            Type = "Jungle"
+                        },
+                        new
+                        {
+                            ID = 12,
+                            Name = "pingwing",
+                            PicturePath = "/images/animals/pingwing.png",
+                            Price = 50.0,
+                            Type = "Sneeuw"
+                        },
+                        new
+                        {
+                            ID = 13,
+                            Name = "varken",
+                            PicturePath = "/images/animals/varken.png",
+                            Price = 30.0,
+                            Type = "Boerderij"
+                        },
+                        new
+                        {
+                            ID = 14,
+                            Name = "zebra",
+                            PicturePath = "/images/animals/zebra.png",
+                            Price = 40.0,
+                            Type = "Jungle"
+                        },
+                        new
+                        {
+                            ID = 15,
+                            Name = "zeehond",
+                            PicturePath = "/images/animals/zeehond.png",
+                            Price = 70.0,
+                            Type = "Sneeuw"
+                        });
                 });
 
             modelBuilder.Entity("BeestjeOpJeFeestje.Models.Booking", b =>
@@ -195,19 +307,11 @@ namespace BeestjeOpJeFeestje.Migrations
                     b.ToTable("BookingAnimal");
                 });
 
-            modelBuilder.Entity("BeestjeOpJeFeestje.Models.AnimalAccessories", b =>
+            modelBuilder.Entity("BeestjeOpJeFeestje.Models.Accessories", b =>
                 {
-                    b.HasOne("BeestjeOpJeFeestje.Models.Accessories", "Accessories")
-                        .WithMany("AnimalAccessories")
-                        .HasForeignKey("AccessoriesId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
                     b.HasOne("BeestjeOpJeFeestje.Models.Animal", "Animal")
-                        .WithMany("AnimalAccessories")
-                        .HasForeignKey("AnimalId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .WithMany("Accessories")
+                        .HasForeignKey("AnimalId");
                 });
 
             modelBuilder.Entity("BeestjeOpJeFeestje.Models.BookingAnimal", b =>

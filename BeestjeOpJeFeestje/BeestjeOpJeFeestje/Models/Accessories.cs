@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.Diagnostics.CodeAnalysis;
 using System.Runtime.Serialization;
 using BeestjeOpJeFeestje.Models.CustomValidation;
 using Microsoft.AspNetCore.Mvc.Rendering;
@@ -24,6 +25,9 @@ namespace BeestjeOpJeFeestje.Models
         [Required]
         [Display(Name = "Picture")]
 		public string PicturePath { get; set; }
+		
+		public int? AnimalId { get; set; }
+		public Animal Animal { get; set; }
 
 		public Accessories(string name, double price, string picturePath = "")
 		{
@@ -36,6 +40,7 @@ namespace BeestjeOpJeFeestje.Models
 		{
 		}
 
-		public List<AnimalAccessories> AnimalAccessories { get; set; }
+
+
 	}
 }

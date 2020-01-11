@@ -35,7 +35,6 @@ namespace BeestjeOpJeFeestje
 	        services.AddScoped<IRepository<Accessories>, AccessoriesDBRepository>();
 	        services.AddScoped<IRepository<Booking>, BookingDBRepository>();
 
-
 	        services.AddDbContext<BeestjeOpJeFeestjeContext>(options =>
 		        options.UseSqlServer(Configuration.GetConnectionString("BeestjeOpJeFeestjeContext")));
 
