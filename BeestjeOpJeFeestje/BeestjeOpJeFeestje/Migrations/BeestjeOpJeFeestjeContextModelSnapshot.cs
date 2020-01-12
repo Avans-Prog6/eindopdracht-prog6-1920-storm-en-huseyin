@@ -38,7 +38,7 @@ namespace BeestjeOpJeFeestje.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<double>("Price")
+                    b.Property<double>("Discount")
                         .HasColumnType("float");
 
                     b.HasKey("ID");
@@ -154,7 +154,7 @@ namespace BeestjeOpJeFeestje.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<double>("Price")
+                    b.Property<double>("Discount")
                         .HasColumnType("float");
 
                     b.Property<string>("Type")

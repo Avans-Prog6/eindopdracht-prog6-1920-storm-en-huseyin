@@ -12,12 +12,12 @@ namespace BeestjeOpJeFeestje.Models
 		[DatabaseGenerated(DatabaseGeneratedOption.Identity)]
 		public int ID { get; set; }
 
-		[Required]
+		[Required, Display(Name = "Name")]
 		public string FirstName { get; set; }
+		
 		public string MiddleName { get; set; }
-		[Required]
+		[Required, Display(Name = "Surname")]
 		public string LastName { get; set; }
-		[Required]
 		public string Address { get; set; }
 		[Required, EmailAddress]
 		public string Email { get; set; }

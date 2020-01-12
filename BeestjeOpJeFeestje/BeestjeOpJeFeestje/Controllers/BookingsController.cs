@@ -80,6 +80,7 @@ namespace BeestjeOpJeFeestje.Controllers
 
 		public async Task<IActionResult> PersonalInformation(BookingProcessData data)
 		{
+			data.Booking.BookingState = BookingState.Confirmation;
 			return View("AnimalSelection", data);
 		}
 	}

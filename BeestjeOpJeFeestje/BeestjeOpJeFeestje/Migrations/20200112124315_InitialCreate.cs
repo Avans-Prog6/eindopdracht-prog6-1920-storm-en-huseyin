@@ -108,7 +108,7 @@ namespace BeestjeOpJeFeestje.Migrations
 
             migrationBuilder.InsertData(
                 table: "Animal",
-                columns: new[] { "ID", "Name", "PicturePath", "Price", "Type" },
+                columns: new[] { "ID", "Name", "PicturePath", "Discount", "Type" },
                 values: new object[,]
                 {
                     { 1, "Aap", "/images/animals/aap.png", 4.5, "Jungle" },
@@ -134,7 +134,7 @@ namespace BeestjeOpJeFeestje.Migrations
 
             migrationBuilder.InsertData(
                 table: "Accessories",
-                columns: new[] { "ID", "AnimalId", "Name", "PicturePath", "Price" },
+                columns: new[] { "ID", "AnimalId", "Name", "PicturePath", "Discount" },
                 values: new object[,]
                 {
                     { 1, 1, "Strikje", "/images/accessories/Picture 1.png", 15.0 },
