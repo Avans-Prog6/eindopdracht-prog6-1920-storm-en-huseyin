@@ -33,9 +33,10 @@ namespace BeestjeOpJeFeestje.Models.Validators
             return totalDiscount;
         }
 
-        public bool BookingIsMondayOrTuesday(in DateTime bookingDate)
+        public int BookingIsMondayOrTuesday(in DateTime bookingDate)
         {
-            return bookingDate.DayOfWeek == DayOfWeek.Monday || bookingDate.DayOfWeek == DayOfWeek.Tuesday;
+            if (bookingDate.DayOfWeek == DayOfWeek.Monday || bookingDate.DayOfWeek == DayOfWeek.Tuesday) return 15;
+            return 0;
         }
 
         public int ChanceOnDuckDiscount(List<Animal> animals)
@@ -49,7 +50,7 @@ namespace BeestjeOpJeFeestje.Models.Validators
 
         public bool AnimalsHasDuck(List<Animal> animals)
         {
-            return animals.Any(e => e.Name == "Eend");
+            return animals != null && animals.Any(e => e.Name == "Eend");
         }
 
         public bool HasThreeSameTypeAnimals(List<Animal> animals)
