@@ -74,7 +74,7 @@ namespace BeestjeOpJeFeestje.ViewComponents
 				});
 			}
 
-			int alphabetDiscount = GetAlphabeticalDiscout(animals);
+			int alphabetDiscount = GetAlphabeticalDiscount(animals);
 			if (alphabetDiscount > 0)
 			{
 				totalDiscountPercentage += alphabetDiscount;
@@ -129,8 +129,10 @@ namespace BeestjeOpJeFeestje.ViewComponents
 			return View(data);
 		}
 
-		private int GetAlphabeticalDiscout(List<Animal> animals)
-		{
+		private int GetAlphabeticalDiscount(List<Animal> animals)
+        {
+            if (animals == null) return 0;
+
 			string alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
 
 			int totalDiscount = 0;
