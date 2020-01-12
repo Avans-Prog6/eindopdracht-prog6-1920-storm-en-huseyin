@@ -1,4 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 using System.Net;
 using System.Threading.Tasks;
@@ -29,6 +31,9 @@ namespace BeestjeOpJeFeestje.Controllers
 		public async Task<IActionResult> Index()
         {
             List<Animal> animals = await _animalRepository.GetAll();
+
+            if (animals == null) return NotFound();
+
 			ViewData.Add("animals", animals);
 
 			return View(await _accessoriesRepository.GetAll());
@@ -62,35 +67,49 @@ namespace BeestjeOpJeFeestje.Controllers
 
         private async Task AddAnimalsToView()
         {
-            List<Animal> animals = await _animalRepository.GetAll();
-			List<SelectListItem> selectedAnimals = new List<SelectListItem>();
-
-            foreach (Animal animal in animals)
+            try
             {
-                selectedAnimals.Add(new SelectListItem(animal.Name, animal.ID.ToString()));
-            }
+                List<Animal> animals = await _animalRepository.GetAll();
+                List<SelectListItem> selectedAnimals = new List<SelectListItem>();
 
-            ViewBag.Animals = selectedAnimals;
-        }
+                foreach (Animal animal in animals)
+                {
+                    selectedAnimals.Add(new SelectListItem(animal.Name, animal.ID.ToString()));
+                }
+
+                ViewBag.Animals = selectedAnimals;
+			}
+            catch (Exception e)
+            {
+                Debug.WriteLine(e);
+            }
+		}
 
 		private void AddAccessoryImagesToView()
 		{
-			string path = _env.WebRootPath + "/images/accessories/";
+            try
+            {
+                string path = _env.WebRootPath + "/images/accessories/";
 
-			List<SelectListItem> files = new List<SelectListItem>();
-			foreach (string filePath in Directory.GetFiles(path))
-			{
-				SelectListItem fileData = new SelectListItem()
-				{
-					Text = Path.GetFileNameWithoutExtension(filePath),
-					Value = "/images/accessories/" + Path.GetFileName(filePath)
-				};
+                List<SelectListItem> files = new List<SelectListItem>();
+                foreach (string filePath in Directory.GetFiles(path))
+                {
+                    SelectListItem fileData = new SelectListItem()
+                    {
+                        Text = Path.GetFileNameWithoutExtension(filePath),
+                        Value = "/images/accessories/" + Path.GetFileName(filePath)
+                    };
 
-				files.Add(fileData);
+                    files.Add(fileData);
+                }
+
+                ViewData.Add("files", files);
 			}
-
-			ViewData.Add("files", files);
-        }
+            catch (Exception e)
+            {
+                Debug.WriteLine(e);
+            }
+		}
 
 		// POST: Accessories/Create
 		// To protect from overposting attacks, please enable the specific properties you want to bind to, for 

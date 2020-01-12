@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
@@ -53,32 +54,48 @@ namespace BeestjeOpJeFeestje.Controllers
 
         private void AddAnimalTypesToView()
         {
-            List<SelectListItem> animalTypeItems = new List<SelectListItem>();
-            foreach (string type in AnimalTypes.ToList())
+            try
             {
-                animalTypeItems.Add(new SelectListItem(type, type));
-            }
+                List<SelectListItem> animalTypeItems = new List<SelectListItem>();
+                foreach (string type in AnimalTypes.ToList())
+                {
+                    animalTypeItems.Add(new SelectListItem(type, type));
+                }
 
-            ViewData.Add("AnimalTypes", animalTypeItems);
+                ViewData.Add("AnimalTypes", animalTypeItems);
+            }
+            catch (Exception e)
+            {
+                Debug.WriteLine(e);
+            }
+    
         }
 
         private void AddAnimalImagesToView()
         {
-            string path = _env.WebRootPath + "/images/animals/";
-
-            List<SelectListItem> files = new List<SelectListItem>();
-            foreach (string filePath in Directory.GetFiles(path))
+            try
             {
-                SelectListItem fileData = new SelectListItem()
-                {
-                    Text = Path.GetFileNameWithoutExtension(filePath),
-                    Value = "/images/animals/" + Path.GetFileName(filePath)
-                };
+                string path = _env.WebRootPath + "/images/animals/";
 
-                files.Add(fileData);
+                List<SelectListItem> files = new List<SelectListItem>();
+                foreach (string filePath in Directory.GetFiles(path))
+                {
+                    SelectListItem fileData = new SelectListItem()
+                    {
+                        Text = Path.GetFileNameWithoutExtension(filePath),
+                        Value = "/images/animals/" + Path.GetFileName(filePath)
+                    };
+
+                    files.Add(fileData);
+                }
+
+                ViewData.Add("AnimalImages", files);
+            }
+            catch (Exception e)
+            {
+                Debug.WriteLine(e);
             }
 
-            ViewData.Add("AnimalImages", files);
         }
 
 
@@ -90,7 +107,6 @@ namespace BeestjeOpJeFeestje.Controllers
         public async Task<IActionResult> Create([Bind("ID,Name,Type,Price,PicturePath")] Animal animal)
         {
             if (!ModelState.IsValid) return View(animal);
-
 
             await _repository.Create(animal);
             return RedirectToAction(nameof(Index));
@@ -131,10 +147,9 @@ namespace BeestjeOpJeFeestje.Controllers
                 {
                     return NotFound();
                 }
-                else
-                {
-                    throw;
-                }
+
+                throw;
+                
             }
             return RedirectToAction(nameof(Index));
         }
@@ -145,6 +160,7 @@ namespace BeestjeOpJeFeestje.Controllers
             if (id == null) { return NotFound(); }
 
             Animal animal = await _repository.Get(id);
+
             if (animal == null) { return NotFound(); }
 
             return View(animal);
