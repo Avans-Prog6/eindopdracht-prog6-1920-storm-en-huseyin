@@ -21,6 +21,7 @@ namespace BeestjeOpJeFeestje.Data
 	        modelBuilder.Entity<BookingAnimal>().HasKey(t => new {t.AnimalId, t.BookingId});
 	        modelBuilder.Entity<BookingAccessories>().HasKey(t => new {t.AccessoriesId, t.BookingId});
 	        modelBuilder.Entity<BookingProcessAnimal>().HasKey(t => new {t.AnimalId, t.BookingProcessId});
+	        modelBuilder.Entity<BookingProcessAccessories>().HasKey(t => new {t.AccessoriesId, t.BookingProcessId});
 
 	        modelBuilder.Entity<BookingAnimal>()
 	            .HasOne(a => a.Animal)
@@ -41,6 +42,16 @@ namespace BeestjeOpJeFeestje.Data
 	            .HasOne(a => a.Booking)
 	            .WithMany(b => b.BookingAccessories)
 	            .HasForeignKey(a => a.BookingId);
+
+            modelBuilder.Entity<BookingProcessAccessories>()
+	            .HasOne(a => a.Accessories)
+	            .WithMany(t => t.BookingProcessAccessories)
+	            .HasForeignKey(a => a.AccessoriesId);
+
+            modelBuilder.Entity<BookingProcessAccessories>()
+	            .HasOne(a => a.BookingProcess)
+	            .WithMany(b => b.BookingProcessAccessories)
+	            .HasForeignKey(a => a.BookingProcessId);
 
             modelBuilder.Entity<BookingProcess>()
 	            .HasOne(a => a.ClientInfo)

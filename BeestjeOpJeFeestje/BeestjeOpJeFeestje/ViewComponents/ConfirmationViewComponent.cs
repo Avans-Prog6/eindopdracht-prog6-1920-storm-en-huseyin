@@ -38,7 +38,6 @@ namespace BeestjeOpJeFeestje.ViewComponents
 			if (data.Accessories != null)
 			{
 				accessories = await GetAccessories(data.Accessories.Select(e => e.ID).ToArray());
-				;
 			}
 
 			data.Animals = animals;
@@ -120,9 +119,27 @@ namespace BeestjeOpJeFeestje.ViewComponents
 			// Save or Get Client Id
 			await _clientInfoRepository.Create(data.ClientInfo);
 			data.ClientInfoId = data.ClientInfo.ID;
-			data.Booking.ClientInfoId = data.ClientInfoId;
-			
-			await _bookingRepository.Create(data.Booking);
+			data.DateTime = data.Booking.Date;
+
+			data.BookingProcessAnimals = new List<BookingProcessAnimal>();
+			data.BookingProcessAccessories = new List<BookingProcessAccessories>();
+			foreach (Animal animal in animals)
+			{
+				data.BookingProcessAnimals.Add(new BookingProcessAnimal()
+				{
+					BookingProcessId = data.ID,
+					AnimalId = animal.ID
+				});
+			}
+
+			foreach (Accessories a in accessories)
+			{
+				data.BookingProcessAccessories.Add(new BookingProcessAccessories()
+				{
+					BookingProcessId = data.ID,
+					AccessoriesId = a.ID
+				});
+			}
 
 			await _bookingProcessRepository.Create(data);
 			#endregion

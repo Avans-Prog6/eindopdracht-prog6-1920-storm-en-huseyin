@@ -10,11 +10,13 @@ namespace BeestjeOpJeFeestje.Controllers
 	{
 		private readonly IRepository<Booking> _bookingRepository;
 		private readonly IRepository<Animal> _animalRepository;
+		private readonly IRepository<BookingProcess> _bookingProcessRepository;
 
-		public BookingsController(IRepository<Booking> bookingRepository, IRepository<Animal> animalRepository)
+		public BookingsController(IRepository<Booking> bookingRepository, IRepository<Animal> animalRepository, IRepository<BookingProcess> bookingProcessRepository)
 		{
 			_bookingRepository = bookingRepository;
 			_animalRepository = animalRepository;
+			_bookingProcessRepository = bookingProcessRepository;
 		}
 
 		// GET: Bookings/Edit/5
@@ -78,7 +80,7 @@ namespace BeestjeOpJeFeestje.Controllers
 			return View("AnimalSelection", data);
 		}
 
-		public async Task<IActionResult> PersonalInformation(BookingProcess data)
+		public IActionResult PersonalInformation(BookingProcess data)
 		{
 			data.Booking.BookingState = BookingState.Confirmation;
 			return View("AnimalSelection", data);
@@ -86,7 +88,33 @@ namespace BeestjeOpJeFeestje.Controllers
 
 		public async Task<IActionResult> ConfirmBooking(BookingProcess data)
 		{
-			return Ok(data);
+			BookingProcess bookingProcess = await _bookingProcessRepository.Get(data.ID);
+			Booking booking = new Booking
+			{
+				BookingAccessories = new List<BookingAccessories>(),
+				BookingAnimals = new List<BookingAnimal>(),
+				ClientInfoId = bookingProcess.ClientInfoId,
+				TotalPrice = bookingProcess.TotalPrice,
+				Date = bookingProcess.DateTime
+			};
+
+			foreach (BookingProcessAccessories bpAccessories in bookingProcess.BookingProcessAccessories)
+			{
+				booking.BookingAccessories.Add(new BookingAccessories()
+				{
+					AccessoriesId = bpAccessories.AccessoriesId
+				});
+			}
+			foreach (BookingProcessAnimal bpAnimal in bookingProcess.BookingProcessAnimals)
+			{
+				booking.BookingAnimals.Add(new BookingAnimal()
+				{
+					AnimalId = bpAnimal.AnimalId
+				});
+			}
+
+			await _bookingRepository.Create(booking);
+			return RedirectToActionPermanent(nameof(HomeController.Index), "Home");
 		}
 	}
 }

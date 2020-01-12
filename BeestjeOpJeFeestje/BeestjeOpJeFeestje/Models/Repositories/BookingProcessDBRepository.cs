@@ -3,20 +3,25 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using BeestjeOpJeFeestje.Data;
+using Microsoft.EntityFrameworkCore;
 
 namespace BeestjeOpJeFeestje.Models.Repositories
 {
 	public class BookingProcessDBRepository : IRepository<BookingProcess>
 	{
 		private readonly BeestjeOpJeFeestjeContext _context;
+
 		public BookingProcessDBRepository(BeestjeOpJeFeestjeContext context)
 		{
 			_context = context;
 		}
 
-		public Task<BookingProcess> Get(int? ID)
+		public async Task<BookingProcess> Get(int? ID)
 		{
-			throw new NotImplementedException();
+			return await _context.BookingProcesses.Include(e => e.BookingProcessAccessories)
+				.Include(e => e.BookingProcessAnimals)
+				.Include(e => e.ClientInfo)
+				.SingleOrDefaultAsync(d => d.ID == ID);
 		}
 
 		public Task<List<BookingProcess>> GetAll()

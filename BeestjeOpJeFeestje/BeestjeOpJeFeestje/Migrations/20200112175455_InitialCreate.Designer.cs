@@ -10,7 +10,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace BeestjeOpJeFeestje.Migrations
 {
     [DbContext(typeof(BeestjeOpJeFeestjeContext))]
-    [Migration("20200112163921_InitialCreate")]
+    [Migration("20200112175455_InitialCreate")]
     partial class InitialCreate
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -21,7 +21,7 @@ namespace BeestjeOpJeFeestje.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-            modelBuilder.Entity("BeestjeOpJeFeestje.Models.BookingAccessories", b =>
+            modelBuilder.Entity("BeestjeOpJeFeestje.Models.Accessories", b =>
                 {
                     b.Property<int>("ID")
                         .ValueGeneratedOnAdd()
@@ -29,9 +29,6 @@ namespace BeestjeOpJeFeestje.Migrations
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<int>("AnimalId")
-                        .HasColumnType("int");
-
-                    b.Property<int?>("BookingProcessID")
                         .HasColumnType("int");
 
                     b.Property<string>("Name")
@@ -50,9 +47,7 @@ namespace BeestjeOpJeFeestje.Migrations
 
                     b.HasIndex("AnimalId");
 
-                    b.HasIndex("BookingProcessID");
-
-                    b.ToTable("BookingAccessories");
+                    b.ToTable("Accessories");
 
                     b.HasData(
                         new
@@ -152,9 +147,6 @@ namespace BeestjeOpJeFeestje.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<int?>("BookingProcessID")
-                        .HasColumnType("int");
-
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasColumnType("nvarchar(30)")
@@ -172,8 +164,6 @@ namespace BeestjeOpJeFeestje.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("ID");
-
-                    b.HasIndex("BookingProcessID");
 
                     b.ToTable("Animal");
 
@@ -305,8 +295,8 @@ namespace BeestjeOpJeFeestje.Migrations
                     b.Property<DateTime>("Date")
                         .HasColumnType("datetime2");
 
-                    b.Property<bool>("IsStillBooking")
-                        .HasColumnType("bit");
+                    b.Property<double>("TotalPrice")
+                        .HasColumnType("float");
 
                     b.HasKey("ID");
 
@@ -320,8 +310,23 @@ namespace BeestjeOpJeFeestje.Migrations
                             ID = 1,
                             ClientInfoId = 1,
                             Date = new DateTime(2020, 1, 13, 0, 0, 0, 0, DateTimeKind.Local),
-                            IsStillBooking = false
+                            TotalPrice = 0.0
                         });
+                });
+
+            modelBuilder.Entity("BeestjeOpJeFeestje.Models.BookingAccessories", b =>
+                {
+                    b.Property<int>("AccessoriesId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("BookingId")
+                        .HasColumnType("int");
+
+                    b.HasKey("AccessoriesId", "BookingId");
+
+                    b.HasIndex("BookingId");
+
+                    b.ToTable("BookingAccessories");
                 });
 
             modelBuilder.Entity("BeestjeOpJeFeestje.Models.BookingAnimal", b =>
@@ -363,14 +368,11 @@ namespace BeestjeOpJeFeestje.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<int>("BookingId")
-                        .HasColumnType("int");
-
-                    b.Property<bool>("BookingIsConfirmed")
-                        .HasColumnType("bit");
-
                     b.Property<int>("ClientInfoId")
                         .HasColumnType("int");
+
+                    b.Property<DateTime>("DateTime")
+                        .HasColumnType("datetime2");
 
                     b.Property<double>("TotalDiscount")
                         .HasColumnType("float");
@@ -380,11 +382,39 @@ namespace BeestjeOpJeFeestje.Migrations
 
                     b.HasKey("ID");
 
-                    b.HasIndex("BookingId");
-
                     b.HasIndex("ClientInfoId");
 
                     b.ToTable("BookingProcesses");
+                });
+
+            modelBuilder.Entity("BeestjeOpJeFeestje.Models.BookingProcessAccessories", b =>
+                {
+                    b.Property<int>("AccessoriesId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("BookingProcessId")
+                        .HasColumnType("int");
+
+                    b.HasKey("AccessoriesId", "BookingProcessId");
+
+                    b.HasIndex("BookingProcessId");
+
+                    b.ToTable("BookingProcessAccessories");
+                });
+
+            modelBuilder.Entity("BeestjeOpJeFeestje.Models.BookingProcessAnimal", b =>
+                {
+                    b.Property<int>("AnimalId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("BookingProcessId")
+                        .HasColumnType("int");
+
+                    b.HasKey("AnimalId", "BookingProcessId");
+
+                    b.HasIndex("BookingProcessId");
+
+                    b.ToTable("BookingProcessAnimal");
                 });
 
             modelBuilder.Entity("BeestjeOpJeFeestje.Models.ClientInfo", b =>
@@ -427,24 +457,13 @@ namespace BeestjeOpJeFeestje.Migrations
                         });
                 });
 
-            modelBuilder.Entity("BeestjeOpJeFeestje.Models.BookingAccessories", b =>
+            modelBuilder.Entity("BeestjeOpJeFeestje.Models.Accessories", b =>
                 {
                     b.HasOne("BeestjeOpJeFeestje.Models.Animal", "Animal")
-                        .WithMany("BookingAccessories")
+                        .WithMany("Accessories")
                         .HasForeignKey("AnimalId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-
-                    b.HasOne("BeestjeOpJeFeestje.Models.BookingProcess", null)
-                        .WithMany("BookingAccessories")
-                        .HasForeignKey("BookingProcessID");
-                });
-
-            modelBuilder.Entity("BeestjeOpJeFeestje.Models.Animal", b =>
-                {
-                    b.HasOne("BeestjeOpJeFeestje.Models.BookingProcess", null)
-                        .WithMany("Animals")
-                        .HasForeignKey("BookingProcessID");
                 });
 
             modelBuilder.Entity("BeestjeOpJeFeestje.Models.Booking", b =>
@@ -452,6 +471,21 @@ namespace BeestjeOpJeFeestje.Migrations
                     b.HasOne("BeestjeOpJeFeestje.Models.ClientInfo", "ClientInfo")
                         .WithMany()
                         .HasForeignKey("ClientInfoId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("BeestjeOpJeFeestje.Models.BookingAccessories", b =>
+                {
+                    b.HasOne("BeestjeOpJeFeestje.Models.Accessories", "Accessories")
+                        .WithMany("BookingAccessories")
+                        .HasForeignKey("AccessoriesId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("BeestjeOpJeFeestje.Models.Booking", "Booking")
+                        .WithMany("BookingAccessories")
+                        .HasForeignKey("BookingId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });
@@ -473,16 +507,40 @@ namespace BeestjeOpJeFeestje.Migrations
 
             modelBuilder.Entity("BeestjeOpJeFeestje.Models.BookingProcess", b =>
                 {
-                    b.HasOne("BeestjeOpJeFeestje.Models.Booking", "Booking")
-                        .WithMany()
-                        .HasForeignKey("BookingId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
                     b.HasOne("BeestjeOpJeFeestje.Models.ClientInfo", "ClientInfo")
                         .WithMany()
                         .HasForeignKey("ClientInfoId")
                         .OnDelete(DeleteBehavior.NoAction)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("BeestjeOpJeFeestje.Models.BookingProcessAccessories", b =>
+                {
+                    b.HasOne("BeestjeOpJeFeestje.Models.Accessories", "Accessories")
+                        .WithMany("BookingProcessAccessories")
+                        .HasForeignKey("AccessoriesId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("BeestjeOpJeFeestje.Models.BookingProcess", "BookingProcess")
+                        .WithMany("BookingProcessAccessories")
+                        .HasForeignKey("BookingProcessId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("BeestjeOpJeFeestje.Models.BookingProcessAnimal", b =>
+                {
+                    b.HasOne("BeestjeOpJeFeestje.Models.Animal", "Animal")
+                        .WithMany()
+                        .HasForeignKey("AnimalId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("BeestjeOpJeFeestje.Models.BookingProcess", "BookingProcess")
+                        .WithMany("BookingProcessAnimals")
+                        .HasForeignKey("BookingProcessId")
+                        .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });
 #pragma warning restore 612, 618
