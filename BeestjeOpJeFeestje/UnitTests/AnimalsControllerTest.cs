@@ -21,12 +21,12 @@ namespace UnitTests
         public async Task Index_ReturnsAViewResult_WithAListOfAnimals()
         {
             //Arrange
-            var animals = A.Fake<IRepository<Animal>>();
+            var repository = A.Fake<IRepository<Animal>>();
             var env = A.Fake<IWebHostEnvironment>();
 
-            A.CallTo(() => animals.GetAll()).Returns(GetTestAnimals());
+            A.CallTo(() => repository.GetAll()).Returns(GetTestAnimals());
 
-            var controller = new AnimalsController(animals, env);
+            var controller = new AnimalsController(repository, env);
 
             //Act
             var result = await controller.Index() as ViewResult;

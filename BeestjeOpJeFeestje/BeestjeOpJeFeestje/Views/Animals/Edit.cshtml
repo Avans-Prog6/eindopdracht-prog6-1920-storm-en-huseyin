@@ -37,7 +37,7 @@
                         @Html.DropDownListFor(m => m.PicturePath, (List<SelectListItem>)ViewData["AnimalImages"], "Please select an image", new { @class = "form-control target" })
                     </div>
                     <div class="col-sm">
-                        <img id="AnimalImage" src="" style="width: 125px; height: 125px" />
+                        <img id="AnimalImage" src="" alt="" onerror="this.src=this.alt + '.gif';" style="width: 125px; height: 125px" />
                     </div>
                 </div>
                 <span asp-validation-for="PicturePath" class="text-danger"></span>
@@ -50,6 +50,7 @@
 
                             if ($(this).text() !== "Please select an image") {
                                 $("#AnimalImage").attr("src", "/images/animals/" + $(this).text() + ".png");
+                                $("#AnimalImage").attr("alt", "/images/animals/" + $(this).text());
                             } else {
                                 $("#AnimalImage").attr("src", "");
                             }
@@ -60,6 +61,7 @@
 
                         if ($(this).text() !== "Please select an image") {
                             $("#AnimalImage").attr("src", "/images/animals/" + $(this).text() + ".png");
+                            $("#AnimalImage").attr("alt", "/images/animals/" + $(this).text());
                         } else {
                             $("#AnimalImage").attr("src", "");
                         }
