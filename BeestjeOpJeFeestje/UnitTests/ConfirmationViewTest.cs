@@ -6,41 +6,52 @@ using BeestjeOpJeFeestje.Models;
 using BeestjeOpJeFeestje.Models.Repositories;
 using BeestjeOpJeFeestje.ViewComponents;
 using FakeItEasy;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.ViewComponents;
+using Xunit;
 
 namespace UnitTests
 {
     public class ConfirmationViewTest
     {
-        private void GetAlphabeticalDiscout_ReturnNoDiscount_WhenAnimalsIsNull()
+        [Fact]
+        private async Task InvokeAsync_ReturnDiscount_WhenAnimalsIsSameType()
         {
             //Arrange
-            var bookingRepo = A.Fake<IRepository<BookingProcess>>();
+            var bookingProcessRepo = A.Fake<IRepository<BookingProcess>>();
+            var bookingRepo = A.Fake<IRepository<Booking>>();
             var animalRepo = A.Fake<IRepository<Animal>>();
             var accessoriesRepo = A.Fake<IRepository<Accessories>>();
             var clientInfoRepo = A.Fake<IRepository<ClientInfo>>();
 
-            var confirmationView = new ConfirmationViewComponent(bookingRepo, animalRepo, accessoriesRepo, clientInfoRepo);
-            
+            var confirmationView = new ConfirmationViewComponent(bookingProcessRepo, bookingRepo, animalRepo, accessoriesRepo, clientInfoRepo);
+
+            A.CallTo(() => animalRepo.Find(A<int[]>.Ignored)).Returns(GetAnimalsSameType());
+
+            var bookingProcessData = GetBookingProcess();
+            bookingProcessData.Animals = GetAnimalsSameType();
+
             //Act
-            var result = confirmationView.InvokeAsync(GetBookingProcess());
+            var result = await confirmationView.InvokeAsync(bookingProcessData);
 
-
+            //Assert
+            A.CallTo(() => animalRepo.Find(A<int[]>.Ignored)).MustHaveHappened();
+            var viewResult = Assert.IsType<ViewViewComponentResult>(result);
+            var bookingProcess = Assert.IsType<BookingProcess>(viewResult.ViewData.Model);
+            Assert.Equal(10, bookingProcess.TotalDiscount);
         }
+
 
         private BookingProcess GetBookingProcess()
         {
             return new BookingProcess()
             {
                 ID = 1,
-                BookingId = 2,
                 Booking = GetBooking(),
                 ClientInfoId = 2,
                 ClientInfo = GetClientInfo(),
                 Animals = GetAnimalsNormal(),
                 Accessories = GetAccessories(),
-                BookingIsConfirmed = true,
-
-
             };
         }
 

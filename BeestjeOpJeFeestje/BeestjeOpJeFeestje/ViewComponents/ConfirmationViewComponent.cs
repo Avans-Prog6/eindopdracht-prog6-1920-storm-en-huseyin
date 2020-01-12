@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using BeestjeOpJeFeestje.Models;
 using BeestjeOpJeFeestje.Models.Repositories;
+using BeestjeOpJeFeestje.Models.Validators;
 using Microsoft.AspNetCore.Mvc;
 
 namespace BeestjeOpJeFeestje.ViewComponents
@@ -35,7 +36,9 @@ namespace BeestjeOpJeFeestje.ViewComponents
 			List<Accessories> accessories = new List<Accessories>();
 			List<Discounts> discounts = new List<Discounts>();
 
-			if (data.Accessories != null)
+			DiscountValidator discountValidator = new DiscountValidator();
+
+            if (data.Accessories != null)
 			{
 				accessories = await GetAccessories(data.Accessories.Select(e => e.ID).ToArray());
 			}
@@ -46,9 +49,9 @@ namespace BeestjeOpJeFeestje.ViewComponents
 			#region Discount
 
 			int totalDiscountPercentage = 0;
-			if (HasThreeSameTypeAnimals(animals))
-			{
-				totalDiscountPercentage += 10;
+			if (discountValidator.HasThreeSameTypeAnimals(animals))
+            {
+                totalDiscountPercentage += 10;
 				discounts.Add(new Discounts()
 				{
 					Name = "3 Types",
@@ -56,18 +59,20 @@ namespace BeestjeOpJeFeestje.ViewComponents
 				});
 			}
 
-			if (ChanceOnDuckDiscount(animals))
+            int duckDiscount = discountValidator.ChanceOnDuckDiscount(animals);
+
+			if (duckDiscount > 0)
 			{
-				totalDiscountPercentage += 50;
+				totalDiscountPercentage += duckDiscount;
 				discounts.Add(new Discounts()
 					{
 						Name = "Eend",
-						Discount = 50
-					}
+						Discount = duckDiscount
+				}
 				);
 			}
 
-			if (BookingIsMondayOrTuesday(data.Booking.Date))
+			if (discountValidator.BookingIsMondayOrTuesday(data.Booking.Date))
 			{
 				totalDiscountPercentage += 15;
 				discounts.Add(new Discounts()
@@ -77,7 +82,7 @@ namespace BeestjeOpJeFeestje.ViewComponents
 				});
 			}
 
-			int alphabetDiscount = GetAlphabeticalDiscount(animals);
+			int alphabetDiscount = discountValidator.GetAlphabeticalDiscount(animals);
 			if (alphabetDiscount > 0)
 			{
 				totalDiscountPercentage += alphabetDiscount;
@@ -88,7 +93,7 @@ namespace BeestjeOpJeFeestje.ViewComponents
 				});
 			}
 
-			totalDiscountPercentage = GetMaximumPercentage(totalDiscountPercentage, 60);
+			totalDiscountPercentage = discountValidator.GetMaximumPercentage(totalDiscountPercentage, 60);
 			data.TotalDiscount = totalDiscountPercentage;
 
 			#endregion
@@ -147,96 +152,9 @@ namespace BeestjeOpJeFeestje.ViewComponents
 			return View(data);
 		}
 
-		private int GetAlphabeticalDiscount(List<Animal> animals)
-        {
-            if (animals == null) return 0;
+		
 
-			string alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
-
-			int totalDiscount = 0;
-			foreach (Animal animal in animals)
-			{
-				string name = animal.Name.ToUpper();
-				for (int i = 0; i < name.Length; i++)
-				{
-					if (name[i] == alphabet[i])
-					{
-						totalDiscount += 2;
-					}
-					else
-					{
-						break;
-					}
-				}
-			}
-
-			return totalDiscount;
-		}
-
-		private bool BookingIsMondayOrTuesday(in DateTime bookingDate)
-		{
-			return bookingDate.DayOfWeek == DayOfWeek.Monday || bookingDate.DayOfWeek == DayOfWeek.Tuesday;
-		}
-
-		private bool ChanceOnDuckDiscount(List<Animal> animals)
-		{
-			if (!AnimalsHasDuck(animals))
-				return false;
-
-			Random random = new Random();
-			if (random.Next(0, 6) == 1)
-			{
-				return true;
-			}
-
-			return false;
-		}
-
-		public bool AnimalsHasDuck(List<Animal> animals)
-		{
-			return animals.Any(e => e.Name == "Eend");
-		}
-
-		public bool HasThreeSameTypeAnimals(List<Animal> animals)
-		{
-			if (animals.Count < 3)
-			{
-				return false;
-			}
-
-			int desertType = 0;
-			int snowType = 0;
-			int farmType = 0;
-			int jungleType = 0;
-
-			foreach (Animal animal in animals)
-			{
-				switch (animal.Type)
-				{
-					case AnimalTypes.Woestijn:
-						desertType++;
-						break;
-					case AnimalTypes.Sneeuw:
-						snowType++;
-						break;
-					case AnimalTypes.Boerderij:
-						farmType++;
-						break;
-					case AnimalTypes.Jungle:
-						jungleType++;
-						break;
-				}
-			}
-
-			return desertType >= 3 || snowType >= 3 || farmType >= 3 || jungleType >= 3;
-		}
-
-		public int GetMaximumPercentage(int percentage, int max)
-		{
-			return Math.Clamp(percentage, 0, max);
-		}
-
-		public async Task<List<Accessories>> GetAccessories(params int[] accessoriesId)
+        private async Task<List<Accessories>> GetAccessories(params int[] accessoriesId)
 		{
 			List<Accessories> list = new List<Accessories>();
 			List<Accessories> accessories = await _accessoriesRepository.Find(accessoriesId);
@@ -249,7 +167,7 @@ namespace BeestjeOpJeFeestje.ViewComponents
 			return list;
 		}
 
-		public async Task<List<Animal>> GetAnimals(params int[] animalId)
+        private async Task<List<Animal>> GetAnimals(params int[] animalId)
 		{
 			List<Animal> list = new List<Animal>();
 			List<Animal> animals = await _animalRepository.Find(animalId);
