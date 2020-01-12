@@ -19,7 +19,7 @@ namespace BeestjeOpJeFeestje.Models
 		public string Name { get; set; }
 
 		[Required]
-		[DisplayFormat(DataFormatString = "{0:n} €")]
+		[DisplayFormat(DataFormatString = "{0:C0}", ApplyFormatInEditMode = true)]
 		public double Price { get; set; }
 
         [Required]
