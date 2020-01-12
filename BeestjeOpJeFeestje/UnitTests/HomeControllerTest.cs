@@ -68,7 +68,7 @@ namespace UnitTests
             var redirectToActionResult = Assert.IsType<RedirectToActionResult>(result);
             Assert.NotEmpty(redirectToActionResult.RouteValues);
             Assert.Equal("Bookings", redirectToActionResult.ControllerName);
-            Assert.Equal("Edit", redirectToActionResult.ActionName);
+            Assert.Equal("AnimalSelection", redirectToActionResult.ActionName);
         }
 
     }

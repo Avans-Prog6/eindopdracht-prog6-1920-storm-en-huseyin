@@ -38,7 +38,7 @@ namespace BeestjeOpJeFeestje.Controllers
 		}
 
 		[HttpPost]
-		public async Task<IActionResult> Booking([Bind("Date")] Booking booking)
+		public IActionResult Booking([Bind("Date")] Booking booking)
 		{
 			if (!ModelState.IsValid)
 			{
