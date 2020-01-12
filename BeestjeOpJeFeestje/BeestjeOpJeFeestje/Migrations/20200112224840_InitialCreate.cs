@@ -233,21 +233,21 @@ namespace BeestjeOpJeFeestje.Migrations
                 values: new object[,]
                 {
                     { 1, 1, "Strikje", "/images/accessories/Picture 1.png", 15.0 },
-                    { 16, 10, "Dansschoenen", "/images/accessories/Dansschoenen.jpg", 25.0 },
+                    { 16, 10, "Dansschoenen", "/images/accessories/Dansschoenen.png", 25.0 },
                     { 11, 9, "Hengels", "/images/accessories/Picture 11.png", 25.0 },
                     { 10, 9, "Bot", "/images/accessories/Picture 10.png", 1.0 },
                     { 9, 8, "Wandelstok", "/images/accessories/Picture 9.png", 15.0 },
                     { 8, 7, "Afro Haar", "/images/accessories/Picture 8.png", 30.0 },
                     { 7, 6, "Vleugels", "/images/accessories/Picture 7.png", 40.0 },
-                    { 17, 5, "Bal", "/images/accessories/Bal.jpg", 60.0 },
-                    { 18, 12, "Bal", "/images/accessories/Bal.jpg", 40.0 },
+                    { 17, 5, "Bal", "/images/accessories/Bal.png", 60.0 },
+                    { 18, 12, "Bal", "/images/accessories/Bal.png", 40.0 },
                     { 6, 5, "Hamer", "/images/accessories/Picture 6.png", 3.0 },
                     { 14, 4, "Krukje", "/images/accessories/Krukje.png", 25.0 },
                     { 5, 4, "Maracas", "/images/accessories/Picture 5.png", 10.0 },
-                    { 13, 3, "Zadel", "/images/accessories/Zadel.jpg", 50.0 },
+                    { 13, 3, "Zadel", "/images/accessories/Zadel.png", 50.0 },
                     { 4, 3, "Kerstmuts", "/images/accessories/Picture 4.png", 25.0 },
                     { 3, 2, "Hoge Hoed", "/images/accessories/Picture 3.png", 30.0 },
-                    { 12, 1, "Banaan", "/images/accessories/Banaan.jpg", 25.0 },
+                    { 12, 1, "Banaan", "/images/accessories/Banaan.png", 25.0 },
                     { 2, 1, "Strikje Rood", "/images/accessories/Picture 2.png", 15.0 },
                     { 15, 4, "Zweep", "/images/accessories/Zweep.png", 25.0 }
                 });

@@ -141,7 +141,7 @@ namespace BeestjeOpJeFeestje.Migrations
                             ID = 12,
                             AnimalId = 1,
                             Name = "Banaan",
-                            PicturePath = "/images/accessories/Banaan.jpg",
+                            PicturePath = "/images/accessories/Banaan.png",
                             Price = 25.0
                         },
                         new
@@ -149,7 +149,7 @@ namespace BeestjeOpJeFeestje.Migrations
                             ID = 13,
                             AnimalId = 3,
                             Name = "Zadel",
-                            PicturePath = "/images/accessories/Zadel.jpg",
+                            PicturePath = "/images/accessories/Zadel.png",
                             Price = 50.0
                         },
                         new
@@ -173,7 +173,7 @@ namespace BeestjeOpJeFeestje.Migrations
                             ID = 16,
                             AnimalId = 10,
                             Name = "Dansschoenen",
-                            PicturePath = "/images/accessories/Dansschoenen.jpg",
+                            PicturePath = "/images/accessories/Dansschoenen.png",
                             Price = 25.0
                         },
                         new
@@ -181,7 +181,7 @@ namespace BeestjeOpJeFeestje.Migrations
                             ID = 17,
                             AnimalId = 5,
                             Name = "Bal",
-                            PicturePath = "/images/accessories/Bal.jpg",
+                            PicturePath = "/images/accessories/Bal.png",
                             Price = 60.0
                         },
                         new
@@ -189,7 +189,7 @@ namespace BeestjeOpJeFeestje.Migrations
                             ID = 18,
                             AnimalId = 12,
                             Name = "Bal",
-                            PicturePath = "/images/accessories/Bal.jpg",
+                            PicturePath = "/images/accessories/Bal.png",
                             Price = 40.0
                         });
                 });

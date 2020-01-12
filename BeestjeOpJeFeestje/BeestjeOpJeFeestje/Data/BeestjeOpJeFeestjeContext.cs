@@ -273,7 +273,7 @@ namespace BeestjeOpJeFeestje.Data
 	            {
 		            ID = 12,
 		            Name = "Banaan",
-		            PicturePath = "/images/accessories/Banaan.jpg",
+		            PicturePath = "/images/accessories/Banaan.png",
 		            Price = 25.0,
 		            AnimalId = 1
 	            },
@@ -281,7 +281,7 @@ namespace BeestjeOpJeFeestje.Data
 	            {
 		            ID = 13,
 		            Name = "Zadel",
-		            PicturePath = "/images/accessories/Zadel.jpg",
+		            PicturePath = "/images/accessories/Zadel.png",
 		            Price = 50.0,
 		            AnimalId = 3
 	            },
@@ -305,7 +305,7 @@ namespace BeestjeOpJeFeestje.Data
 	            {
 		            ID = 16,
 		            Name = "Dansschoenen",
-		            PicturePath = "/images/accessories/Dansschoenen.jpg",
+		            PicturePath = "/images/accessories/Dansschoenen.png",
 		            Price = 25.0,
 		            AnimalId = 10
 	            },
@@ -313,7 +313,7 @@ namespace BeestjeOpJeFeestje.Data
 	            {
 		            ID = 17,
 		            Name = "Bal",
-		            PicturePath = "/images/accessories/Bal.jpg",
+		            PicturePath = "/images/accessories/Bal.png",
 		            Price = 60.0,
 		            AnimalId = 5
 	            },
@@ -321,7 +321,7 @@ namespace BeestjeOpJeFeestje.Data
 	            {
 		            ID = 18,
 		            Name = "Bal",
-		            PicturePath = "/images/accessories/Bal.jpg",
+		            PicturePath = "/images/accessories/Bal.png",
 		            Price = 40.0,
 		            AnimalId = 12
 	            });

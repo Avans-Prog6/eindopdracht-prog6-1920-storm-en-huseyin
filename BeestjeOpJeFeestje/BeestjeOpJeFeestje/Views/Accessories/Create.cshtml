@@ -36,7 +36,7 @@
                         @Html.DropDownListFor(m => m.PicturePath, (List<SelectListItem>)ViewData["files"], "Please select an image", new { @class = "form-control target" })
                     </div>
                     <div class="col-sm">
-                        <img id="AccessoriesImage" src="" />
+                        <img id="AccessoriesImage" src="" style="max-width: 4em"/>
                     </div>
                 </div>
                 <span asp-validation-for="PicturePath" class="text-danger"></span>
