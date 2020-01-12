@@ -10,6 +10,8 @@ namespace BeestjeOpJeFeestje.Models.Validators
 	{
 		public bool FarmAnimalHasNoLionOrIceBear(List<Animal> animals)
 		{
+			if(animals == null) throw new NullReferenceException();
+
 			if (!HasFarmAnimal(animals))
 			{
 				return true;
@@ -28,6 +30,8 @@ namespace BeestjeOpJeFeestje.Models.Validators
 
 		public bool HasFarmAnimal(List<Animal> animals)
 		{
+            if (animals == null) throw new NullReferenceException();
+
 			foreach (Animal animal in animals)
 			{
 				if (animal.Type == AnimalTypes.Boerderij)
@@ -41,9 +45,11 @@ namespace BeestjeOpJeFeestje.Models.Validators
 
 		public bool PenguinIsHiredInWeekend(List<Animal> animals, DateTime time)
 		{
+            if (animals == null) throw new NullReferenceException();
+
 			foreach (Animal animal in animals)
 			{
-				if (animal.Name == "Pinguïn" && (time.DayOfWeek == DayOfWeek.Saturday || time.DayOfWeek == DayOfWeek.Sunday))
+				if ((animal.Name == "Pinguïn"  || animal.Name == "Pinguin") && (time.DayOfWeek == DayOfWeek.Saturday || time.DayOfWeek == DayOfWeek.Sunday))
 				{
 					return true;
 				}
@@ -54,6 +60,9 @@ namespace BeestjeOpJeFeestje.Models.Validators
 
 		public bool DesertAnimalIsHiredInWinter(List<Animal> animals, DateTime time)
 		{
+
+            if (animals == null) throw new NullReferenceException();
+
 			foreach (Animal animal in animals)
 			{
 				if (animal.Type == AnimalTypes.Woestijn &&
@@ -68,6 +77,8 @@ namespace BeestjeOpJeFeestje.Models.Validators
 
 		public bool SnowAnimalIsHiredForSummer(List<Animal> animals, DateTime time)
 		{
+            if (animals == null) throw new NullReferenceException();
+
 			foreach (Animal animal in animals)
 			{
 				if (animal.Type == AnimalTypes.Sneeuw &&
@@ -82,6 +93,8 @@ namespace BeestjeOpJeFeestje.Models.Validators
 
 		public bool IsAnimalAlreadyBooked(List<BookingAnimal> bookingBookingAnimals, int animalId)
 		{
+            if (bookingBookingAnimals == null) throw new NullReferenceException();
+
 			foreach (BookingAnimal bookingAnimal in bookingBookingAnimals)
 			{
 				if (bookingAnimal.AnimalId == animalId)
@@ -95,6 +108,8 @@ namespace BeestjeOpJeFeestje.Models.Validators
 
 		public bool IsAnAnimalSelected(List<Animal> selectedAnimals)
 		{
+            if (selectedAnimals == null) throw new NullReferenceException();
+
 			return selectedAnimals.Count > 0;
 		}
 	}

@@ -40,7 +40,7 @@ namespace UnitTests
             Assert.IsType<Booking>(actionResult.Model);
         }
 
-        [Fact]
+        /*[Fact]
         public void Booking_RedirectToIndex_WhenBookingIsInvalid()
         {
             // Arrange
@@ -54,7 +54,7 @@ namespace UnitTests
             var redirectToActionResult = Assert.IsType<RedirectToActionResult>(result);
             Assert.NotEmpty(redirectToActionResult.RouteValues);
             Assert.Equal("Index", redirectToActionResult.ActionName);
-        }
+        }*/
 
         [Fact]
         public void Booking_RedirectToEdit_WhenBookingIsValid()
