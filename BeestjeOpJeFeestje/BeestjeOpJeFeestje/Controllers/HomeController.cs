@@ -8,15 +8,12 @@ namespace BeestjeOpJeFeestje.Controllers
 {
 	public class HomeController : Controller
 	{
-		private readonly ILogger<HomeController> _logger;
-
-		public HomeController(ILogger<HomeController> logger)
-		{
-			_logger = logger;
-		}
 
 		public IActionResult Index(Booking booking)
-		{
+        {
+
+            if (booking == null) { return RedirectToActionPermanent(nameof(Index), new Booking()); }
+
 			if (booking.Date == DateTime.MinValue)
 			{
 				booking.Date = DateTime.Today;

@@ -10,6 +10,7 @@ using FakeItEasy;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.StaticFiles.Infrastructure;
+using Microsoft.EntityFrameworkCore;
 using Xunit;
 
 namespace UnitTests
@@ -24,7 +25,6 @@ namespace UnitTests
             var env = A.Fake<IWebHostEnvironment>();
 
             A.CallTo(() => animals.GetAll()).Returns(GetTestAnimals());
-            A.CallTo(() => env.WebRootPath).Returns(Directory.GetCurrentDirectory() + "\\wwwroot");
 
             var controller = new AnimalsController(animals, env);
 
@@ -35,7 +35,26 @@ namespace UnitTests
             var viewResult = Assert.IsType<ViewResult>(result);
             var model = Assert.IsAssignableFrom<List<Animal>>(viewResult.ViewData.Model);
             Assert.Equal(3, model.Count);
+        }
 
+        [Fact]
+        public async Task Index_ReturnsNotFound_WhenListIsNull()
+        {
+            //Arrange
+            var repository = A.Fake<IRepository<Animal>>();
+            var env = A.Fake<IWebHostEnvironment>();
+
+            List<Animal> animals = null;
+
+            A.CallTo(() => repository.GetAll()).Returns(animals);
+
+            var controller = new AnimalsController(repository, env);
+
+            //Act
+            var result = await controller.Index();
+
+            //Assert
+            Assert.IsType<NotFoundResult>(result);
         }
 
         [Fact]
@@ -118,6 +137,28 @@ namespace UnitTests
         }
 
         [Fact]
+        public async Task Edit_ReturnsNotFoundResult_WhenDoesNotExist()
+        {
+            //Arrange
+            var repository = A.Fake<IRepository<Animal>>();
+            var env = A.Fake<IWebHostEnvironment>();
+
+            var controller = new AnimalsController(repository, env);
+            var animal = GetAnimal();
+
+            A.CallTo(() => repository.Update(A<Animal>.Ignored)).Throws(new DbUpdateConcurrencyException());
+            A.CallTo(() => repository.Exists(A<int>.Ignored)).Returns(false);
+
+            //Act
+            var result = await controller.Edit(1, animal);
+
+            //Assert
+            A.CallTo(() => repository.Exists(A<int>.Ignored)).MustHaveHappened();
+            Assert.IsType<NotFoundResult>(result);
+
+        }
+
+        [Fact]
         public async Task Edit_EditsAnimalAndReturnsToIndex_WhenAnimalAndIdAreValid()
         {
             //Arrange
@@ -140,6 +181,66 @@ namespace UnitTests
         }
 
         [Fact]
+        public async Task EditGet_ReturnNotFoundException_WhenAnimalIdIsNull()
+        {
+            //Arrange
+            var repository = A.Fake<IRepository<Animal>>();
+            var env = A.Fake<IWebHostEnvironment>();
+
+            var controller = new AnimalsController(repository, env);
+
+            //Act
+            var result = await controller.Edit(null);
+
+            //Assert
+            Assert.IsType<NotFoundResult>(result);
+
+        }
+
+        [Fact]
+        public async Task EditGet_ReturnNotFoundException_WhenAnimalsIsNull()
+        {
+            // Arrange
+            var repository = A.Fake<IRepository<Animal>>();
+            var env = A.Fake<IWebHostEnvironment>();
+
+            var controller = new AnimalsController(repository, env);
+            Animal animal = null;
+
+            A.CallTo(() => repository.Get(A<int>.Ignored)).Returns(animal);
+
+            //Act
+            var result = await controller.Edit(1);
+
+            //Assert
+            A.CallTo(() => repository.Get(A<int>.Ignored)).MustHaveHappened();
+            Assert.IsType<NotFoundResult>(result);
+
+        }
+
+        [Fact]
+        public async Task EditGet_ReturnsViewData_WhenAnimalIsValid()
+        {
+            // Arrange
+            var repository = A.Fake<IRepository<Animal>>();
+            var env = A.Fake<IWebHostEnvironment>();
+
+            var controller = new AnimalsController(repository, env);
+            Animal animal = GetAnimal();
+
+            A.CallTo(() => repository.Get(A<int>.Ignored)).Returns(animal);
+
+            //Act
+            var result = await controller.Edit(1);
+
+            //Assert
+            A.CallTo(() => repository.Get(A<int>.Ignored)).MustHaveHappened();
+            var viewResult = Assert.IsType<ViewResult>(result);
+            Assert.IsType<Animal>(viewResult.Model);
+
+        }
+
+        [Fact]
         public async Task Delete_ReturnNotFoundResult_WhenIdIsNull()
         {
             // Arrange
@@ -157,7 +258,7 @@ namespace UnitTests
 
 
         [Fact]
-        public async Task Delete_AnimalReturnsNull_WhenIdIsInvalid()
+        public async Task Delete_ReturnsNotFoundResult_WhenAnimalsReturnsNull()
         {
             // Arrange
             var repository = A.Fake<IRepository<Animal>>();
@@ -196,6 +297,111 @@ namespace UnitTests
 
             Assert.NotNull(viewResult.Model);
             Assert.IsType<Animal>(viewResult.Model);
+        }
+
+        [Fact]
+        public async Task Details_ReturnsNotFound_WhenIdIsNull()
+        {
+            //Arrange
+            var repository = A.Fake<IRepository<Animal>>();
+            var env = A.Fake<IWebHostEnvironment>();
+
+            var controller = new AnimalsController(repository, env);
+            
+            //Act
+            var result = await controller.Details(null);
+
+            //Assert
+            Assert.IsType<NotFoundResult>(result);
+        }
+
+        [Fact]
+        public async Task Details_ReturnsNotFound_WhenAnimalsReturnsNull()
+        {
+            // Arrange
+            var repository = A.Fake<IRepository<Animal>>();
+            var env = A.Fake<IWebHostEnvironment>();
+
+            var controller = new AnimalsController(repository, env);
+            Animal animal = null;
+
+            A.CallTo(() => repository.Get(A<int>.Ignored)).Returns(animal);
+
+            //Act
+            var result = await controller.Details(-1);
+
+            //Assert
+            A.CallTo(() => repository.Get(A<int>.Ignored)).MustHaveHappened();
+            Assert.IsType<NotFoundResult>(result);
+        }
+
+        [Fact]
+        public async Task Details_AnimalReturnsToIndex_WhenIdIsValid()
+        {
+            // Arrange
+            var repository = A.Fake<IRepository<Animal>>();
+            var env = A.Fake<IWebHostEnvironment>();
+
+            var controller = new AnimalsController(repository, env);
+            A.CallTo(() => repository.Get(A<int>.That.IsEqualTo(1))).Returns(GetAnimal());
+
+            //Act
+            var result = await controller.Details(1);
+
+            //Assert
+            A.CallTo(() => repository.Get(A<int>.Ignored)).MustHaveHappened();
+
+            var viewResult = Assert.IsType<ViewResult>(result);
+
+            Assert.NotNull(viewResult.Model);
+            Assert.IsType<Animal>(viewResult.Model);
+        }
+
+        [Fact]
+        public async Task DeleteConfirmed_ReturnsIndex_WhenAnimalsIsNull()
+        {
+            // Arrange
+            var repository = A.Fake<IRepository<Animal>>();
+            var env = A.Fake<IWebHostEnvironment>();
+
+            var controller = new AnimalsController(repository, env);
+
+            Animal animal = null;
+
+            A.CallTo(() => repository.Get(1)).Returns(animal);
+            
+            //Act
+            var result = await controller.DeleteConfirmed(1);
+
+            //Assert
+            A.CallTo(() => repository.Delete(animal)).MustNotHaveHappened();
+
+            var redirectToActionResult = Assert.IsType<RedirectToActionResult>(result);
+            Assert.Null(redirectToActionResult.ControllerName);
+            Assert.Equal("Index", redirectToActionResult.ActionName);
+        }
+
+        [Fact]
+        public async Task DeleteConfirmed_DeleteAnimalsAndReturnsIndex_WhenAnimalIsValid()
+        {
+            // Arrange
+            var repository = A.Fake<IRepository<Animal>>();
+            var env = A.Fake<IWebHostEnvironment>();
+
+            var controller = new AnimalsController(repository, env);
+            Animal animal = GetAnimal();
+
+            A.CallTo(() => repository.Get(1)).Returns(animal);
+
+            //Act
+            var result = await controller.DeleteConfirmed(1);
+
+            //Assert
+            A.CallTo(() => repository.Delete(animal)).MustHaveHappened();
+
+            var redirectToActionResult = Assert.IsType<RedirectToActionResult>(result);
+            Assert.Null(redirectToActionResult.ControllerName);
+            Assert.Equal("Index", redirectToActionResult.ActionName);
         }
 
         private Animal GetAnimal()

@@ -34,9 +34,13 @@ namespace BeestjeOpJeFeestje.Controllers
 
             if (animals == null) return NotFound();
 
+            List<Accessories> accessories = await _accessoriesRepository.GetAll();
+
+            if (accessories == null) return NotFound();
+
 			ViewData.Add("animals", animals);
 
-			return View(await _accessoriesRepository.GetAll());
+			return View(accessories);
 		}
 
 		// GET: Accessories/Details/5
@@ -169,10 +173,9 @@ namespace BeestjeOpJeFeestje.Controllers
 				{
 					return NotFound();
 				}
-				else
-				{
-					throw;
-				}
+
+                throw;
+				
 			}
 
 			return RedirectToAction(nameof(Index));
@@ -201,7 +204,12 @@ namespace BeestjeOpJeFeestje.Controllers
 		public async Task<IActionResult> DeleteConfirmed(int id)
 		{
 			Accessories accessories = await _accessoriesRepository.Get(id);
-			await _accessoriesRepository.Delete(accessories);
+            
+            if (accessories != null)
+            {
+                await _accessoriesRepository.Delete(accessories);
+			}
+
 			return RedirectToAction(nameof(Index));
 		}
 	}
