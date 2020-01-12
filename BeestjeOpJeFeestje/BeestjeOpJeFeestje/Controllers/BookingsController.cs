@@ -1,8 +1,11 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using BeestjeOpJeFeestje.Models;
 using BeestjeOpJeFeestje.Models.Repositories;
+using Microsoft.AspNetCore.Mvc.ModelBinding;
+using Microsoft.EntityFrameworkCore;
 
 namespace BeestjeOpJeFeestje.Controllers
 {
@@ -42,6 +45,11 @@ namespace BeestjeOpJeFeestje.Controllers
 		[ValidateAntiForgeryToken]
 		public async Task<IActionResult> AnimalsSelected(BookingProcess data)
 		{
+			if (!ModelState.IsValid)
+			{
+				return RedirectToAction(nameof(AnimalSelection), data.Booking);
+			}
+
 			Booking booking = await ((BookingDBRepository) _bookingRepository).GetFromDate(data.Booking.Date);
 			List<Animal> selectedAnimals = new List<Animal>();
 			foreach (Animal animal in data.Animals)
