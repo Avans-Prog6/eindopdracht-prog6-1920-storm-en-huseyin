@@ -3,7 +3,6 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using BeestjeOpJeFeestje.Models;
 using BeestjeOpJeFeestje.Models.Repositories;
-using BeestjeOpJeFeestje.ViewComponents.Data;
 
 namespace BeestjeOpJeFeestje.Controllers
 {

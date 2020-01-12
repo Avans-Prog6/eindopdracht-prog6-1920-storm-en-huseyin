@@ -27,6 +27,11 @@ namespace BeestjeOpJeFeestje.Models.Repositories
             return await _context.Animal.Include(e => e.Accessories).ToListAsync();
         }
 
+        public async Task<List<Animal>> Find(params int[] keyValues)
+        {
+	        return await _context.Animal.Include(e => e.Accessories).Where(p => keyValues.Contains(p.ID)).ToListAsync();
+        }
+
         public async Task Create(Animal type)
         {
             _context.Animal.Add(type);

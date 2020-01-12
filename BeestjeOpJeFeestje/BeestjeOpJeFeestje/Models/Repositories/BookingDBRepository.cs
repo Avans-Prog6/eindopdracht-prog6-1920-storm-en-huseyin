@@ -26,6 +26,11 @@ namespace BeestjeOpJeFeestje.Models.Repositories
 			return await _context.Booking.ToListAsync();
 		}
 
+		public Task<List<Booking>> Find(params int[] keyValues)
+		{
+			throw new NotImplementedException();
+		}
+
 		public async Task Create(Booking type)
 		{
 			_context.Booking.Add(type);

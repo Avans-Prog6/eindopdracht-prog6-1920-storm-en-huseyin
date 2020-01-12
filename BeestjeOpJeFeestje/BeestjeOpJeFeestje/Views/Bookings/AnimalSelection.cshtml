@@ -1,4 +1,4 @@
-﻿@model BeestjeOpJeFeestje.ViewComponents.Data.BookingProcessData
+﻿@model BeestjeOpJeFeestje.Models.BookingProcessData
 
 @{
     ViewData["Title"] = "Edit";
@@ -16,6 +16,7 @@
         @if (Model.Booking.BookingState == BookingState.Accessories)
         {
             <div>Animal Accessories</div>
+            @await Component.InvokeAsync("AccessoriesSelection", @Model)
         }
     </div>
     <div class="col col-3">

@@ -8,6 +8,7 @@ namespace BeestjeOpJeFeestje.Models.Repositories
     {
         Task<T> Get(int? ID);
         Task<List<T>> GetAll();
+        Task<List<T>> Find(params int[] keyValues);
         Task Create(T type);
         Task Update(T type);
         Task Delete(T type);

@@ -4,7 +4,6 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using BeestjeOpJeFeestje.Models;
-using BeestjeOpJeFeestje.ViewComponents.Data;
 
 namespace BeestjeOpJeFeestje.Controllers
 {
