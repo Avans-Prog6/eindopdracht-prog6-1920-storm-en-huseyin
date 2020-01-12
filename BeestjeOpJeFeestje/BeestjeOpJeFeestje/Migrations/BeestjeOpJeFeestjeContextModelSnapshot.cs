@@ -135,6 +135,62 @@ namespace BeestjeOpJeFeestje.Migrations
                             Name = "Hengels",
                             PicturePath = "/images/accessories/Picture 11.png",
                             Price = 25.0
+                        },
+                        new
+                        {
+                            ID = 12,
+                            AnimalId = 1,
+                            Name = "Banaan",
+                            PicturePath = "/images/accessories/Banaan.jpg",
+                            Price = 25.0
+                        },
+                        new
+                        {
+                            ID = 13,
+                            AnimalId = 3,
+                            Name = "Zadel",
+                            PicturePath = "/images/accessories/Zadel.jpg",
+                            Price = 50.0
+                        },
+                        new
+                        {
+                            ID = 14,
+                            AnimalId = 4,
+                            Name = "Krukje",
+                            PicturePath = "/images/accessories/Krukje.png",
+                            Price = 25.0
+                        },
+                        new
+                        {
+                            ID = 15,
+                            AnimalId = 4,
+                            Name = "Zweep",
+                            PicturePath = "/images/accessories/Zweep.png",
+                            Price = 25.0
+                        },
+                        new
+                        {
+                            ID = 16,
+                            AnimalId = 10,
+                            Name = "Dansschoenen",
+                            PicturePath = "/images/accessories/Dansschoenen.jpg",
+                            Price = 25.0
+                        },
+                        new
+                        {
+                            ID = 17,
+                            AnimalId = 5,
+                            Name = "Bal",
+                            PicturePath = "/images/accessories/Bal.jpg",
+                            Price = 60.0
+                        },
+                        new
+                        {
+                            ID = 18,
+                            AnimalId = 12,
+                            Name = "Bal",
+                            PicturePath = "/images/accessories/Bal.jpg",
+                            Price = 40.0
                         });
                 });
 
@@ -241,7 +297,7 @@ namespace BeestjeOpJeFeestje.Migrations
                         new
                         {
                             ID = 10,
-                            Name = "Pinguin",
+                            Name = "Pinguïn",
                             PicturePath = "/images/animals/pingwing.png",
                             Price = 40.0,
                             Type = "Sneeuw"
@@ -423,10 +479,10 @@ namespace BeestjeOpJeFeestje.Migrations
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<string>("Address")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Email")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("FirstName")
@@ -438,6 +494,9 @@ namespace BeestjeOpJeFeestje.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("MiddleName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("PhoneNumber")
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("ID");

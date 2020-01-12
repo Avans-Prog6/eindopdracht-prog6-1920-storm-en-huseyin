@@ -108,13 +108,17 @@ namespace BeestjeOpJeFeestje.Controllers
 		public async Task<IActionResult> AccessoriesSelected(BookingProcess data)
 		{
 			List<Accessories> accessories = new List<Accessories>();
-			foreach (Accessories dataAccessory in data.Accessories)
+			if (data.Accessories != null)
 			{
-				if (dataAccessory.BookingIsSelected)
+				foreach (Accessories dataAccessory in data.Accessories)
 				{
-					accessories.Add(dataAccessory);
+					if (dataAccessory.BookingIsSelected)
+					{
+						accessories.Add(dataAccessory);
+					}
 				}
 			}
+			
 
 			data.Accessories = accessories;
 			data.Booking.BookingState = BookingState.Details;

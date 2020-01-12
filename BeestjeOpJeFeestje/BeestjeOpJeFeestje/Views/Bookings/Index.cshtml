@@ -31,7 +31,10 @@
                 @Html.DisplayFor(modelItem => item.TotalPrice)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.ClientInfo.Email)
+                @Html.DisplayFor(modelItem => item.ClientInfo.FirstName)
+                @Html.DisplayFor(modelItem => item.ClientInfo.LastName)
+                <br/>
+                @Html.DisplayFor(modelItem => item.ClientInfo.Address)
             </td>
             <td>
                 <a asp-controller="Bookings" asp-action="Details" asp-route-id="@item.ID">Details</a> |

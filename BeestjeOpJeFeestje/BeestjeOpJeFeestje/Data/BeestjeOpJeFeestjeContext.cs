@@ -137,7 +137,7 @@ namespace BeestjeOpJeFeestje.Data
                 new Animal()
                 {
                     ID = 10,
-                    Name = "Pinguin",
+                    Name = "Pinguïn",
                     Type = AnimalTypes.Sneeuw,
                     Price = 40.00,
                     PicturePath = "/images/animals/pingwing.png"
@@ -268,7 +268,63 @@ namespace BeestjeOpJeFeestje.Data
 		            PicturePath = "/images/accessories/Picture 11.png",
 		            Price = 25.0,
                     AnimalId = 9
-                });
+                },
+	            new Accessories
+	            {
+		            ID = 12,
+		            Name = "Banaan",
+		            PicturePath = "/images/accessories/Banaan.jpg",
+		            Price = 25.0,
+		            AnimalId = 1
+	            },
+	            new Accessories
+	            {
+		            ID = 13,
+		            Name = "Zadel",
+		            PicturePath = "/images/accessories/Zadel.jpg",
+		            Price = 50.0,
+		            AnimalId = 3
+	            },
+	            new Accessories
+	            {
+		            ID = 14,
+		            Name = "Krukje",
+		            PicturePath = "/images/accessories/Krukje.png",
+		            Price = 25.0,
+		            AnimalId = 4
+	            },
+	            new Accessories
+	            {
+		            ID = 15,
+		            Name = "Zweep",
+		            PicturePath = "/images/accessories/Zweep.png",
+		            Price = 25.0,
+		            AnimalId = 4
+	            },
+	            new Accessories
+	            {
+		            ID = 16,
+		            Name = "Dansschoenen",
+		            PicturePath = "/images/accessories/Dansschoenen.jpg",
+		            Price = 25.0,
+		            AnimalId = 10
+	            },
+	            new Accessories
+	            {
+		            ID = 17,
+		            Name = "Bal",
+		            PicturePath = "/images/accessories/Bal.jpg",
+		            Price = 60.0,
+		            AnimalId = 5
+	            },
+	            new Accessories
+	            {
+		            ID = 18,
+		            Name = "Bal",
+		            PicturePath = "/images/accessories/Bal.jpg",
+		            Price = 40.0,
+		            AnimalId = 12
+	            });
 
             #endregion
 

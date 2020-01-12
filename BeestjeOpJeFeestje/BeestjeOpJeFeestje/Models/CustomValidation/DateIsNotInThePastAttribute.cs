@@ -4,7 +4,7 @@ using BeestjeOpJeFeestje.Models.Repositories;
 
 namespace BeestjeOpJeFeestje.Models.CustomValidation
 {
-	public class DateIsNotBookedAttribute : ValidationAttribute
+	public class DateIsNotInThePastAttribute : ValidationAttribute
 	{
 		public string GetErrorMessage() => "The chosen date may not be in the past";
 

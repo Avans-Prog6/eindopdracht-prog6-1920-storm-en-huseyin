@@ -32,8 +32,9 @@ namespace BeestjeOpJeFeestje.Migrations
                     FirstName = table.Column<string>(nullable: false),
                     MiddleName = table.Column<string>(nullable: true),
                     LastName = table.Column<string>(nullable: false),
-                    Address = table.Column<string>(nullable: true),
-                    Email = table.Column<string>(nullable: false)
+                    Address = table.Column<string>(nullable: false),
+                    Email = table.Column<string>(nullable: true),
+                    PhoneNumber = table.Column<string>(nullable: true)
                 },
                 constraints: table =>
                 {
@@ -214,7 +215,7 @@ namespace BeestjeOpJeFeestje.Migrations
                     { 7, "Koe", "/images/animals/koe.png", 1.75, "Boerderij" },
                     { 8, "Eend", "/images/animals/duck.png", 0.75, "Boerderij" },
                     { 9, "Kuiken", "/images/animals/kuiken.png", 3.75, "Boerderij" },
-                    { 10, "Pinguin", "/images/animals/pingwing.png", 40.0, "Sneeuw" },
+                    { 10, "Pinguïn", "/images/animals/pingwing.png", 40.0, "Sneeuw" },
                     { 11, "Ijsbeer", "/images/animals/ijsbeer.png", 11.75, "Sneeuw" },
                     { 12, "Zeehond", "/images/animals/zeehond.png", 23.75, "Sneeuw" },
                     { 13, "Kameel", "/images/animals/kameel.gif", 55.200000000000003, "Woestijn" },
@@ -223,8 +224,8 @@ namespace BeestjeOpJeFeestje.Migrations
 
             migrationBuilder.InsertData(
                 table: "ClientInfo",
-                columns: new[] { "ID", "Address", "Email", "FirstName", "LastName", "MiddleName" },
-                values: new object[] { 1, "Prins Mauritsstraat 11", "huseyincaliskan32@gmail.com", "Huseyin", "Caliskan", null });
+                columns: new[] { "ID", "Address", "Email", "FirstName", "LastName", "MiddleName", "PhoneNumber" },
+                values: new object[] { 1, "Prins Mauritsstraat 11", "huseyincaliskan32@gmail.com", "Huseyin", "Caliskan", null, null });
 
             migrationBuilder.InsertData(
                 table: "Accessories",
@@ -232,16 +233,23 @@ namespace BeestjeOpJeFeestje.Migrations
                 values: new object[,]
                 {
                     { 1, 1, "Strikje", "/images/accessories/Picture 1.png", 15.0 },
-                    { 2, 1, "Strikje Rood", "/images/accessories/Picture 2.png", 15.0 },
-                    { 3, 2, "Hoge Hoed", "/images/accessories/Picture 3.png", 30.0 },
-                    { 4, 3, "Kerstmuts", "/images/accessories/Picture 4.png", 25.0 },
-                    { 5, 4, "Maracas", "/images/accessories/Picture 5.png", 10.0 },
-                    { 6, 5, "Hamer", "/images/accessories/Picture 6.png", 3.0 },
-                    { 7, 6, "Vleugels", "/images/accessories/Picture 7.png", 40.0 },
-                    { 8, 7, "Afro Haar", "/images/accessories/Picture 8.png", 30.0 },
-                    { 9, 8, "Wandelstok", "/images/accessories/Picture 9.png", 15.0 },
+                    { 16, 10, "Dansschoenen", "/images/accessories/Dansschoenen.jpg", 25.0 },
+                    { 11, 9, "Hengels", "/images/accessories/Picture 11.png", 25.0 },
                     { 10, 9, "Bot", "/images/accessories/Picture 10.png", 1.0 },
-                    { 11, 9, "Hengels", "/images/accessories/Picture 11.png", 25.0 }
+                    { 9, 8, "Wandelstok", "/images/accessories/Picture 9.png", 15.0 },
+                    { 8, 7, "Afro Haar", "/images/accessories/Picture 8.png", 30.0 },
+                    { 7, 6, "Vleugels", "/images/accessories/Picture 7.png", 40.0 },
+                    { 17, 5, "Bal", "/images/accessories/Bal.jpg", 60.0 },
+                    { 18, 12, "Bal", "/images/accessories/Bal.jpg", 40.0 },
+                    { 6, 5, "Hamer", "/images/accessories/Picture 6.png", 3.0 },
+                    { 14, 4, "Krukje", "/images/accessories/Krukje.png", 25.0 },
+                    { 5, 4, "Maracas", "/images/accessories/Picture 5.png", 10.0 },
+                    { 13, 3, "Zadel", "/images/accessories/Zadel.jpg", 50.0 },
+                    { 4, 3, "Kerstmuts", "/images/accessories/Picture 4.png", 25.0 },
+                    { 3, 2, "Hoge Hoed", "/images/accessories/Picture 3.png", 30.0 },
+                    { 12, 1, "Banaan", "/images/accessories/Banaan.jpg", 25.0 },
+                    { 2, 1, "Strikje Rood", "/images/accessories/Picture 2.png", 15.0 },
+                    { 15, 4, "Zweep", "/images/accessories/Zweep.png", 25.0 }
                 });
 
             migrationBuilder.InsertData(

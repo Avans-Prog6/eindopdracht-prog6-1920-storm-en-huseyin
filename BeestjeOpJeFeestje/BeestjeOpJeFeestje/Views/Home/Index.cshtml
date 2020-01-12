@@ -10,30 +10,35 @@
         <div class="row" style="background-color: gray">
             <div class="card text-left" style="width: 100%; border-style: none">
                 <div class="card-body">
-                    <h2 class="card-title">Boek een Beestje</h2>
-                    <p class="card-text">Welkom bij 'Beestje op een feestje(BOEF). Hier kun je een of meerdere van onze dieren boeken voor op jou feestje! Kies de dag van je feestje en volg de stappen om je beestje te boeken'</p>
+                    <div class="container-fluid">
+                        <div class="row align-items-center">
+                            <div class="col">
+                                <h2 class="card-title">Boek een Beestje</h2>
+                                <p class="card-text">Welkom bij 'Beestje op een feestje(BOEF). Hier kun je een of meerdere van onze dieren boeken voor op jou feestje! Kies de dag van je feestje en volg de stappen om je beestje te boeken'</p>
+                            </div>
+                            <div class="col">
+                                <img src="~/images/field.png" style="width: 100%"/>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
         <div class="row">
             <div class="col">
-                <div class="row">
-                    <form asp-action="Booking">
-                        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-                        <div class="form-group">
-                            <input asp-for="@Model.ID" type="hidden"/>
-                            <label asp-for="@Model.Date" class="control-label"></label>
-                            <input asp-for="@Model.Date" class="form-control"/>
-                            <span asp-validation-for="@Model.Date" class="text-danger"></span>
-                        </div>
+                <form asp-action="Booking">
+                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                    <div class="form-group">
+                        <input asp-for="@Model.ID" type="hidden"/>
+                        <label asp-for="@Model.Date" class="control-label"></label>
+                        <input asp-for="@Model.Date" class="form-control"/>
+                        <span asp-validation-for="@Model.Date" class="text-danger"></span>
+                    </div>
 
-                        <div id="dateButton" class="form-group">
-                            <input type="submit" value="Create" class="btn btn-primary" />
-                        </div>
-                    </form>
-                </div>
-                <div class="row">
-                </div>
+                    <div id="dateButton" class="form-group">
+                        <input type="submit" value="Create" class="btn btn-primary"/>
+                    </div>
+                </form>
             </div>
         </div>
     </div>
@@ -42,5 +47,5 @@
 </div>
 
 @section Scripts {
-    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    @{ await Html.RenderPartialAsync("_ValidationScriptsPartial"); }
 }

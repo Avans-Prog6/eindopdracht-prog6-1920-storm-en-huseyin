@@ -12,7 +12,7 @@ namespace BeestjeOpJeFeestje.Models.CustomValidation
 		public IAttributeAdapter GetAttributeAdapter(ValidationAttribute attribute,
 			IStringLocalizer stringLocalizer)
 		{
-			if (attribute is DateIsNotBookedAttribute dateAttribute)
+			if (attribute is DateIsNotInThePastAttribute dateAttribute)
 			{
 				return new DateIsNotBookedAttributeProvider(dateAttribute, stringLocalizer);
 			}

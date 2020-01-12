@@ -9,9 +9,9 @@ using Microsoft.Extensions.Localization;
 
 namespace BeestjeOpJeFeestje.Models.CustomValidation
 {
-	public class DateIsNotBookedAttributeProvider : AttributeAdapterBase<DateIsNotBookedAttribute>
+	public class DateIsNotBookedAttributeProvider : AttributeAdapterBase<DateIsNotInThePastAttribute>
 	{
-		public DateIsNotBookedAttributeProvider(DateIsNotBookedAttribute attribute, IStringLocalizer stringLocalizer) : base(attribute, stringLocalizer)
+		public DateIsNotBookedAttributeProvider(DateIsNotInThePastAttribute attribute, IStringLocalizer stringLocalizer) : base(attribute, stringLocalizer)
 		{
 		}
 

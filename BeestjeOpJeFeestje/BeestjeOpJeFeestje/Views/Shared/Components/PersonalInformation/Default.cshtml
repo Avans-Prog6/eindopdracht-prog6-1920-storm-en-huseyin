@@ -10,13 +10,13 @@
         <form asp-controller="Bookings" asp-action="PersonalInformation">
             @for (int i = 0; i < @Model.Accessories.Count; i++)
             {
-                <input asp-for="@Model.Accessories[i].ID" type="hidden" value="@Model.Accessories[i].ID"/>
-                <input asp-for="@Model.Accessories[i].Name" type="hidden" value="@Model.Accessories[i].Name"/>
+                <input asp-for="@Model.Accessories[i].ID" type="hidden" value="@Model.Accessories[i].ID" />
+                <input asp-for="@Model.Accessories[i].Name" type="hidden" value="@Model.Accessories[i].Name" />
             }
             @for (int i = 0; i < @Model.Animals.Count; i++)
             {
-                <input asp-for="@Model.Animals[i].ID" type="hidden" value="@Model.Animals[i].ID"/>
-                <input asp-for="@Model.Animals[i].PicturePath" type="hidden" value="@Model.Animals[i].PicturePath"/>
+                <input asp-for="@Model.Animals[i].ID" type="hidden" value="@Model.Animals[i].ID" />
+                <input asp-for="@Model.Animals[i].PicturePath" type="hidden" value="@Model.Animals[i].PicturePath" />
             }
 
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
@@ -45,6 +45,11 @@
                 <label asp-for="@Model.ClientInfo.Email" class="control-label"></label>
                 <input asp-for="@Model.ClientInfo.Email" class="form-control" />
                 <span asp-validation-for="@Model.ClientInfo.Email" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="@Model.ClientInfo.PhoneNumber" class="control-label"></label>
+                <input asp-for="@Model.ClientInfo.PhoneNumber" class="form-control" />
+                <span asp-validation-for="@Model.ClientInfo.PhoneNumber" class="text-danger"></span>
             </div>
             <div class="form-group" style="padding-top: 10px">
                 <input type="submit" value="Create" class="btn btn-primary" />

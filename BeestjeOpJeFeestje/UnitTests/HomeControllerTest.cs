@@ -1,8 +1,10 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using BeestjeOpJeFeestje.Controllers;
 using BeestjeOpJeFeestje.Models;
+using BeestjeOpJeFeestje.Models.CustomValidation;
 using FakeItEasy;
 using Microsoft.AspNetCore.Mvc;
 using Xunit;
@@ -70,6 +72,5 @@ namespace UnitTests
             Assert.Equal("Bookings", redirectToActionResult.ControllerName);
             Assert.Equal("AnimalSelection", redirectToActionResult.ActionName);
         }
-
     }
 }

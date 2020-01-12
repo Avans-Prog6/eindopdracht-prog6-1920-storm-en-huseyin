@@ -37,7 +37,7 @@
             <form asp-controller="Bookings" asp-action="ConfirmBooking">
                 <input asp-for="@Model.ClientInfoId" type="hidden"/>
                 <input asp-for="@Model.ClientInfo.Email" type="hidden"/>
-                <input asp-for="@Model.ID"/>
+                <input asp-for="@Model.ID" type="hidden"/>
 
                 <div class="form-group" style="padding-top: 10px">
                     <input type="submit" value="Confirm" class="btn btn-primary"/>
