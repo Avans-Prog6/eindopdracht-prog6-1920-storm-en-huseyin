@@ -41,20 +41,26 @@
                 </div>
                 <span asp-validation-for="PicturePath" class="text-danger"></span>
             </div>
-
-
-
             <script>
                 $(document).ready(function () {
                     $(".target").change(function (e) {
                         $(".target option:selected").each(function () {
 
                             if ($(this).text() !== "Please select an image") {
-                                $("#EenImage").attr("src", "/images/accessories/" + $(this).text() + ".png");
+                                $("#AccessoriesImage").attr("src", "/images/accessories/" + $(this).text() + ".png");
                             } else {
-                                $("#EenImage").attr("src", "");
+                                $("#AccessoriesImage").attr("src", "");
                             }
                         });
+                    });
+
+                    $(".target option:selected").each(function () {
+
+                        if ($(this).text() !== "Please select an image") {
+                            $("#AccessoriesImage").attr("src", "/images/accessories/" + $(this).text() + ".png");
+                        } else {
+                            $("#AccessoriesImage").attr("src", "");
+                        }
                     });
                 });
             </script>

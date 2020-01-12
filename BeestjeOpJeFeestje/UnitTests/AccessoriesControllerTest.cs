@@ -10,6 +10,7 @@ using BeestjeOpJeFeestje.Models.Repositories;
 using FakeItEasy;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Xunit;
 
 namespace UnitTests
@@ -24,6 +25,7 @@ namespace UnitTests
             var animalsRepo = A.Fake<IRepository<Animal>>();
             var env = A.Fake<IWebHostEnvironment>();
 
+            A.CallTo(() => animalsRepo.GetAll()).Returns(GetTestAnimals());
             A.CallTo(() => accessoriesRepo.GetAll()).Returns(GetTestAccessories());
 
             var controller = new AccessoriesController(accessoriesRepo, animalsRepo, env);
@@ -36,6 +38,54 @@ namespace UnitTests
             var model = Assert.IsAssignableFrom<List<Accessories>>(viewResult.ViewData.Model);
             Assert.Equal(3, model.Count);
 
+        }
+
+        [Fact]
+        public async Task Index_ReturnsNotFound_WhenAnimalListIsNull()
+        {
+            //Arrange
+            var accessoriesRepo = A.Fake<IRepository<Accessories>>();
+            var animalsRepo = A.Fake<IRepository<Animal>>();
+            var env = A.Fake<IWebHostEnvironment>();
+
+            List<Animal> animals = null;
+
+            A.CallTo(() => animalsRepo.GetAll()).Returns(animals);
+
+            var controller = new AccessoriesController(accessoriesRepo, animalsRepo, env);
+
+            //Act
+            var result = await controller.Index();
+
+            //Assert
+            A.CallTo(() => animalsRepo.GetAll()).MustHaveHappened();
+            Assert.IsType<NotFoundResult>(result);
+        }
+
+
+        [Fact]
+        public async Task Index_ReturnsNotFound_WhenAccessoryListIsNull()
+        {
+            //Arrange
+            var accessoriesRepo = A.Fake<IRepository<Accessories>>();
+            var animalsRepo = A.Fake<IRepository<Animal>>();
+            var env = A.Fake<IWebHostEnvironment>();
+
+            List<Accessories> accessories = null;
+
+            A.CallTo(() => animalsRepo.GetAll()).Returns(GetTestAnimals());
+
+            A.CallTo(() => accessoriesRepo.GetAll()).Returns(accessories);
+
+            var controller = new AccessoriesController(accessoriesRepo, animalsRepo, env);
+
+            //Act
+            var result = await controller.Index();
+
+            //Assert
+            A.CallTo(() => animalsRepo.GetAll()).MustHaveHappened();
+            A.CallTo(() => accessoriesRepo.GetAll()).MustHaveHappened();
+            Assert.IsType<NotFoundResult>(result);
         }
 
         [Fact]
@@ -152,10 +202,10 @@ namespace UnitTests
             var env = A.Fake<IWebHostEnvironment>();
 
             var controller = new AccessoriesController(accessoriesRepo, animalsRepo, env);
-            var animal = GetAccessory();
+            var accessory = GetAccessory();
 
             //Act
-            var result = await controller.Edit(animal.ID, animal);
+            var result = await controller.Edit(accessory.ID, accessory);
 
             //Assert
             A.CallTo(() => accessoriesRepo.Update(A<Accessories>.Ignored)).MustHaveHappened();
@@ -164,6 +214,155 @@ namespace UnitTests
             Assert.Null(redirectToActionResult.ControllerName);
             Assert.Equal("Index", redirectToActionResult.ActionName);
 
+        }
+
+        [Fact]
+        public async Task Edit_ReturnsNotFoundResult_WhenDoesNotExist()
+        {
+            //Arrange
+            var accessoriesRepo = A.Fake<IRepository<Accessories>>();
+            var animalsRepo = A.Fake<IRepository<Animal>>();
+            var env = A.Fake<IWebHostEnvironment>();
+
+            var controller = new AccessoriesController(accessoriesRepo, animalsRepo, env);
+            var accessory = GetAccessory();
+
+            A.CallTo(() => accessoriesRepo.Update(A<Accessories>.Ignored)).Throws(new DbUpdateConcurrencyException());
+            A.CallTo(() => accessoriesRepo.Exists(A<int>.Ignored)).Returns(false);
+
+            //Act
+            var result = await controller.Edit(4, accessory);
+
+            //Assert
+            A.CallTo(() => accessoriesRepo.Exists(A<int>.Ignored)).MustHaveHappened();
+            Assert.IsType<NotFoundResult>(result);
+
+        }
+
+        [Fact]
+        public async Task EditGet_ReturnNotFoundException_WhenAnimalIdIsNull()
+        {
+            //Arrange
+            var accessoriesRepo = A.Fake<IRepository<Accessories>>();
+            var animalsRepo = A.Fake<IRepository<Animal>>();
+            var env = A.Fake<IWebHostEnvironment>();
+
+            var controller = new AccessoriesController(accessoriesRepo, animalsRepo, env);
+
+            //Act
+            var result = await controller.Edit(null);
+
+            //Assert
+            Assert.IsType<NotFoundResult>(result);
+
+        }
+
+        [Fact]
+        public async Task EditGet_ReturnNotFoundException_WhenAnimalsIsNull()
+        {
+            // Arrange
+            var accessoriesRepo = A.Fake<IRepository<Accessories>>();
+            var animalsRepo = A.Fake<IRepository<Animal>>();
+            var env = A.Fake<IWebHostEnvironment>();
+
+            var controller = new AccessoriesController(accessoriesRepo, animalsRepo, env);
+            Accessories accessories = null;
+
+            A.CallTo(() => accessoriesRepo.Get(A<int>.Ignored)).Returns(accessories);
+
+            //Act
+            var result = await controller.Edit(1);
+
+            //Assert
+            A.CallTo(() => accessoriesRepo.Get(A<int>.Ignored)).MustHaveHappened();
+            Assert.IsType<NotFoundResult>(result);
+        }
+
+        [Fact]
+        public async Task EditGet_ReturnsViewData_WhenAnimalIsValid()
+        {
+            // Arrange
+            var accessoriesRepo = A.Fake<IRepository<Accessories>>();
+            var animalsRepo = A.Fake<IRepository<Animal>>();
+            var env = A.Fake<IWebHostEnvironment>();
+
+            var controller = new AccessoriesController(accessoriesRepo, animalsRepo, env);
+            Accessories accessory = GetAccessory();
+
+            A.CallTo(() => accessoriesRepo.Get(A<int>.Ignored)).Returns(accessory);
+
+            //Act
+            var result = await controller.Edit(1);
+
+            //Assert
+            A.CallTo(() => accessoriesRepo.Get(A<int>.Ignored)).MustHaveHappened();
+            var viewResult = Assert.IsType<ViewResult>(result);
+            Assert.IsType<Accessories>(viewResult.Model);
+
+        }
+
+
+        [Fact]
+        public async Task Details_ReturnsNotFound_WhenIdIsNull()
+        {
+            //Arrange
+            var accessoriesRepo = A.Fake<IRepository<Accessories>>();
+            var animalsRepo = A.Fake<IRepository<Animal>>();
+            var env = A.Fake<IWebHostEnvironment>();
+
+            var controller = new AccessoriesController(accessoriesRepo, animalsRepo, env);
+
+            //Act
+            var result = await controller.Details(null);
+
+            //Assert
+            Assert.IsType<NotFoundResult>(result);
+        }
+
+        [Fact]
+        public async Task Details_ReturnsNotFound_WhenAnimalsReturnsNull()
+        {
+            // Arrange
+            var accessoriesRepo = A.Fake<IRepository<Accessories>>();
+            var animalsRepo = A.Fake<IRepository<Animal>>();
+            var env = A.Fake<IWebHostEnvironment>();
+
+            var controller = new AccessoriesController(accessoriesRepo, animalsRepo, env);
+
+            Accessories accessory = null;
+
+            A.CallTo(() => accessoriesRepo.Get(A<int>.Ignored)).Returns(accessory);
+
+            //Act
+            var result = await controller.Details(-1);
+
+            //Assert
+            A.CallTo(() => accessoriesRepo.Get(A<int>.Ignored)).MustHaveHappened();
+            Assert.IsType<NotFoundResult>(result);
+        }
+
+        [Fact]
+        public async Task Details_AnimalReturnsToIndex_WhenIdIsValid()
+        {
+            // Arrange
+            var accessoriesRepo = A.Fake<IRepository<Accessories>>();
+            var animalsRepo = A.Fake<IRepository<Animal>>();
+            var env = A.Fake<IWebHostEnvironment>();
+
+            var controller = new AccessoriesController(accessoriesRepo, animalsRepo, env);
+
+            A.CallTo(() => accessoriesRepo.Get(A<int>.That.IsEqualTo(1))).Returns(GetAccessory());
+
+            //Act
+            var result = await controller.Details(1);
+
+            //Assert
+            A.CallTo(() => accessoriesRepo.Get(A<int>.Ignored)).MustHaveHappened();
+
+            var viewResult = Assert.IsType<ViewResult>(result);
+
+            Assert.NotNull(viewResult.Model);
+            Assert.IsType<Accessories>(viewResult.Model);
         }
 
         [Fact]
@@ -227,6 +426,55 @@ namespace UnitTests
 
             Assert.NotNull(viewResult.Model);
             Assert.IsType<Accessories>(viewResult.Model);
+        }
+
+        [Fact]
+        public async Task DeleteConfirmed_ReturnsIndex_WhenAnimalsIsNull()
+        {
+            // Arrange
+            var accessoriesRepo = A.Fake<IRepository<Accessories>>();
+            var animalsRepo = A.Fake<IRepository<Animal>>();
+            var env = A.Fake<IWebHostEnvironment>();
+
+            var controller = new AccessoriesController(accessoriesRepo, animalsRepo, env);
+
+            Accessories accessory = null;
+
+            A.CallTo(() => accessoriesRepo.Get(1)).Returns(accessory);
+
+            //Act
+            var result = await controller.DeleteConfirmed(1);
+
+            //Assert
+            A.CallTo(() => accessoriesRepo.Delete(accessory)).MustNotHaveHappened();
+
+            var redirectToActionResult = Assert.IsType<RedirectToActionResult>(result);
+            Assert.Null(redirectToActionResult.ControllerName);
+            Assert.Equal("Index", redirectToActionResult.ActionName);
+        }
+
+        [Fact]
+        public async Task DeleteConfirmed_DeleteAnimalsAndReturnsIndex_WhenAnimalIsValid()
+        {
+            // Arrange
+            var accessoriesRepo = A.Fake<IRepository<Accessories>>();
+            var animalsRepo = A.Fake<IRepository<Animal>>();
+            var env = A.Fake<IWebHostEnvironment>();
+
+            var controller = new AccessoriesController(accessoriesRepo, animalsRepo, env);
+            Accessories accessory = GetAccessory();
+
+            A.CallTo(() => accessoriesRepo.Get(1)).Returns(accessory);
+
+            //Act
+            var result = await controller.DeleteConfirmed(1);
+
+            //Assert
+            A.CallTo(() => accessoriesRepo.Delete(accessory)).MustHaveHappened();
+
+            var redirectToActionResult = Assert.IsType<RedirectToActionResult>(result);
+            Assert.Null(redirectToActionResult.ControllerName);
+            Assert.Equal("Index", redirectToActionResult.ActionName);
         }
 
         private Accessories GetAccessory()

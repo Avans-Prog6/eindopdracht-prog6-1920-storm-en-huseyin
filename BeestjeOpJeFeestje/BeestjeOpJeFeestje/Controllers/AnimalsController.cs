@@ -28,7 +28,11 @@ namespace BeestjeOpJeFeestje.Controllers
         // GET: Animals
         public async Task<IActionResult> Index()
         {
-            return View(await _repository.GetAll());
+            List<Animal> animals = await _repository.GetAll();
+
+            if (animals == null) return NotFound();
+
+            return View(animals);
         }
 
         // GET: Animals/Details/5
@@ -172,7 +176,12 @@ namespace BeestjeOpJeFeestje.Controllers
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
             Animal animal = await _repository.Get(id);
-            await _repository.Delete(animal);
+
+            if (animal != null)
+            {
+                await _repository.Delete(animal);
+            }
+
             return RedirectToAction(nameof(Index));
         }
     }

@@ -14,7 +14,10 @@ namespace BeestjeOpJeFeestje.Controllers
 		}
 
 		public IActionResult Index(Booking booking)
-		{
+        {
+
+            if (booking == null) { return RedirectToActionPermanent(nameof(Index), new Booking()); }
+
 			if (booking.Date == DateTime.MinValue)
 			{
 				booking.Date = DateTime.Today;
@@ -35,7 +38,7 @@ namespace BeestjeOpJeFeestje.Controllers
 		}
 
 		[HttpPost]
-		public async Task<IActionResult> Booking([Bind("Date")] Booking booking)
+		public IActionResult Booking([Bind("Date")] Booking booking)
 		{
 			if (!ModelState.IsValid)
 			{
