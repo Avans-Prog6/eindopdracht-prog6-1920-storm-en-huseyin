@@ -45,5 +45,8 @@ namespace BeestjeOpJeFeestje.Models
 		public Accessories()
 		{
 		}
-    }
+
+		public List<BookingAccessories> BookingAccessories { get; set; }
+		public List<BookingProcessAccessories> BookingProcessAccessories { get; set; }
+	}
 }

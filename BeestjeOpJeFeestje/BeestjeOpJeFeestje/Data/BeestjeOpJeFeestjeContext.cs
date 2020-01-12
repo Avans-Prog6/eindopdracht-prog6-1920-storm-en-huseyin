@@ -19,21 +19,11 @@ namespace BeestjeOpJeFeestje.Data
 	        base.OnModelCreating(modelBuilder);
 
 	        modelBuilder.Entity<BookingAnimal>().HasKey(t => new {t.AnimalId, t.BookingId});
-            // modelBuilder.Entity<AnimalAccessories>().HasKey(t => new {t.AnimalId, t.AccessoriesId});
-            //
-            // modelBuilder.Entity<AnimalAccessories>()
-	           //  .HasOne(pt => pt.Animal)
-	           //  .WithMany(p => p.AnimalAccessories)
-	           //  .HasForeignKey(pt => pt.AnimalId);
-            //
-            // modelBuilder.Entity<AnimalAccessories>()
-	           //  .HasOne(pt => pt.Accessories)
-	           //  .WithMany(t => t.AnimalAccessories)
-	           //  .HasForeignKey(pt => pt.AccessoriesId);
+	        modelBuilder.Entity<BookingAccessories>().HasKey(t => new {t.AccessoriesId, t.BookingId});
+	        modelBuilder.Entity<BookingProcessAnimal>().HasKey(t => new {t.AnimalId, t.BookingProcessId});
+	        modelBuilder.Entity<BookingProcessAccessories>().HasKey(t => new {t.AccessoriesId, t.BookingProcessId});
 
-	           // modelBuilder.Entity<AnimalAccessories>().HasKey();
-
-            modelBuilder.Entity<BookingAnimal>()
+	        modelBuilder.Entity<BookingAnimal>()
 	            .HasOne(a => a.Animal)
 	            .WithMany(t => t.BookingAnimal)
 	            .HasForeignKey(a => a.AnimalId);
@@ -42,6 +32,26 @@ namespace BeestjeOpJeFeestje.Data
 	            .HasOne(a => a.Booking)
 	            .WithMany(b => b.BookingAnimals)
 	            .HasForeignKey(a => a.BookingId);
+
+            modelBuilder.Entity<BookingAccessories>()
+	            .HasOne(a => a.Accessories)
+	            .WithMany(t => t.BookingAccessories)
+	            .HasForeignKey(a => a.AccessoriesId);
+
+            modelBuilder.Entity<BookingAccessories>()
+	            .HasOne(a => a.Booking)
+	            .WithMany(b => b.BookingAccessories)
+	            .HasForeignKey(a => a.BookingId);
+
+            modelBuilder.Entity<BookingProcessAccessories>()
+	            .HasOne(a => a.Accessories)
+	            .WithMany(t => t.BookingProcessAccessories)
+	            .HasForeignKey(a => a.AccessoriesId);
+
+            modelBuilder.Entity<BookingProcessAccessories>()
+	            .HasOne(a => a.BookingProcess)
+	            .WithMany(b => b.BookingProcessAccessories)
+	            .HasForeignKey(a => a.BookingProcessId);
 
             modelBuilder.Entity<BookingProcess>()
 	            .HasOne(a => a.ClientInfo)

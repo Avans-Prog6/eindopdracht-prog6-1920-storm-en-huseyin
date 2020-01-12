@@ -34,6 +34,15 @@
             </ul>
 
             TotalPrice: @Html.DisplayFor(e => e.TotalPrice)
+            <form asp-controller="Bookings" asp-action="ConfirmBooking">
+                <input asp-for="@Model.ClientInfoId" type="hidden"/>
+                <input asp-for="@Model.ClientInfo.Email" type="hidden"/>
+                <input asp-for="@Model.ID"/>
+
+                <div class="form-group" style="padding-top: 10px">
+                    <input type="submit" value="Confirm" class="btn btn-primary"/>
+                </div>
+            </form>
         </div>
     </div>
 
