@@ -11,6 +11,10 @@
         @switch (Model.Booking.BookingState)
         {
             case BookingState.Animals:
+                @if (TempData["error"] != null)
+                {
+                    <span class="text-danger">@TempData["error"]</span>
+                }
                 @await Component.InvokeAsync("AnimalSelection", @Model)
                 break;
             case BookingState.Accessories:

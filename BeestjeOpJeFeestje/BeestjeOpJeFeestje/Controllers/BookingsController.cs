@@ -4,6 +4,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using BeestjeOpJeFeestje.Models;
 using BeestjeOpJeFeestje.Models.Repositories;
+using BeestjeOpJeFeestje.Models.Validators;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
 using Microsoft.EntityFrameworkCore;
 
@@ -45,18 +46,19 @@ namespace BeestjeOpJeFeestje.Controllers
 		[ValidateAntiForgeryToken]
 		public async Task<IActionResult> AnimalsSelected(BookingProcess data)
 		{
-			if (!ModelState.IsValid)
-			{
-				return RedirectToAction(nameof(AnimalSelection), data.Booking);
-			}
+			AnimalSelectionValidator animalSelectionValidator = new AnimalSelectionValidator();
 
 			Booking booking = await ((BookingDBRepository) _bookingRepository).GetFromDate(data.Booking.Date);
 			List<Animal> selectedAnimals = new List<Animal>();
 			foreach (Animal animal in data.Animals)
 			{
-				if (booking != null && animal.BookingIsSelected && animal.ID == booking.ID)
+				if (booking != null && animal.BookingIsSelected)
 				{
-					return RedirectToActionPermanent(nameof(AnimalSelection), booking);
+					if (animalSelectionValidator.IsAnimalAlreadyBooked(booking.BookingAnimals, animal.ID))
+					{
+						TempData["error"] = "Selected animals are already booked";
+						return RedirectToActionPermanent(nameof(AnimalSelection), booking);
+					}
 				}
 
 				if(animal.BookingIsSelected)
@@ -64,6 +66,30 @@ namespace BeestjeOpJeFeestje.Controllers
 					Animal dAnimal = await ((AnimalDbRepository) _animalRepository).Get(animal.ID);
 					selectedAnimals.Add(dAnimal);
 				}
+			}
+
+			if (!animalSelectionValidator.FarmAnimalHasNoLionOrIceBear(selectedAnimals))
+			{
+				TempData["error"] = "An animal from the farm can not be along with Lion and Ice Bear";
+				return RedirectToActionPermanent(nameof(AnimalSelection), booking);
+			}
+
+			if (animalSelectionValidator.PenguinIsHiredInWeekend(selectedAnimals, data.Booking.Date))
+			{
+				TempData["error"] = "Penguin can not be booked during the weekend";
+				return RedirectToActionPermanent(nameof(AnimalSelection), booking);
+			}
+
+			if (animalSelectionValidator.DesertAnimalIsHiredInWinter(selectedAnimals, data.Booking.Date))
+			{
+				TempData["error"] = "Desert animal can not be selected for the Winter";
+				return RedirectToActionPermanent(nameof(AnimalSelection), booking);
+			}
+
+			if (animalSelectionValidator.SnowAnimalIsHiredForSummer(selectedAnimals, data.Booking.Date))
+			{
+				TempData["error"] = "Snow Animal cannot be selected for the Summer";
+				return RedirectToActionPermanent(nameof(AnimalSelection), booking);
 			}
 
 

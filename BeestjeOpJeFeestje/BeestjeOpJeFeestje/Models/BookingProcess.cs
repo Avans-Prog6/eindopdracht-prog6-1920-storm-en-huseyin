@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using BeestjeOpJeFeestje.Models.CustomValidation.AnimalSelection;
 
 namespace BeestjeOpJeFeestje.Models
 {
@@ -23,7 +22,6 @@ namespace BeestjeOpJeFeestje.Models
 		public DateTime DateTime { get; set; }
 
 		[NotMapped]
-		// [AnimalSelection]
 		public List<Animal> Animals { get; set; }
 		[NotMapped]
 		public List<Accessories> Accessories { get; set; }
