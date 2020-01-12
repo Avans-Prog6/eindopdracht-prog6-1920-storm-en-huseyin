@@ -31,6 +31,9 @@ namespace BeestjeOpJeFeestje.Models
         public int AnimalId{ get; set; }
         public Animal Animal { get; set; }
 
+
+		[NotMapped]
+		public bool BookingIsSelected { get; set; }
 		public Accessories(string name, double price, int animalId, string picturePath = "")
 		{
 			Name = name;

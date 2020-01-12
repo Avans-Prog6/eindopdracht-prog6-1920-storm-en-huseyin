@@ -44,7 +44,7 @@ namespace BeestjeOpJeFeestje.Controllers
 			List<Animal> selectedAnimals = new List<Animal>();
 			foreach (Animal animal in data.Animals)
 			{
-				if (animal.BookingIsSelected && animal.ID == booking.ID)
+				if (booking != null && animal.BookingIsSelected && animal.ID == booking.ID)
 				{
 					return RedirectToActionPermanent(nameof(AnimalSelection), booking);
 				}
@@ -60,6 +60,11 @@ namespace BeestjeOpJeFeestje.Controllers
 			data.Animals = selectedAnimals;
 			data.Booking.BookingState = BookingState.Accessories;
 			return View("AnimalSelection", data);
+		}
+
+		public async Task<IActionResult> AccessoriesSelected(BookingProcessData data)
+		{
+			return Ok(data);
 		}
 	}
 }

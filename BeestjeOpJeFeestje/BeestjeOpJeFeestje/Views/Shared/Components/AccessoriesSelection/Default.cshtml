@@ -1,12 +1,36 @@
 ﻿@model BeestjeOpJeFeestje.Models.BookingProcessData
-@{  
+@{
+    ViewData["Title"] = "Default";
 }
 
-<h1>Default</h1>
 
+    <div class="container-fluid">
+        <form asp-controller="Bookings" asp-action="AccessoriesSelected" method="post">
+            <input asp-for="Booking.Date" type="hidden" value="@Model.Booking.Date" />
+            
+            @for (int i = 0; i < @Model.Animals.Count; i++)
+            {
+                Animal animal = @Model.Animals[i];
+                <input asp-for="Animals[i].ID" type="hidden" value="@animal.ID"/>
+            }
 
-@for(int i =0; i < @Model.Accessories.Count; i++) {
-    <div>
-
+            <div class="row" style="padding-left: 1em; padding-right: 1em">
+                @for (int i = 0; i < @Model.Accessories.Count; i++)
+                {
+                    <input asp-for="Accessories[i].ID" type="hidden" value="@Model.Accessories[i].ID"/>
+                    <div class="card text-center">
+                        <div class="card-body">
+                            @Model.Accessories[i].Name
+                            <br />
+                            @Html.CheckBoxFor(m => @Model.Accessories[i].BookingIsSelected)
+                            <br />
+                            <img src="@Model.Accessories[i].PicturePath" style="width: 100%; max-width: 3em" />
+                            <br />
+                            @Html.DisplayFor(e => @Model.Accessories[i].Price)
+                        </div>
+                    </div>
+                }
+            </div>
+            <button style="margin-top: 2em" type="submit" class="btn btn-primary">Ga door naar stap 3</button>
+        </form>
     </div>
-}
