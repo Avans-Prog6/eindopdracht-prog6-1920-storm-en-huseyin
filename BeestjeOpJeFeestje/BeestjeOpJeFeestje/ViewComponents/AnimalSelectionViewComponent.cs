@@ -15,7 +15,7 @@ namespace BeestjeOpJeFeestje.ViewComponents
 			_repository = (AnimalDbRepository) repository;
 		}
 
-		public async Task<IViewComponentResult> InvokeAsync(BookingProcessData data)
+		public async Task<IViewComponentResult> InvokeAsync(BookingProcess data)
 		{
 			List<Animal> animals = await _repository.GetAll();
 

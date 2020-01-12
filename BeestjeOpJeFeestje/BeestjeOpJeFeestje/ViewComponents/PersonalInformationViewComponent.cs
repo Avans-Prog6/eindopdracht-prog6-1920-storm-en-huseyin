@@ -14,7 +14,7 @@ namespace BeestjeOpJeFeestje.ViewComponents
 			_repository = (BookingDBRepository)repository;
 		}
 
-		public async Task<IViewComponentResult> InvokeAsync(BookingProcessData data)
+		public async Task<IViewComponentResult> InvokeAsync(BookingProcess data)
 		{
 			return View(data);
 		}

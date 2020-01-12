@@ -26,19 +26,19 @@ namespace BeestjeOpJeFeestje.Controllers
 				booking = foundBooking;
 			}
 
-			BookingProcessData bookingProcessData = new BookingProcessData()
+			BookingProcess bookingProcess = new BookingProcess()
 			{
 				Booking = booking
 			};
 
-			return View(bookingProcessData);
+			return View(bookingProcess);
 		}
 
 
 
 		[HttpPost]
 		[ValidateAntiForgeryToken]
-		public async Task<IActionResult> AnimalsSelected(BookingProcessData data)
+		public async Task<IActionResult> AnimalsSelected(BookingProcess data)
 		{
 			Booking booking = await ((BookingDBRepository) _bookingRepository).GetFromDate(data.Booking.Date);
 			List<Animal> selectedAnimals = new List<Animal>();
@@ -62,7 +62,7 @@ namespace BeestjeOpJeFeestje.Controllers
 			return View("AnimalSelection", data);
 		}
 
-		public async Task<IActionResult> AccessoriesSelected(BookingProcessData data)
+		public async Task<IActionResult> AccessoriesSelected(BookingProcess data)
 		{
 			List<Accessories> accessories = new List<Accessories>();
 			foreach (Accessories dataAccessory in data.Accessories)
@@ -78,10 +78,15 @@ namespace BeestjeOpJeFeestje.Controllers
 			return View("AnimalSelection", data);
 		}
 
-		public async Task<IActionResult> PersonalInformation(BookingProcessData data)
+		public async Task<IActionResult> PersonalInformation(BookingProcess data)
 		{
 			data.Booking.BookingState = BookingState.Confirmation;
 			return View("AnimalSelection", data);
+		}
+
+		public async Task<IActionResult> ConfirmBooking(BookingProcess data)
+		{
+			return Ok(data);
 		}
 	}
 }

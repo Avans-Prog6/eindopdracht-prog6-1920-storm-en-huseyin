@@ -10,7 +10,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace BeestjeOpJeFeestje.Migrations
 {
     [DbContext(typeof(BeestjeOpJeFeestjeContext))]
-    [Migration("20200112124315_InitialCreate")]
+    [Migration("20200112153930_InitialCreate")]
     partial class InitialCreate
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -31,6 +31,9 @@ namespace BeestjeOpJeFeestje.Migrations
                     b.Property<int>("AnimalId")
                         .HasColumnType("int");
 
+                    b.Property<int?>("BookingProcessID")
+                        .HasColumnType("int");
+
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasColumnType("nvarchar(30)")
@@ -40,12 +43,14 @@ namespace BeestjeOpJeFeestje.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<double>("Discount")
+                    b.Property<double>("Price")
                         .HasColumnType("float");
 
                     b.HasKey("ID");
 
                     b.HasIndex("AnimalId");
+
+                    b.HasIndex("BookingProcessID");
 
                     b.ToTable("Accessories");
 
@@ -147,6 +152,9 @@ namespace BeestjeOpJeFeestje.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+                    b.Property<int?>("BookingProcessID")
+                        .HasColumnType("int");
+
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasColumnType("nvarchar(30)")
@@ -156,7 +164,7 @@ namespace BeestjeOpJeFeestje.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<double>("Discount")
+                    b.Property<double>("Price")
                         .HasColumnType("float");
 
                     b.Property<string>("Type")
@@ -164,6 +172,8 @@ namespace BeestjeOpJeFeestje.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("ID");
+
+                    b.HasIndex("BookingProcessID");
 
                     b.ToTable("Animal");
 
@@ -295,6 +305,9 @@ namespace BeestjeOpJeFeestje.Migrations
                     b.Property<DateTime>("Date")
                         .HasColumnType("datetime2");
 
+                    b.Property<bool>("IsStillBooking")
+                        .HasColumnType("bit");
+
                     b.HasKey("ID");
 
                     b.HasIndex("ClientInfoId");
@@ -306,7 +319,8 @@ namespace BeestjeOpJeFeestje.Migrations
                         {
                             ID = 1,
                             ClientInfoId = 1,
-                            Date = new DateTime(2020, 1, 13, 0, 0, 0, 0, DateTimeKind.Local)
+                            Date = new DateTime(2020, 1, 13, 0, 0, 0, 0, DateTimeKind.Local),
+                            IsStillBooking = false
                         });
                 });
 
@@ -342,6 +356,37 @@ namespace BeestjeOpJeFeestje.Migrations
                         });
                 });
 
+            modelBuilder.Entity("BeestjeOpJeFeestje.Models.BookingProcess", b =>
+                {
+                    b.Property<int>("ID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<int>("BookingId")
+                        .HasColumnType("int");
+
+                    b.Property<bool>("BookingIsConfirmed")
+                        .HasColumnType("bit");
+
+                    b.Property<int>("ClientInfoId")
+                        .HasColumnType("int");
+
+                    b.Property<double>("TotalDiscount")
+                        .HasColumnType("float");
+
+                    b.Property<double>("TotalPrice")
+                        .HasColumnType("float");
+
+                    b.HasKey("ID");
+
+                    b.HasIndex("BookingId");
+
+                    b.HasIndex("ClientInfoId");
+
+                    b.ToTable("BookingProcesses");
+                });
+
             modelBuilder.Entity("BeestjeOpJeFeestje.Models.ClientInfo", b =>
                 {
                     b.Property<int>("ID")
@@ -350,7 +395,6 @@ namespace BeestjeOpJeFeestje.Migrations
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<string>("Address")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Email")
@@ -390,6 +434,17 @@ namespace BeestjeOpJeFeestje.Migrations
                         .HasForeignKey("AnimalId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+
+                    b.HasOne("BeestjeOpJeFeestje.Models.BookingProcess", null)
+                        .WithMany("Accessories")
+                        .HasForeignKey("BookingProcessID");
+                });
+
+            modelBuilder.Entity("BeestjeOpJeFeestje.Models.Animal", b =>
+                {
+                    b.HasOne("BeestjeOpJeFeestje.Models.BookingProcess", null)
+                        .WithMany("Animals")
+                        .HasForeignKey("BookingProcessID");
                 });
 
             modelBuilder.Entity("BeestjeOpJeFeestje.Models.Booking", b =>
@@ -413,6 +468,21 @@ namespace BeestjeOpJeFeestje.Migrations
                         .WithMany("BookingAnimals")
                         .HasForeignKey("BookingId")
                         .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("BeestjeOpJeFeestje.Models.BookingProcess", b =>
+                {
+                    b.HasOne("BeestjeOpJeFeestje.Models.Booking", "Booking")
+                        .WithMany()
+                        .HasForeignKey("BookingId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("BeestjeOpJeFeestje.Models.ClientInfo", "ClientInfo")
+                        .WithMany()
+                        .HasForeignKey("ClientInfoId")
+                        .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired();
                 });
 #pragma warning restore 612, 618

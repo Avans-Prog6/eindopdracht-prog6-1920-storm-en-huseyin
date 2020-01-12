@@ -30,11 +30,12 @@ namespace BeestjeOpJeFeestje
         public void ConfigureServices(IServiceCollection services)
         {
 	        services.AddControllersWithViews();
-	        services.AddMvc().AddControllersAsServices();
 
 	        services.AddScoped<IRepository<Animal>, AnimalDbRepository>();
 	        services.AddScoped<IRepository<Accessories>, AccessoriesDBRepository>();
 	        services.AddScoped<IRepository<Booking>, BookingDBRepository>();
+	        services.AddScoped<IRepository<BookingProcess>, BookingProcessDBRepository>();
+	        services.AddScoped<IRepository<ClientInfo>, ClientInfoDBRepository>();
 
 	        services.AddDbContext<BeestjeOpJeFeestjeContext>(options =>
 		        options.UseSqlServer(Configuration.GetConnectionString("BeestjeOpJeFeestjeContext")));

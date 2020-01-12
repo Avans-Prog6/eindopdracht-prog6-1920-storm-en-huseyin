@@ -12,18 +12,21 @@ namespace BeestjeOpJeFeestje.ViewComponents
 	{
 		private readonly IRepository<Animal> _animalRepository;
 		private readonly IRepository<Accessories> _accessoriesRepository;
-		private readonly IRepository<Booking> _bookingRepository;
+		private readonly IRepository<ClientInfo> _clientInfoRepository;
+		private readonly IRepository<BookingProcess> _bookingProcessRepository;
 
-		public ConfirmationViewComponent(IRepository<Booking> bookingRepository,
+		public ConfirmationViewComponent(IRepository<BookingProcess> bookingProcessRepository,
 			IRepository<Animal> animalRepository,
-			IRepository<Accessories> accessoriesRepository)
+			IRepository<Accessories> accessoriesRepository,
+			IRepository<ClientInfo> clientInfoRepository)
 		{
 			_animalRepository = animalRepository;
 			_accessoriesRepository = accessoriesRepository;
-			_bookingRepository = bookingRepository;
+			_clientInfoRepository = clientInfoRepository;
+			_bookingProcessRepository = bookingProcessRepository;
 		}
 
-		public async Task<IViewComponentResult> InvokeAsync(BookingProcessData data)
+		public async Task<IViewComponentResult> InvokeAsync(BookingProcess data)
 		{
 			List<Animal> animals = await GetAnimals(data.Animals.Select(e => e.ID).ToArray());
 			List<Accessories> accessories = new List<Accessories>();
@@ -106,6 +109,23 @@ namespace BeestjeOpJeFeestje.ViewComponents
 			data.TotalPrice = totalPrice;
 			data.TotalDiscount = totalDiscountPercentage;
 			data.Discounts = discounts;
+
+			#region SaveData
+			// Save or Get Client Id
+			ClientInfo clientInfo = await ((ClientInfoDBRepository) _clientInfoRepository).Find(data.ClientInfo.Email);
+			if (clientInfo != null)
+			{
+				data.ClientInfo = clientInfo;
+				data.ClientInfoId = clientInfo.ID;
+			}
+			else
+			{
+				await _clientInfoRepository.Create(data.ClientInfo);
+				data.ClientInfoId = data.ClientInfo.ID;
+			}
+
+			await _bookingProcessRepository.Create(data);
+			#endregion
 			return View(data);
 		}
 

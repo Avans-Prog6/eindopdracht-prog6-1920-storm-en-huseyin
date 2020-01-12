@@ -11,6 +11,14 @@
     <Compile Remove="Migrations\20200111205727_InitialCreate.Designer.cs" />
     <Compile Remove="Migrations\20200112120351_InitialCreate.cs" />
     <Compile Remove="Migrations\20200112120351_InitialCreate.Designer.cs" />
+    <Compile Remove="Migrations\20200112124315_InitialCreate.cs" />
+    <Compile Remove="Migrations\20200112124315_InitialCreate.Designer.cs" />
+    <Compile Remove="Migrations\20200112150208_InitialCreate.cs" />
+    <Compile Remove="Migrations\20200112150208_InitialCreate.Designer.cs" />
+    <Compile Remove="Migrations\20200112150444_InitialCreate.cs" />
+    <Compile Remove="Migrations\20200112150444_InitialCreate.Designer.cs" />
+    <Compile Remove="Migrations\20200112153559_InitialCreate.cs" />
+    <Compile Remove="Migrations\20200112153559_InitialCreate.Designer.cs" />
   </ItemGroup>
 
   <ItemGroup>

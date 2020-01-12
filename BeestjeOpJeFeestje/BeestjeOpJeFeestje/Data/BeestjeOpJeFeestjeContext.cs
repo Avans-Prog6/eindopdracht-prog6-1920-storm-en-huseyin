@@ -43,6 +43,11 @@ namespace BeestjeOpJeFeestje.Data
 	            .WithMany(b => b.BookingAnimals)
 	            .HasForeignKey(a => a.BookingId);
 
+            modelBuilder.Entity<BookingProcess>()
+	            .HasOne(a => a.ClientInfo)
+	            .WithMany()
+	            .OnDelete(DeleteBehavior.NoAction);
+
 
             #region AnimalSeed
 
@@ -309,5 +314,7 @@ namespace BeestjeOpJeFeestje.Data
 		public DbSet<BeestjeOpJeFeestje.Models.Booking> Booking { get; set; }
 
         public DbSet<BeestjeOpJeFeestje.Models.ClientInfo> ClientInfo { get; set; }
+
+        public DbSet<BeestjeOpJeFeestje.Models.BookingProcess> BookingProcesses { get; set; }
     }
 }
