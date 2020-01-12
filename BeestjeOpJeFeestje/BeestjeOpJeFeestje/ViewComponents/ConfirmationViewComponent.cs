@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using BeestjeOpJeFeestje.Models;
 using BeestjeOpJeFeestje.Models.Repositories;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.ViewComponents;
 
 namespace BeestjeOpJeFeestje.ViewComponents
 {
@@ -116,7 +117,6 @@ namespace BeestjeOpJeFeestje.ViewComponents
 
 			#region SaveData
 
-			// Save or Get Client Id
 			await _clientInfoRepository.Create(data.ClientInfo);
 			data.ClientInfoId = data.ClientInfo.ID;
 			data.DateTime = data.Booking.Date;

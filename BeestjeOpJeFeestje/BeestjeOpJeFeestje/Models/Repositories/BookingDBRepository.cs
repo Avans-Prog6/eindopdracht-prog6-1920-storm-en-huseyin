@@ -18,12 +18,22 @@ namespace BeestjeOpJeFeestje.Models.Repositories
 
 		public async Task<Booking> Get(int? ID)
 		{
-			return await _context.Booking.Where(e => e.ID == ID).Include(e => e.BookingAnimals).FirstOrDefaultAsync();
+			return await _context.Booking.Where(e => e.ID == ID).Include(e => e.BookingAccessories)
+				.ThenInclude(ba => ba.Accessories)
+				.Include(e => e.BookingAnimals)
+				.ThenInclude(ba => ba.Animal)
+				.Include(e => e.ClientInfo)
+				.FirstOrDefaultAsync();
 		}
 
 		public async Task<List<Booking>> GetAll()
 		{
-			return await _context.Booking.ToListAsync();
+			return await _context.Booking.Include(e => e.BookingAccessories)
+				.ThenInclude(ba => ba.Accessories)
+				.Include(e => e.BookingAnimals)
+				.ThenInclude(ba => ba.Animal)
+				.Include(e => e.ClientInfo)
+				.ToListAsync();
 		}
 
 		public Task<List<Booking>> Find(params int[] keyValues)
@@ -57,12 +67,13 @@ namespace BeestjeOpJeFeestje.Models.Repositories
 
 		public bool Exists(Booking type)
 		{
-		  return _context.Booking.Any(b => b.Date == type.Date);
+			return _context.Booking.Any(b => b.Date == type.Date);
 		}
 
 		public async Task<Booking> GetFromDate(DateTime bookingDate)
 		{
-			return await _context.Booking.Where(b => b.Date == bookingDate).Include(b => b.BookingAnimals).FirstOrDefaultAsync();
+			return await _context.Booking.Where(b => b.Date == bookingDate).Include(b => b.BookingAnimals)
+				.FirstOrDefaultAsync();
 		}
 	}
 }

@@ -116,5 +116,52 @@ namespace BeestjeOpJeFeestje.Controllers
 			await _bookingRepository.Create(booking);
 			return RedirectToActionPermanent(nameof(HomeController.Index), "Home");
 		}
+
+		public async Task<IActionResult> Index()
+		{
+			return View(await _bookingRepository.GetAll());
+		}
+
+		public async Task<IActionResult> Details(int? id)
+		{
+			if (id == null)
+			{
+				return NotFound();
+			}
+
+			Booking booking = await _bookingRepository.Get(id);
+			if (booking == null)
+			{
+				return NotFound();
+			}
+
+			return View(booking);
+		}
+
+		public async Task<IActionResult> Delete(int? id)
+		{
+			if (id == null)
+			{
+				return NotFound();
+			}
+
+			Booking booking = await _bookingRepository.Get(id);
+			if (booking == null)
+			{
+				return NotFound();
+			}
+
+			return View(booking);
+		}
+
+		// POST: Accessories/Delete/5
+		[HttpPost, ActionName("Delete")]
+		[ValidateAntiForgeryToken]
+		public async Task<IActionResult> DeleteConfirmed(int id)
+		{
+			Booking booking = await _bookingRepository.Get(id);
+			await _bookingRepository.Delete(booking);
+			return RedirectToAction(nameof(Index));
+		}
 	}
 }

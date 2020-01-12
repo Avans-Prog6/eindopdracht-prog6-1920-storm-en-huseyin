@@ -1,0 +1,76 @@
+﻿@model BeestjeOpJeFeestje.Models.Booking
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+<h1>Details</h1>
+
+<div>
+    <h4>Booking</h4>
+    <hr />
+    <dl class="row">
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Date)
+        </dt>
+        <dd class="col-sm-10">
+            <div class="row">
+                @Html.DisplayFor(model => model.Date)
+            </div>
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.TotalPrice)
+        </dt>
+        <dd class="col-sm-10">
+            <div class="row">
+                @Html.DisplayFor(model => model.TotalPrice)
+            </div>
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.ClientInfo)
+        </dt>
+        <dd class="col-sm-10">
+            <div class="row">
+                @Html.DisplayFor(model => model.ClientInfo.Email)
+            </div>
+            <div class="row">
+                @Html.DisplayFor(model => model.ClientInfo.FirstName)
+            </div>
+            <div class="row">
+                @Html.DisplayFor(model => model.ClientInfo.MiddleName)
+            </div>
+            <div class="row">
+                @Html.DisplayFor(model => model.ClientInfo.LastName)
+            </div>
+            <div class="row">
+                @Html.DisplayFor(model => model.ClientInfo.Address)
+            </div>
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.BookingAnimals)
+        </dt>
+        <dd class="col-sm-10">
+            @foreach (BookingAnimal ba in @Model.BookingAnimals)
+            {
+                <div class="row">
+                    @ba.Animal.Name
+                </div>
+            }
+        </dd>
+
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.BookingAccessories)
+        </dt>
+        <dd class="col-sm-10">
+            @foreach (BookingAccessories ba in @Model.BookingAccessories)
+            {
+                <div class="row">
+                    @ba.Accessories.Name
+                </div>
+            }
+        </dd>
+    </dl>
+</div>
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
