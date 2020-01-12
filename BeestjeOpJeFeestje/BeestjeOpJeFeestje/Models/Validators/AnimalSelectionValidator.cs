@@ -92,5 +92,10 @@ namespace BeestjeOpJeFeestje.Models.Validators
 
 			return false;
 		}
+
+		public bool IsAnAnimalSelected(List<Animal> selectedAnimals)
+		{
+			return selectedAnimals.Count > 0;
+		}
 	}
 }

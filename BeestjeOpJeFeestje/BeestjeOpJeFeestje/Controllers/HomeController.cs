@@ -15,7 +15,6 @@ namespace BeestjeOpJeFeestje.Controllers
 
 		public IActionResult Index(Booking booking)
         {
-
             if (booking == null) { return RedirectToActionPermanent(nameof(Index), new Booking()); }
 
 			if (booking.Date == DateTime.MinValue)
