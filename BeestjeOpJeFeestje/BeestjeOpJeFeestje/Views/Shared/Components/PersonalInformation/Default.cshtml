@@ -1,0 +1,52 @@
+﻿@model BeestjeOpJeFeestje.Models.BookingProcessData
+@{
+    ViewData["Title"] = "Default";
+}
+
+<h1>Contact Gegevens</h1>
+
+<div class="container-fluid">
+    <div class="row">
+        <form asp-controller="Bookings" asp-action="PersonalInformation">
+            @for (int i = 0; i < @Model.Accessories.Count; i++)
+            {
+                <input asp-for="@Model.Accessories[i].ID" type="hidden"/>
+            }
+            @for (int i = 0; i < @Model.Animals.Count; i++)
+            {
+                <input asp-for="@Model.Animals[i].ID" type="hidden"/>
+            }
+
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input asp-for="@Model.Booking.Date" type="hidden"/>
+            <div class="form-group">
+                <label asp-for="@Model.ClientInfo.FirstName" class="control-label"></label>
+                <input asp-for="@Model.ClientInfo.FirstName" class="form-control" />
+                <span asp-validation-for="@Model.ClientInfo.FirstName" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="@Model.ClientInfo.MiddleName" class="control-label"></label>
+                <input asp-for="@Model.ClientInfo.MiddleName" class="form-control" />
+                <span asp-validation-for="@Model.ClientInfo.MiddleName" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="@Model.ClientInfo.LastName" class="control-label"></label>
+                <input asp-for="@Model.ClientInfo.LastName" class="form-control" />
+                <span asp-validation-for="@Model.ClientInfo.LastName" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="@Model.ClientInfo.Address" class="control-label"></label>
+                <input asp-for="@Model.ClientInfo.Address" class="form-control" />
+                <span asp-validation-for="@Model.ClientInfo.Address" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="@Model.ClientInfo.Email" class="control-label"></label>
+                <input asp-for="@Model.ClientInfo.Email" class="form-control" />
+                <span asp-validation-for="@Model.ClientInfo.Email" class="text-danger"></span>
+            </div>
+            <div class="form-group" style="padding-top: 10px">
+                <input type="submit" value="Create" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>

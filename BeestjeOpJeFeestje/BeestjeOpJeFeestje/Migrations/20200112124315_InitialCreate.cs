@@ -24,16 +24,20 @@ namespace BeestjeOpJeFeestje.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Booking",
+                name: "ClientInfo",
                 columns: table => new
                 {
                     ID = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    Date = table.Column<DateTime>(nullable: false)
+                    FirstName = table.Column<string>(nullable: false),
+                    MiddleName = table.Column<string>(nullable: true),
+                    LastName = table.Column<string>(nullable: false),
+                    Address = table.Column<string>(nullable: false),
+                    Email = table.Column<string>(nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Booking", x => x.ID);
+                    table.PrimaryKey("PK_ClientInfo", x => x.ID);
                 });
 
             migrationBuilder.CreateTable(
@@ -54,6 +58,26 @@ namespace BeestjeOpJeFeestje.Migrations
                         name: "FK_Accessories_Animal_AnimalId",
                         column: x => x.AnimalId,
                         principalTable: "Animal",
+                        principalColumn: "ID",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Booking",
+                columns: table => new
+                {
+                    ID = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Date = table.Column<DateTime>(nullable: false),
+                    ClientInfoId = table.Column<int>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Booking", x => x.ID);
+                    table.ForeignKey(
+                        name: "FK_Booking_ClientInfo_ClientInfoId",
+                        column: x => x.ClientInfoId,
+                        principalTable: "ClientInfo",
                         principalColumn: "ID",
                         onDelete: ReferentialAction.Cascade);
                 });
@@ -104,9 +128,9 @@ namespace BeestjeOpJeFeestje.Migrations
                 });
 
             migrationBuilder.InsertData(
-                table: "Booking",
-                columns: new[] { "ID", "Date" },
-                values: new object[] { 1, new DateTime(2020, 1, 12, 0, 0, 0, 0, DateTimeKind.Local) });
+                table: "ClientInfo",
+                columns: new[] { "ID", "Address", "Email", "FirstName", "LastName", "MiddleName" },
+                values: new object[] { 1, "Prins Mauritsstraat 11", "huseyincaliskan32@gmail.com", "Huseyin", "Caliskan", null });
 
             migrationBuilder.InsertData(
                 table: "Accessories",
@@ -127,19 +151,34 @@ namespace BeestjeOpJeFeestje.Migrations
                 });
 
             migrationBuilder.InsertData(
+                table: "Booking",
+                columns: new[] { "ID", "ClientInfoId", "Date" },
+                values: new object[] { 1, 1, new DateTime(2020, 1, 13, 0, 0, 0, 0, DateTimeKind.Local) });
+
+            migrationBuilder.InsertData(
                 table: "BookingAnimal",
                 columns: new[] { "AnimalId", "BookingId" },
-                values: new object[,]
-                {
-                    { 1, 1 },
-                    { 4, 1 },
-                    { 9, 1 }
-                });
+                values: new object[] { 1, 1 });
+
+            migrationBuilder.InsertData(
+                table: "BookingAnimal",
+                columns: new[] { "AnimalId", "BookingId" },
+                values: new object[] { 4, 1 });
+
+            migrationBuilder.InsertData(
+                table: "BookingAnimal",
+                columns: new[] { "AnimalId", "BookingId" },
+                values: new object[] { 9, 1 });
 
             migrationBuilder.CreateIndex(
                 name: "IX_Accessories_AnimalId",
                 table: "Accessories",
                 column: "AnimalId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Booking_ClientInfoId",
+                table: "Booking",
+                column: "ClientInfoId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_BookingAnimal_BookingId",
@@ -160,6 +199,9 @@ namespace BeestjeOpJeFeestje.Migrations
 
             migrationBuilder.DropTable(
                 name: "Booking");
+
+            migrationBuilder.DropTable(
+                name: "ClientInfo");
         }
     }
 }

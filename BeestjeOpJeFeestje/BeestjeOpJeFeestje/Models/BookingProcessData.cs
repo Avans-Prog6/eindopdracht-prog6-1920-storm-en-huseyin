@@ -9,6 +9,7 @@ namespace BeestjeOpJeFeestje.Models
 	public class BookingProcessData
 	{
 		public Booking Booking { get; set; }
+		public ClientInfo ClientInfo { get; set; }
 		public List<Animal> Animals { get; set; }
 		public List<Accessories> Accessories { get; set; }
 	}

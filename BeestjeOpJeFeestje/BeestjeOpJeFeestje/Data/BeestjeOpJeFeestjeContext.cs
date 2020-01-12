@@ -257,6 +257,17 @@ namespace BeestjeOpJeFeestje.Data
 
             #endregion
 
+            modelBuilder.Entity<ClientInfo>().HasData(
+	            new ClientInfo()
+	            {
+		            ID = 1,
+		            FirstName = "Huseyin",
+		            LastName = "Caliskan",
+		            Email = "huseyincaliskan32@gmail.com",
+		            Address = "Prins Mauritsstraat 11"
+	            }
+            );
+
             #region Booking
 
             DateTime tommorow = DateTime.Today;
@@ -266,6 +277,7 @@ namespace BeestjeOpJeFeestje.Data
 	            {
 		            ID = 1,
 					Date = tommorow,
+					ClientInfoId = 1
 	            }
             );
 
@@ -295,5 +307,7 @@ namespace BeestjeOpJeFeestje.Data
         public DbSet<BeestjeOpJeFeestje.Models.Accessories> Accessories { get; set; }
 
 		public DbSet<BeestjeOpJeFeestje.Models.Booking> Booking { get; set; }
+
+        public DbSet<BeestjeOpJeFeestje.Models.ClientInfo> ClientInfo { get; set; }
     }
 }

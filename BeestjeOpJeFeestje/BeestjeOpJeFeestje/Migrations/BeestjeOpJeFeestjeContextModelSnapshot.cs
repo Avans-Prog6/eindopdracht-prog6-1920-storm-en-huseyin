@@ -287,10 +287,15 @@ namespace BeestjeOpJeFeestje.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+                    b.Property<int>("ClientInfoId")
+                        .HasColumnType("int");
+
                     b.Property<DateTime>("Date")
                         .HasColumnType("datetime2");
 
                     b.HasKey("ID");
+
+                    b.HasIndex("ClientInfoId");
 
                     b.ToTable("Booking");
 
@@ -298,7 +303,8 @@ namespace BeestjeOpJeFeestje.Migrations
                         new
                         {
                             ID = 1,
-                            Date = new DateTime(2020, 1, 12, 0, 0, 0, 0, DateTimeKind.Local)
+                            ClientInfoId = 1,
+                            Date = new DateTime(2020, 1, 13, 0, 0, 0, 0, DateTimeKind.Local)
                         });
                 });
 
@@ -334,11 +340,61 @@ namespace BeestjeOpJeFeestje.Migrations
                         });
                 });
 
+            modelBuilder.Entity("BeestjeOpJeFeestje.Models.ClientInfo", b =>
+                {
+                    b.Property<int>("ID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("Address")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Email")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("FirstName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("LastName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("MiddleName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("ID");
+
+                    b.ToTable("ClientInfo");
+
+                    b.HasData(
+                        new
+                        {
+                            ID = 1,
+                            Address = "Prins Mauritsstraat 11",
+                            Email = "huseyincaliskan32@gmail.com",
+                            FirstName = "Huseyin",
+                            LastName = "Caliskan"
+                        });
+                });
+
             modelBuilder.Entity("BeestjeOpJeFeestje.Models.Accessories", b =>
                 {
                     b.HasOne("BeestjeOpJeFeestje.Models.Animal", "Animal")
                         .WithMany("Accessories")
                         .HasForeignKey("AnimalId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("BeestjeOpJeFeestje.Models.Booking", b =>
+                {
+                    b.HasOne("BeestjeOpJeFeestje.Models.ClientInfo", "ClientInfo")
+                        .WithMany()
+                        .HasForeignKey("ClientInfoId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });

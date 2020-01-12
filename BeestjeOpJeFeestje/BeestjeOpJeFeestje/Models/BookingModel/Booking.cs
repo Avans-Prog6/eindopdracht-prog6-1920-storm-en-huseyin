@@ -7,14 +7,12 @@ namespace BeestjeOpJeFeestje.Models
 {
 	public class Booking
 	{
-		//TODO: AnimalAccesories weghalen en Animals een 1 op meer relatie laten hebben met accesories! (Een beestje mag meerder accesories hebben)
 		[DatabaseGenerated(DatabaseGeneratedOption.Identity)]
 		public int ID { get; set; }
 
 		[DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:dd/MM/yyyy}")]
 		[DataType(DataType.Date)]
 		public DateTime Date { get; set; }
-
 
 		[NotMapped] public BookingState BookingState { get; set; } = BookingState.Animals;
 
@@ -23,5 +21,8 @@ namespace BeestjeOpJeFeestje.Models
 		}
 
 		public List<BookingAnimal> BookingAnimals { get; set; }
+
+		public int ClientInfoId { get; set; }
+		public ClientInfo ClientInfo { get; set; }
 	}
 }

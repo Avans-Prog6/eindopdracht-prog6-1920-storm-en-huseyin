@@ -64,7 +64,23 @@ namespace BeestjeOpJeFeestje.Controllers
 
 		public async Task<IActionResult> AccessoriesSelected(BookingProcessData data)
 		{
-			return Ok(data);
+			List<Accessories> accessories = new List<Accessories>();
+			foreach (Accessories dataAccessory in data.Accessories)
+			{
+				if (dataAccessory.BookingIsSelected)
+				{
+					accessories.Add(dataAccessory);
+				}
+			}
+
+			data.Accessories = accessories;
+			data.Booking.BookingState = BookingState.Details;
+			return View("AnimalSelection", data);
+		}
+
+		public async Task<IActionResult> PersonalInformation(BookingProcessData data)
+		{
+			return View("AnimalSelection", data);
 		}
 	}
 }

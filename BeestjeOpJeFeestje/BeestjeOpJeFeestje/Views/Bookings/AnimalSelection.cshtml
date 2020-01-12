@@ -8,15 +8,19 @@
 <hr/>
 <div class="row">
     <div class="col col-9" style="padding: 0">
-        @if (Model.Booking.BookingState == BookingState.Animals)
+        @switch (Model.Booking.BookingState)
         {
-            @await Component.InvokeAsync("AnimalSelection", @Model)
-        }
-
-        @if (Model.Booking.BookingState == BookingState.Accessories)
-        {
-            <div>Animal Accessories</div>
-            @await Component.InvokeAsync("AccessoriesSelection", @Model)
+            case BookingState.Animals:
+                @await Component.InvokeAsync("AnimalSelection", @Model)
+                break;
+            case BookingState.Accessories:
+                @await Component.InvokeAsync("AccessoriesSelection", @Model)
+                break;
+            case BookingState.Details:
+                @await Component.InvokeAsync("PersonalInformation", @Model)
+                break;
+            case BookingState.Confirmation:
+                break;
         }
     </div>
     <div class="col col-3">
