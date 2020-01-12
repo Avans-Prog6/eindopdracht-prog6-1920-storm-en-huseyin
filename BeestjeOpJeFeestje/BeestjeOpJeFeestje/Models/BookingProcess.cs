@@ -15,9 +15,12 @@ namespace BeestjeOpJeFeestje.Models
 		public int ClientInfoId { get; set; }
 		public ClientInfo ClientInfo { get; set; }
 
+		public List<BookingProcessAnimal> BookingProcessAnimals { get; set; }
+
+		[NotMapped]
 		public List<Animal> Animals { get; set; }
+		[NotMapped]
 		public List<Accessories> Accessories { get; set; }
-		
 		[NotMapped]
 		public List<Discounts> Discounts { get; set; }
 		

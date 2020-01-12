@@ -10,7 +10,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace BeestjeOpJeFeestje.Migrations
 {
     [DbContext(typeof(BeestjeOpJeFeestjeContext))]
-    [Migration("20200112153930_InitialCreate")]
+    [Migration("20200112163921_InitialCreate")]
     partial class InitialCreate
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -21,7 +21,7 @@ namespace BeestjeOpJeFeestje.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-            modelBuilder.Entity("BeestjeOpJeFeestje.Models.Accessories", b =>
+            modelBuilder.Entity("BeestjeOpJeFeestje.Models.BookingAccessories", b =>
                 {
                     b.Property<int>("ID")
                         .ValueGeneratedOnAdd()
@@ -52,7 +52,7 @@ namespace BeestjeOpJeFeestje.Migrations
 
                     b.HasIndex("BookingProcessID");
 
-                    b.ToTable("Accessories");
+                    b.ToTable("BookingAccessories");
 
                     b.HasData(
                         new
@@ -427,16 +427,16 @@ namespace BeestjeOpJeFeestje.Migrations
                         });
                 });
 
-            modelBuilder.Entity("BeestjeOpJeFeestje.Models.Accessories", b =>
+            modelBuilder.Entity("BeestjeOpJeFeestje.Models.BookingAccessories", b =>
                 {
                     b.HasOne("BeestjeOpJeFeestje.Models.Animal", "Animal")
-                        .WithMany("Accessories")
+                        .WithMany("BookingAccessories")
                         .HasForeignKey("AnimalId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.HasOne("BeestjeOpJeFeestje.Models.BookingProcess", null)
-                        .WithMany("Accessories")
+                        .WithMany("BookingAccessories")
                         .HasForeignKey("BookingProcessID");
                 });
 

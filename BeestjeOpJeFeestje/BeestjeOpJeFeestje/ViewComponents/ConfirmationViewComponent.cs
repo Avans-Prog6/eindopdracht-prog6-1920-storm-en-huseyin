@@ -14,8 +14,10 @@ namespace BeestjeOpJeFeestje.ViewComponents
 		private readonly IRepository<Accessories> _accessoriesRepository;
 		private readonly IRepository<ClientInfo> _clientInfoRepository;
 		private readonly IRepository<BookingProcess> _bookingProcessRepository;
+		private readonly IRepository<Booking> _bookingRepository;
 
 		public ConfirmationViewComponent(IRepository<BookingProcess> bookingProcessRepository,
+			IRepository<Booking> bookingRepository,
 			IRepository<Animal> animalRepository,
 			IRepository<Accessories> accessoriesRepository,
 			IRepository<ClientInfo> clientInfoRepository)
@@ -24,6 +26,7 @@ namespace BeestjeOpJeFeestje.ViewComponents
 			_accessoriesRepository = accessoriesRepository;
 			_clientInfoRepository = clientInfoRepository;
 			_bookingProcessRepository = bookingProcessRepository;
+			_bookingRepository = bookingRepository;
 		}
 
 		public async Task<IViewComponentResult> InvokeAsync(BookingProcess data)
@@ -34,7 +37,8 @@ namespace BeestjeOpJeFeestje.ViewComponents
 
 			if (data.Accessories != null)
 			{
-				accessories = await GetAccessories(data.Accessories.Select(e => e.ID).ToArray());;
+				accessories = await GetAccessories(data.Accessories.Select(e => e.ID).ToArray());
+				;
 			}
 
 			data.Animals = animals;
@@ -104,6 +108,7 @@ namespace BeestjeOpJeFeestje.ViewComponents
 			}
 
 			totalPrice = totalPrice / 100 * (100 - totalDiscountPercentage);
+
 			#endregion
 
 			data.TotalPrice = totalPrice;
@@ -111,21 +116,17 @@ namespace BeestjeOpJeFeestje.ViewComponents
 			data.Discounts = discounts;
 
 			#region SaveData
+
 			// Save or Get Client Id
-			ClientInfo clientInfo = await ((ClientInfoDBRepository) _clientInfoRepository).Find(data.ClientInfo.Email);
-			if (clientInfo != null)
-			{
-				data.ClientInfo = clientInfo;
-				data.ClientInfoId = clientInfo.ID;
-			}
-			else
-			{
-				await _clientInfoRepository.Create(data.ClientInfo);
-				data.ClientInfoId = data.ClientInfo.ID;
-			}
+			await _clientInfoRepository.Create(data.ClientInfo);
+			data.ClientInfoId = data.ClientInfo.ID;
+			data.Booking.ClientInfoId = data.ClientInfoId;
+			
+			await _bookingRepository.Create(data.Booking);
 
 			await _bookingProcessRepository.Create(data);
 			#endregion
+
 			return View(data);
 		}
 
@@ -188,7 +189,7 @@ namespace BeestjeOpJeFeestje.ViewComponents
 			int snowType = 0;
 			int farmType = 0;
 			int jungleType = 0;
-			
+
 			foreach (Animal animal in animals)
 			{
 				switch (animal.Type)

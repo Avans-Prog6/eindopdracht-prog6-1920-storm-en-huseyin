@@ -16,13 +16,12 @@ namespace BeestjeOpJeFeestje.Models
 
 		[NotMapped] public BookingState BookingState { get; set; } = BookingState.Animals;
 
-		public bool IsStillBooking { get; set; }
-
 		public Booking()
 		{
 		}
 
 		public List<BookingAnimal> BookingAnimals { get; set; }
+		public List<BookingAccessories> BookingAccessories { get; set; }
 
 		public int ClientInfoId { get; set; }
 		public ClientInfo ClientInfo { get; set; }
