@@ -6,7 +6,7 @@ namespace BeestjeOpJeFeestje.Models.CustomValidation
 {
 	public class DateIsNotBookedAttribute : ValidationAttribute
 	{
-		public string GetErrorMessage() => "De gekozen datum is al geboekt.";
+		public string GetErrorMessage() => "The chosen date may not be in the past";
 
 		protected override ValidationResult IsValid(object value, ValidationContext validationContext)
 		{
@@ -18,7 +18,9 @@ namespace BeestjeOpJeFeestje.Models.CustomValidation
 				throw new ApplicationException("Context was empty");
 			}
 
-			return context.Exists((Booking) validationContext.ObjectInstance) ? new ValidationResult(GetErrorMessage()) : ValidationResult.Success;
+			Booking booking = (Booking) validationContext.ObjectInstance;
+
+			return (booking.Date < DateTime.Now) ? new ValidationResult(GetErrorMessage()) : ValidationResult.Success;
 		}
 	}
 }

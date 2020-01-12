@@ -68,6 +68,13 @@ namespace BeestjeOpJeFeestje.Controllers
 				}
 			}
 
+			booking = data.Booking;
+			if (!animalSelectionValidator.IsAnAnimalSelected(selectedAnimals))
+			{
+				TempData["error"] = "Please select an animal";
+				return RedirectToActionPermanent(nameof(AnimalSelection), booking);
+			}
+
 			if (!animalSelectionValidator.FarmAnimalHasNoLionOrIceBear(selectedAnimals))
 			{
 				TempData["error"] = "An animal from the farm can not be along with Lion and Ice Bear";
@@ -92,7 +99,7 @@ namespace BeestjeOpJeFeestje.Controllers
 				return RedirectToActionPermanent(nameof(AnimalSelection), booking);
 			}
 
-
+			data.DateTime = data.Booking.Date;
 			data.Animals = selectedAnimals;
 			data.Booking.BookingState = BookingState.Accessories;
 			return View("AnimalSelection", data);
