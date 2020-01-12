@@ -73,13 +73,14 @@ namespace BeestjeOpJeFeestje.ViewComponents
 				);
 			}
 
-			if (discountValidator.BookingIsMondayOrTuesday(data.Booking.Date))
+            int dateDiscount = discountValidator.BookingIsMondayOrTuesday(data.Booking.Date);
+			if (dateDiscount > 0)
 			{
-				totalDiscountPercentage += 15;
+				totalDiscountPercentage += dateDiscount;
 				discounts.Add(new Discounts()
 				{
 					Name = data.Booking.Date.DayOfWeek.ToString(),
-					Discount = 15
+					Discount = dateDiscount
 				});
 			}
 
