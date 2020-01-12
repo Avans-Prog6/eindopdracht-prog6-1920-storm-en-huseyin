@@ -14,7 +14,8 @@ namespace BeestjeOpJeFeestje.Models
 
 		[Required, Display(Name = "Name")]
 		public string FirstName { get; set; }
-		
+
+        [Display(Name = "Middle Name")]
 		public string MiddleName { get; set; }
 		[Required, Display(Name = "Surname")]
 		public string LastName { get; set; }
