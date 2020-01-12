@@ -108,6 +108,8 @@ namespace BeestjeOpJeFeestje.Models.Validators
 
 		public bool IsAnAnimalSelected(List<Animal> selectedAnimals)
 		{
+            if (selectedAnimals == null) throw new NullReferenceException();
+
 			return selectedAnimals.Count > 0;
 		}
 	}

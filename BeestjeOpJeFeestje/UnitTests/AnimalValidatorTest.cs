@@ -302,6 +302,47 @@ namespace UnitTests
 
         }
 
+
+        [Fact]
+        private void IsAnAnimalSelected_ThrowsNullReferenceException_WhenAnimalsAreNull()
+        {
+            //Arrange
+            List<Animal> animals = null;
+            var animalSelectionValidator = new AnimalSelectionValidator();
+
+            //Act && Assert
+            Assert.Throws<NullReferenceException>(() => animalSelectionValidator.IsAnAnimalSelected(animals));
+
+        }
+
+        [Fact]
+        private void IsAnAnimalSelected_ReturnsFalse_WhenAnimalsAreZero()
+        {
+            //Arrange
+            List<Animal> animals = new List<Animal>();
+            var animalSelectionValidator = new AnimalSelectionValidator();
+
+            //Act 
+            var result = animalSelectionValidator.IsAnAnimalSelected(animals);
+            
+            //Assert
+            Assert.False(result);
+        }
+
+        [Fact]
+        private void IsAnAnimalSelected_ReturnsTrue_WhenAnimalsAreAboveZero()
+        {
+            //Arrange
+            List<Animal> animals = GetAnimals();
+            var animalSelectionValidator = new AnimalSelectionValidator();
+
+            //Act 
+            var result = animalSelectionValidator.IsAnAnimalSelected(animals);
+
+            //Assert
+            Assert.True(result);
+        }
+
         private List<BookingAnimal> GetBookingAnimals()
         {
             List<BookingAnimal> bookingAnimals = new List<BookingAnimal>()

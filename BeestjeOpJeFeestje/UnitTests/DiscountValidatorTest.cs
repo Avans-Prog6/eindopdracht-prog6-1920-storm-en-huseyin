@@ -9,7 +9,7 @@ namespace UnitTests
     public class DiscountValidatorTest
     {
         [Fact]
-        private void AlphabeticalDiscount_ReturnsZeroDiscount_WhenAnimalsIsNull()
+        private void AlphabeticalDiscount_ReturnsZeroDiscount_WhenAnimalsAreNull()
         {
             //Arrange
             List<Animal> animals = null;
@@ -39,7 +39,7 @@ namespace UnitTests
         }
 
         [Fact]
-        private void AlphabeticalDiscount_ReturnsDiscount_WhenAnimalsIsValid()
+        private void AlphabeticalDiscount_ReturnsDiscount_WhenAnimalsAreValid()
         {
             //Arrange
             List<Animal> animals = GetAnimals();
@@ -54,7 +54,7 @@ namespace UnitTests
         }
 
         [Fact]
-        private void AlphabeticalDiscount_ReturnsZeroDiscount_WhenNotDuck()
+        private void ChanceOnDuckDiscount_ReturnsZeroDiscount_WhenNotDuck()
         {
             //Arrange
             List<Animal> animals = GetAnimalsNoDuck();
@@ -72,7 +72,7 @@ namespace UnitTests
         }
 
         [Fact]
-        private void AlphabeticalDiscount_ReturnsZeroDiscount_WhenAnimalsNull()
+        private void ChanceOnDuckDiscount_ReturnsZeroDiscount_WhenAnimalsNull()
         {
             //Arrange
             List<Animal> animals = null;
@@ -91,7 +91,7 @@ namespace UnitTests
 
 
         [Fact]
-        private void AlphabeticalDiscount_ReturnsDiscount_WhenDuck()
+        private void ChanceOnDuckDiscount_ReturnsDiscount_WhenDuck()
         {
             //Arrange
             List<Animal> animals = GetAnimals();
