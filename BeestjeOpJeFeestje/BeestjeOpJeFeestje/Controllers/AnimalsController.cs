@@ -108,7 +108,7 @@ namespace BeestjeOpJeFeestje.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("ID,Name,Type,Price,PicturePath")] Animal animal)
+        public async Task<IActionResult> Create([Bind("ID,Name,Type,Discount,PicturePath")] Animal animal)
         {
             if (!ModelState.IsValid) return View(animal);
 
@@ -136,7 +136,7 @@ namespace BeestjeOpJeFeestje.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("ID,Name,Type,Price,PicturePath")] Animal animal)
+        public async Task<IActionResult> Edit(int id, [Bind("ID,Name,Type,Discount,PicturePath")] Animal animal)
         {
             if (id != animal.ID) { return NotFound(); }
             if (!ModelState.IsValid) return View(animal);

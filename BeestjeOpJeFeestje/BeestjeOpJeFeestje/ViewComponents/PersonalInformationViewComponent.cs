@@ -5,11 +5,11 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace BeestjeOpJeFeestje.ViewComponents
 {
-	public class BookingDetailViewComponent : ViewComponent
+	public class PersonalInformationViewComponent : ViewComponent
 	{
 		private readonly BookingDBRepository _repository;
 
-		public BookingDetailViewComponent(IRepository<Booking> repository)
+		public PersonalInformationViewComponent(IRepository<Booking> repository)
 		{
 			_repository = (BookingDBRepository)repository;
 		}

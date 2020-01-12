@@ -1,0 +1,34 @@
+﻿@model BeestjeOpJeFeestje.Models.BookingProcess
+
+@{
+    ViewData["Title"] = "Edit";
+}
+
+<h2>Booking</h2>
+<hr/>
+<div class="row">
+    <div class="col col-9" style="padding: 0">
+        @switch (Model.Booking.BookingState)
+        {
+            case BookingState.Animals:
+                @await Component.InvokeAsync("AnimalSelection", @Model)
+                break;
+            case BookingState.Accessories:
+                @await Component.InvokeAsync("AccessoriesSelection", @Model)
+                break;
+            case BookingState.Details:
+                @await Component.InvokeAsync("PersonalInformation", @Model)
+                break;
+            case BookingState.Confirmation:
+                @await Component.InvokeAsync("Confirmation", @Model)
+                break;
+        }
+    </div>
+    <div class="col col-3">
+        @await Component.InvokeAsync("BookingDetail", @Model)
+    </div>
+</div>
+
+@section Scripts {
+    @{ await Html.RenderPartialAsync("_ValidationScriptsPartial"); }
+}

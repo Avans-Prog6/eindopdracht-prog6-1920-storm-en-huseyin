@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Diagnostics;
+using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using BeestjeOpJeFeestje.Models;
@@ -8,6 +9,9 @@ namespace BeestjeOpJeFeestje.Controllers
 {
 	public class HomeController : Controller
 	{
+		public HomeController()
+		{
+		}
 
 		public IActionResult Index(Booking booking)
         {
@@ -34,14 +38,14 @@ namespace BeestjeOpJeFeestje.Controllers
 		}
 
 		[HttpPost]
-		public IActionResult Booking([Bind("Date")] Booking booking)
+		public async Task<IActionResult> Booking([Bind("Date")] Booking booking)
 		{
 			if (!ModelState.IsValid)
 			{
 				return RedirectToAction(nameof(Index), booking);
 			}
 
-			return RedirectToAction(nameof(BookingsController.Edit), "Bookings", booking);
+			return RedirectToAction(nameof(BookingsController.AnimalSelection), "Bookings", booking);
 		}
 	}
 }

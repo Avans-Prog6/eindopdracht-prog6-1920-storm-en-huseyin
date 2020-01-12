@@ -1,0 +1,40 @@
+﻿@model BeestjeOpJeFeestje.Models.BookingProcess
+@{
+    ViewData["Title"] = "Default";
+}
+
+
+<div class="container-fluid" style="padding-top: 1em">
+    <div class="row-8">
+        <div>Controleer je Informatie</div>
+        <div class="col">
+            <h3>Contact Gegevens</h3>
+            @Model.ClientInfo.FirstName @Model.ClientInfo.MiddleName @Model.ClientInfo.LastName
+            <br />
+            @Model.ClientInfo.Address
+            <br />
+            @Model.ClientInfo.Email
+        </div>
+        <div class="col" style="padding-top: 3em">
+            <h3>Prijs / Korting</h3>
+            <ul>
+                @foreach (Animal animal in @Model.Animals)
+                {
+                    <li>@Html.DisplayFor(e => animal.Name): @Html.DisplayFor(m => animal.Price)</li>
+                }
+                @foreach (Accessories accessories in @Model.Accessories)
+                {
+                    <li>@Html.DisplayFor(e => accessories.Name): @Html.DisplayFor(m => accessories.Price)</li>
+                }
+                @foreach (Discounts discount in @Model.Discounts)
+                {
+                    <li>@Html.DisplayFor(e => discount.Name): @Html.DisplayFor(m => discount.Discount)%</li>
+                }
+                <li>TotalDiscount: @Html.DisplayFor(e => e.TotalDiscount)% (MAX 60%)</li>
+            </ul>
+
+            TotalPrice: @Html.DisplayFor(e => e.TotalPrice)
+        </div>
+    </div>
+
+</div>

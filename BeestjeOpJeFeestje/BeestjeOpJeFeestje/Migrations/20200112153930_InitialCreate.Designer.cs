@@ -10,7 +10,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace BeestjeOpJeFeestje.Migrations
 {
     [DbContext(typeof(BeestjeOpJeFeestjeContext))]
-    [Migration("20200111202601_InitialCreate")]
+    [Migration("20200112153930_InitialCreate")]
     partial class InitialCreate
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -31,6 +31,9 @@ namespace BeestjeOpJeFeestje.Migrations
                     b.Property<int>("AnimalId")
                         .HasColumnType("int");
 
+                    b.Property<int?>("BookingProcessID")
+                        .HasColumnType("int");
+
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasColumnType("nvarchar(30)")
@@ -46,6 +49,8 @@ namespace BeestjeOpJeFeestje.Migrations
                     b.HasKey("ID");
 
                     b.HasIndex("AnimalId");
+
+                    b.HasIndex("BookingProcessID");
 
                     b.ToTable("Accessories");
 
@@ -147,6 +152,9 @@ namespace BeestjeOpJeFeestje.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+                    b.Property<int?>("BookingProcessID")
+                        .HasColumnType("int");
+
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasColumnType("nvarchar(30)")
@@ -164,6 +172,8 @@ namespace BeestjeOpJeFeestje.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("ID");
+
+                    b.HasIndex("BookingProcessID");
 
                     b.ToTable("Animal");
 
@@ -289,10 +299,18 @@ namespace BeestjeOpJeFeestje.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+                    b.Property<int>("ClientInfoId")
+                        .HasColumnType("int");
+
                     b.Property<DateTime>("Date")
                         .HasColumnType("datetime2");
 
+                    b.Property<bool>("IsStillBooking")
+                        .HasColumnType("bit");
+
                     b.HasKey("ID");
+
+                    b.HasIndex("ClientInfoId");
 
                     b.ToTable("Booking");
 
@@ -300,7 +318,9 @@ namespace BeestjeOpJeFeestje.Migrations
                         new
                         {
                             ID = 1,
-                            Date = new DateTime(2020, 1, 12, 0, 0, 0, 0, DateTimeKind.Local)
+                            ClientInfoId = 1,
+                            Date = new DateTime(2020, 1, 13, 0, 0, 0, 0, DateTimeKind.Local),
+                            IsStillBooking = false
                         });
                 });
 
@@ -336,11 +356,102 @@ namespace BeestjeOpJeFeestje.Migrations
                         });
                 });
 
+            modelBuilder.Entity("BeestjeOpJeFeestje.Models.BookingProcess", b =>
+                {
+                    b.Property<int>("ID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<int>("BookingId")
+                        .HasColumnType("int");
+
+                    b.Property<bool>("BookingIsConfirmed")
+                        .HasColumnType("bit");
+
+                    b.Property<int>("ClientInfoId")
+                        .HasColumnType("int");
+
+                    b.Property<double>("TotalDiscount")
+                        .HasColumnType("float");
+
+                    b.Property<double>("TotalPrice")
+                        .HasColumnType("float");
+
+                    b.HasKey("ID");
+
+                    b.HasIndex("BookingId");
+
+                    b.HasIndex("ClientInfoId");
+
+                    b.ToTable("BookingProcesses");
+                });
+
+            modelBuilder.Entity("BeestjeOpJeFeestje.Models.ClientInfo", b =>
+                {
+                    b.Property<int>("ID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("Address")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Email")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("FirstName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("LastName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("MiddleName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("ID");
+
+                    b.ToTable("ClientInfo");
+
+                    b.HasData(
+                        new
+                        {
+                            ID = 1,
+                            Address = "Prins Mauritsstraat 11",
+                            Email = "huseyincaliskan32@gmail.com",
+                            FirstName = "Huseyin",
+                            LastName = "Caliskan"
+                        });
+                });
+
             modelBuilder.Entity("BeestjeOpJeFeestje.Models.Accessories", b =>
                 {
                     b.HasOne("BeestjeOpJeFeestje.Models.Animal", "Animal")
                         .WithMany("Accessories")
                         .HasForeignKey("AnimalId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("BeestjeOpJeFeestje.Models.BookingProcess", null)
+                        .WithMany("Accessories")
+                        .HasForeignKey("BookingProcessID");
+                });
+
+            modelBuilder.Entity("BeestjeOpJeFeestje.Models.Animal", b =>
+                {
+                    b.HasOne("BeestjeOpJeFeestje.Models.BookingProcess", null)
+                        .WithMany("Animals")
+                        .HasForeignKey("BookingProcessID");
+                });
+
+            modelBuilder.Entity("BeestjeOpJeFeestje.Models.Booking", b =>
+                {
+                    b.HasOne("BeestjeOpJeFeestje.Models.ClientInfo", "ClientInfo")
+                        .WithMany()
+                        .HasForeignKey("ClientInfoId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });
@@ -357,6 +468,21 @@ namespace BeestjeOpJeFeestje.Migrations
                         .WithMany("BookingAnimals")
                         .HasForeignKey("BookingId")
                         .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("BeestjeOpJeFeestje.Models.BookingProcess", b =>
+                {
+                    b.HasOne("BeestjeOpJeFeestje.Models.Booking", "Booking")
+                        .WithMany()
+                        .HasForeignKey("BookingId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("BeestjeOpJeFeestje.Models.ClientInfo", "ClientInfo")
+                        .WithMany()
+                        .HasForeignKey("ClientInfoId")
+                        .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired();
                 });
 #pragma warning restore 612, 618

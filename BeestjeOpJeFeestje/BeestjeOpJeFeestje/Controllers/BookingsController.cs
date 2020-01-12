@@ -1,106 +1,90 @@
-﻿using System.Threading.Tasks;
+﻿using System.Collections.Generic;
+using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using BeestjeOpJeFeestje.Models;
 using BeestjeOpJeFeestje.Models.Repositories;
-using BeestjeOpJeFeestje.ViewComponents.Data;
 
 namespace BeestjeOpJeFeestje.Controllers
 {
 	public class BookingsController : Controller
 	{
-		private readonly IRepository<Booking> _repository;
+		private readonly IRepository<Booking> _bookingRepository;
+		private readonly IRepository<Animal> _animalRepository;
 
-		public BookingsController(IRepository<Booking> repository)
+		public BookingsController(IRepository<Booking> bookingRepository, IRepository<Animal> animalRepository)
 		{
-			_repository = repository;
-		}
-
-		// GET: Bookings
-		public async Task<IActionResult> Index()
-		{
-			return View(await _repository.GetAll());
-		}
-
-		// GET: Bookings/Details/5
-		public async Task<IActionResult> Details(int? id)
-		{
-			if (id == null)
-			{
-				return NotFound();
-			}
-
-			Booking booking = await _repository.Get(id);
-
-			if (booking == null)
-			{
-				return NotFound();
-			}
-
-			return View(booking);
-		}
-
-		// GET: Bookings/Create
-		public IActionResult Create()
-		{
-			return View();
-		}
-
-		// POST: Bookings/Create
-		// To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-		// more details see http://go.microsoft.com/fwlink/?LinkId=317598.
-		[HttpPost]
-		[ValidateAntiForgeryToken]
-		public async Task<IActionResult> Create([Bind("ID,Date")] Booking booking)
-		{
-			if (!ModelState.IsValid) return View(booking);
-
-
-			await _repository.Create(booking);
-			return RedirectToAction(nameof(Index));
+			_bookingRepository = bookingRepository;
+			_animalRepository = animalRepository;
 		}
 
 		// GET: Bookings/Edit/5
-		public async Task<IActionResult> Edit(Booking booking)
+		public async Task<IActionResult> AnimalSelection(Booking booking)
 		{
-			Booking foundBooking = await ((BookingDBRepository) _repository).GetFromDate(booking.Date);
+			Booking foundBooking = await ((BookingDBRepository) _bookingRepository).GetFromDate(booking.Date);
 			if (foundBooking != null)
 			{
 				booking = foundBooking;
 			}
 
-			return View(new BookingProcessData() {Animals = null, Booking = booking});
+			BookingProcess bookingProcess = new BookingProcess()
+			{
+				Booking = booking
+			};
+
+			return View(bookingProcess);
 		}
 
-		// GET: Bookings/Delete/5
-		public async Task<IActionResult> Delete(int? id)
+
+
+		[HttpPost]
+		[ValidateAntiForgeryToken]
+		public async Task<IActionResult> AnimalsSelected(BookingProcess data)
 		{
-			if (id == null)
+			Booking booking = await ((BookingDBRepository) _bookingRepository).GetFromDate(data.Booking.Date);
+			List<Animal> selectedAnimals = new List<Animal>();
+			foreach (Animal animal in data.Animals)
 			{
-				return NotFound();
+				if (booking != null && animal.BookingIsSelected && animal.ID == booking.ID)
+				{
+					return RedirectToActionPermanent(nameof(AnimalSelection), booking);
+				}
+
+				if(animal.BookingIsSelected)
+				{
+					Animal dAnimal = await ((AnimalDbRepository) _animalRepository).Get(animal.ID);
+					selectedAnimals.Add(dAnimal);
+				}
 			}
 
-			Booking booking = await _repository.Get(id);
-			if (booking == null)
+
+			data.Animals = selectedAnimals;
+			data.Booking.BookingState = BookingState.Accessories;
+			return View("AnimalSelection", data);
+		}
+
+		public async Task<IActionResult> AccessoriesSelected(BookingProcess data)
+		{
+			List<Accessories> accessories = new List<Accessories>();
+			foreach (Accessories dataAccessory in data.Accessories)
 			{
-				return NotFound();
+				if (dataAccessory.BookingIsSelected)
+				{
+					accessories.Add(dataAccessory);
+				}
 			}
 
-			return View(booking);
+			data.Accessories = accessories;
+			data.Booking.BookingState = BookingState.Details;
+			return View("AnimalSelection", data);
 		}
 
-		// POST: Bookings/Delete/5
-		[HttpPost, ActionName("Delete")]
-		[ValidateAntiForgeryToken]
-		public async Task<IActionResult> DeleteConfirmed(int id)
+		public async Task<IActionResult> PersonalInformation(BookingProcess data)
 		{
-			Booking booking = await _repository.Get(id);
-			await _repository.Delete(booking);
-			return RedirectToAction(nameof(Index));
+			data.Booking.BookingState = BookingState.Confirmation;
+			return View("AnimalSelection", data);
 		}
 
-		[HttpPost, ActionName("AnimalsSelected")]
-		[ValidateAntiForgeryToken]
-		public async Task<IActionResult> AnimalsSelected(BookingProcessData data)
+		public async Task<IActionResult> ConfirmBooking(BookingProcess data)
 		{
 			return Ok(data);
 		}

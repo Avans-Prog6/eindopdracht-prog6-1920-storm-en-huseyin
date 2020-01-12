@@ -2,7 +2,6 @@
 using System.Threading.Tasks;
 using BeestjeOpJeFeestje.Models;
 using BeestjeOpJeFeestje.Models.Repositories;
-using BeestjeOpJeFeestje.ViewComponents.Data;
 using Microsoft.AspNetCore.Mvc;
 
 namespace BeestjeOpJeFeestje.ViewComponents
@@ -16,7 +15,7 @@ namespace BeestjeOpJeFeestje.ViewComponents
 			_repository = (AnimalDbRepository) repository;
 		}
 
-		public async Task<IViewComponentResult> InvokeAsync(BookingProcessData data)
+		public async Task<IViewComponentResult> InvokeAsync(BookingProcess data)
 		{
 			List<Animal> animals = await _repository.GetAll();
 
@@ -33,7 +32,8 @@ namespace BeestjeOpJeFeestje.ViewComponents
 					}
 				}
 			}
-				
+			
+			
 
 			data.Animals = animals;
 			return View(data);

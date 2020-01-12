@@ -120,7 +120,7 @@ namespace BeestjeOpJeFeestje.Controllers
 		// more details see http://go.microsoft.com/fwlink/?LinkId=317598.
 		[HttpPost]
 		[ValidateAntiForgeryToken]
-		public async Task<IActionResult> Create([Bind("ID, Name, Price, PicturePath, AnimalId")] Accessories accessories)
+		public async Task<IActionResult> Create([Bind("ID, Name, Discount, PicturePath, AnimalId")] Accessories accessories)
 		{
 			if (!ModelState.IsValid) return View(accessories);
 
@@ -154,7 +154,7 @@ namespace BeestjeOpJeFeestje.Controllers
 		// more details see http://go.microsoft.com/fwlink/?LinkId=317598.
 		[HttpPost]
 		[ValidateAntiForgeryToken]
-		public async Task<IActionResult> Edit(int id, [Bind("ID, Name, Price, PicturePath, AnimalId")] Accessories accessories)
+		public async Task<IActionResult> Edit(int id, [Bind("ID, Name, Discount, PicturePath, AnimalId")] Accessories accessories)
 		{
 			if (id != accessories.ID)
 			{
